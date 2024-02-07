@@ -61,11 +61,14 @@ function Review() {
                 </div>
                 {visibleImages < totalImages && (
                     <div className="relative flex justify-center">
-                        <button
-                            className="glass p-2 rounded-md bg-gray-800 text-gray-700 hover:bg-gray-700 hover:text-white absolute bottom-4"
-                            onClick={showMore}
-                        >
-                            Thêm 3 đánh giá
+                        <button className="xemtatca flex justify-center" onClick={showMore}>
+                            <p
+                                className="bg-green-500 hover:bg-pink-400
+                     text-white hover:text-white
+                      font-bold py-2 px-4 rounded-full"
+                            >
+                                {title.xemthem} 3 đánh giá
+                            </p>
                         </button>
                     </div>
                 )}

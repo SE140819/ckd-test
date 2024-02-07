@@ -214,405 +214,395 @@ function Banner2(){
 
 
 
-function ProductSlide(){
-   return (
-       <>
-           <Tabs style="pills" className=" justify-center mx-auto">
-               <Tabs.Item active title={title.Tab1}
-                   className="flex justify-center active">
-                   <Swiper
-                       spaceBetween={20}
-                       freeMode={true}
-                       pagination={{
-                           clickable: true,
-                       }}
-                       //  chạy
-                       autoplay={{
-                           delay: 5000,
-                       }}
-                       modules={[Autoplay]}
-                       breakpoints={{
-                           300: {
-                               slidesPerView: 2,
-                               spaceBetween: 2,
-                           },
-                           450: {
-                               slidesPerView: 2,
-                               spaceBetween: 5,
-                           },
-                           600: {
-                               slidesPerView: 3,
-                               spaceBetween: 10,
-                           },
-                           900: {
-                               slidesPerView: 4,
-                               spaceBetween: 20,
-                           },
-                       }}
-                       className="mySwiper"
-                   >
-                       {product_list.map((item, index) => (
-                           <SwiperSlide key={index}>
-                               <div className="container flex justify-center mb-5">
-                                   <div className="max-w-sm">
-                                       <div className="bg-white relative transition duration-500 rounded-lg">
-                                           <img
-                                               className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                               src={item.image}
-                                               alt=""
-                                           />
-                                           <div className="py-6 px-8 rounded-lg bg-white ">
-                                               {/* reposive */}
-                                               <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
-                                                   <a
-                                                       href="san-pham/bo-cham-soc-da-toan-dien-limited-xuan-ruc-ro-full-qua-tang-gioi-han-100-hop-duy-nhat-cnc-d"
-                                                       title="Bộ Chăm Sóc Da Toàn Diện Limited  -  Xuân Rực Rỡ , Full Quà Tặng Giới Hạn 100 hộp duy nhất"
-                                                   >
-                                                       {item.name}
-                                                   </a>
-                                               </h1>
-                                               <p className="gia_sp">
-                                                   <span className="gia giamoi">{item.price}</span>
-                                               </p>
-                                               <div className="flex justify-center">
-                                                   <span className="border rounded p-1 border-green-500 text-green-500">
-                                                       New
-                                                   </span>
-                                               </div>
-                                               <div className="mt-2">
-                                                   <div className="text-gray-500 text-xs">
-                                                       {title.daban}
-                                                   </div>
-                                                   <Progress
-                                                       progress={50}
-                                                       color="pink"
-                                                       textLabel="50/100"
-                                                       size="lg"
-                                                       //    labelProgress
-                                                       labelText
-                                                   />
-                                               </div>
-                                           </div>
+function ProductSlide() {
+    return (
+        <>
+            <Tabs style="pills" className=" justify-center mx-auto">
+                <Tabs.Item active title={title.Tab1} className="flex justify-center active">
+                    <Swiper
+                        spaceBetween={20}
+                        freeMode={true}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        //  chạy
+                        autoplay={{
+                            delay: 5000,
+                        }}
+                        modules={[Autoplay]}
+                        breakpoints={{
+                            300: {
+                                slidesPerView: 2,
+                                spaceBetween: 2,
+                            },
+                            450: {
+                                slidesPerView: 2,
+                                spaceBetween: 5,
+                            },
+                            600: {
+                                slidesPerView: 3,
+                                spaceBetween: 10,
+                            },
+                            900: {
+                                slidesPerView: 4,
+                                spaceBetween: 20,
+                            },
+                        }}
+                        className="mySwiper"
+                    >
+                        {product_list.map((item, index) => (
+                            <SwiperSlide key={index}>
+                                <div className="container flex justify-center mb-5">
+                                    <div className="max-w-sm">
+                                        <div className="bg-white relative transition duration-500 rounded-lg">
+                                            <img
+                                                className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
+                                                src={item.image}
+                                                alt=""
+                                            />
+                                            <div className="rounded-lg bg-white">
+                                                {/* reposive */}
+                                                <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
+                                                    <a
+                                                        href="san-pham/bo-cham-soc-da-toan-dien-limited-xuan-ruc-ro-full-qua-tang-gioi-han-100-hop-duy-nhat-cnc-d"
+                                                        title="Bộ Chăm Sóc Da Toàn Diện Limited  -  Xuân Rực Rỡ , Full Quà Tặng Giới Hạn 100 hộp duy nhất"
+                                                    >
+                                                        {item.name}
+                                                    </a>
+                                                </h1>
+                                                <p className="gia_sp">
+                                                    <span className="gia giamoi">{item.price}</span>
+                                                </p>
+                                                <div className="flex justify-center">
+                                                    <span className="border rounded p-1 border-green-500 text-green-500">
+                                                        New
+                                                    </span>
+                                                </div>
+                                                <div className="mt-2">
+                                                    <div className="text-gray-500 text-xs">{title.daban}</div>
+                                                    <Progress
+                                                        progress={50}
+                                                        color="pink"
+                                                        textLabel="50/100"
+                                                        size="lg"
+                                                        //    labelProgress
+                                                        labelText
+                                                    />
+                                                </div>
+                                            </div>
 
-                                           <span
-                                               className="cart-buy addcart transition"
-                                               data-id="157"
-                                               data-action="buynow"
-                                           ></span>
-                                           {!!item.voucher && (
-                                               <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                                   {item.voucher}%
-                                               </div>
-                                           )}
-                                       </div>
-                                   </div>
-                               </div>
-                           </SwiperSlide>
-                       ))}
-                   </Swiper>
-                   <Swiper
-                       spaceBetween={20}
-                       freeMode={true}
-                       pagination={{
-                           clickable: true,
-                       }}
-                       //  chạy
-                       autoplay={{
-                           delay: 5000,
-                       }}
-                       modules={[Autoplay]}
-                       breakpoints={{
-                           300: {
-                               slidesPerView: 2,
-                               spaceBetween: 2,
-                           },
-                           450: {
-                               slidesPerView: 2,
-                               spaceBetween: 5,
-                           },
-                           600: {
-                               slidesPerView: 3,
-                               spaceBetween: 10,
-                           },
-                           900: {
-                               slidesPerView: 4,
-                               spaceBetween: 20,
-                           },
-                       }}
-                       className="mySwiper"
-                   >
-                       {product_list.map((item, index) => (
-                           <SwiperSlide key={index}>
-                               <div className="container flex justify-center mb-5">
-                                   <div className="max-w-sm">
-                                       <div className="bg-white relative transition duration-500 rounded-lg">
-                                           <img
-                                               className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                               src={item.image}
-                                               alt=""
-                                           />
-                                           <div className="py-6 px-8 rounded-lg bg-white ">
-                                               {/* reposive */}
-                                               <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
-                                                   <a
-                                                       href="san-pham/bo-cham-soc-da-toan-dien-limited-xuan-ruc-ro-full-qua-tang-gioi-han-100-hop-duy-nhat-cnc-d"
-                                                       title="Bộ Chăm Sóc Da Toàn Diện Limited  -  Xuân Rực Rỡ , Full Quà Tặng Giới Hạn 100 hộp duy nhất"
-                                                   >
-                                                       {item.name}
-                                                   </a>
-                                               </h1>
-                                               <p className="gia_sp">
-                                                   <span className="gia giamoi">{item.price}</span>
-                                               </p>
-                                               <div className="flex justify-center">
-                                                   <span className="border rounded p-1 border-green-500 text-green-500">
-                                                       New
-                                                   </span>
-                                               </div>
-                                               <div className="mt-2">
-                                                   <div className="text-gray-500 text-xs">{title.daban}</div>
-                                                   <Progress
-                                                       progress={50}
-                                                       color="pink"
-                                                       textLabel="50/100"
-                                                       size="lg"
-                                                       //    labelProgress
-                                                       labelText
-                                                   />
-                                               </div>
-                                           </div>
-                                           <span
-                                               className="cart-buy addcart transition"
-                                               data-id="157"
-                                               data-action="buynow"
-                                           ></span>
-                                           {!!item.voucher && (
-                                               <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                                   {item.voucher}%
-                                               </div>
-                                           )}
-                                       </div>
-                                   </div>
-                               </div>
-                           </SwiperSlide>
-                       ))}
-                   </Swiper>
+                                            <span
+                                                className="cart-buy addcart transition"
+                                                data-id="157"
+                                                data-action="buynow"
+                                            ></span>
+                                            {!!item.voucher && (
+                                                <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
+                                                    {item.voucher}%
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                    <Swiper
+                        spaceBetween={20}
+                        freeMode={true}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        //  chạy
+                        autoplay={{
+                            delay: 5000,
+                        }}
+                        modules={[Autoplay]}
+                        breakpoints={{
+                            300: {
+                                slidesPerView: 2,
+                                spaceBetween: 2,
+                            },
+                            450: {
+                                slidesPerView: 2,
+                                spaceBetween: 5,
+                            },
+                            600: {
+                                slidesPerView: 3,
+                                spaceBetween: 10,
+                            },
+                            900: {
+                                slidesPerView: 4,
+                                spaceBetween: 20,
+                            },
+                        }}
+                        className="mySwiper"
+                    >
+                        {product_list.map((item, index) => (
+                            <SwiperSlide key={index}>
+                                <div className="container flex justify-center mb-5">
+                                    <div className="max-w-sm">
+                                        <div className="bg-white relative transition duration-500 rounded-lg">
+                                            <img
+                                                className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
+                                                src={item.image}
+                                                alt=""
+                                            />
+                                            <div className="rounded-lg bg-white">
+                                                {/* reposive */}
+                                                <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
+                                                    <a
+                                                        href="san-pham/bo-cham-soc-da-toan-dien-limited-xuan-ruc-ro-full-qua-tang-gioi-han-100-hop-duy-nhat-cnc-d"
+                                                        title="Bộ Chăm Sóc Da Toàn Diện Limited  -  Xuân Rực Rỡ , Full Quà Tặng Giới Hạn 100 hộp duy nhất"
+                                                    >
+                                                        {item.name}
+                                                    </a>
+                                                </h1>
+                                                <p className="gia_sp">
+                                                    <span className="gia giamoi">{item.price}</span>
+                                                </p>
+                                                <div className="flex justify-center">
+                                                    <span className="border rounded p-1 border-green-500 text-green-500">
+                                                        New
+                                                    </span>
+                                                </div>
+                                                <div className="mt-2">
+                                                    <div className="text-gray-500 text-xs">{title.daban}</div>
+                                                    <Progress
+                                                        progress={50}
+                                                        color="pink"
+                                                        textLabel="50/100"
+                                                        size="lg"
+                                                        //    labelProgress
+                                                        labelText
+                                                    />
+                                                </div>
+                                            </div>
+                                            <span
+                                                className="cart-buy addcart transition"
+                                                data-id="157"
+                                                data-action="buynow"
+                                            ></span>
+                                            {!!item.voucher && (
+                                                <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
+                                                    {item.voucher}%
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
 
-                   <p className="xemtatca">
-                       <a
-                           href="https://ckdvietnam.com/san-pham/tot-nhat"
-                           className="bg-green-500 hover:bg-pink-400
+                    <p className="xemtatca">
+                        <a
+                            href="https://ckdvietnam.com/san-pham/tot-nhat"
+                            className="bg-green-500 hover:bg-pink-400
                      text-white hover:text-white
                       font-bold py-2 px-4 rounded-full"
-                       >
-                           {title.xemthem}
-                       </a>
-                   </p>
-               </Tabs.Item>
-               <Tabs.Item title="MỚI">
-                   <Swiper
-                       spaceBetween={20}
-                       freeMode={true}
-                       pagination={{
-                           clickable: true,
-                       }}
-                       //  chạy
-                       autoplay={{
-                           delay: 5000,
-                       }}
-                       modules={[Autoplay]}
-                       breakpoints={{
-                           300: {
-                               slidesPerView: 2,
-                               spaceBetween: 2,
-                           },
-                           450: {
-                               slidesPerView: 2,
-                               spaceBetween: 5,
-                           },
-                           600: {
-                               slidesPerView: 3,
-                               spaceBetween: 10,
-                           },
-                           900: {
-                               slidesPerView: 4,
-                               spaceBetween: 20,
-                           },
-                       }}
-                       className="mySwiper"
-                   >
-                       {product_list.map((item, index) => (
-                           <SwiperSlide key={index}>
-                               <div className="container flex justify-center mb-5">
-                                   <div className="max-w-sm">
-                                       <div className="bg-white relative transition duration-500 rounded-lg">
-                                           <img
-                                               className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                               src={item.image}
-                                               alt=""
-                                           />
-                                           <div className="py-6 px-8 rounded-lg bg-white ">
-                                               {/* reposive */}
-                                               <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
-                                                   <a
-                                                       href="san-pham/bo-cham-soc-da-toan-dien-limited-xuan-ruc-ro-full-qua-tang-gioi-han-100-hop-duy-nhat-cnc-d"
-                                                       title="Bộ Chăm Sóc Da Toàn Diện Limited  -  Xuân Rực Rỡ , Full Quà Tặng Giới Hạn 100 hộp duy nhất"
-                                                   >
-                                                       {item.name}
-                                                   </a>
-                                               </h1>
-                                               <p className="gia_sp">
-                                                   <span className="gia giamoi">{item.price}</span>
-                                               </p>
-                                               <div className="flex justify-center">
-                                                   <span className="border rounded p-1 border-green-500 text-green-500">
-                                                       New
-                                                   </span>
-                                               </div>
-                                               <div className="mt-2">
-                                                   <div className="text-gray-500 text-xs">{title.daban}</div>
-                                                   <Progress
-                                                       progress={50}
-                                                       color="pink"
-                                                       textLabel="50/100"
-                                                       size="lg"
-                                                       //    labelProgress
-                                                       labelText
-                                                   />
-                                               </div>
-                                           </div>
-                                           <span
-                                               className="cart-buy addcart transition"
-                                               data-id="157"
-                                               data-action="buynow"
-                                           ></span>
-                                           {!!item.voucher && (
-                                               <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                                   {item.voucher}%
-                                               </div>
-                                           )}
-                                       </div>
-                                   </div>
-                               </div>
-                           </SwiperSlide>
-                       ))}
-                   </Swiper>
-                   <Swiper
-                       spaceBetween={20}
-                       freeMode={true}
-                       pagination={{
-                           clickable: true,
-                       }}
-                       //  chạy
-                       autoplay={{
-                           delay: 5000,
-                       }}
-                       modules={[Autoplay]}
-                       breakpoints={{
-                           300: {
-                               slidesPerView: 2,
-                               spaceBetween: 2,
-                           },
-                           450: {
-                               slidesPerView: 2,
-                               spaceBetween: 5,
-                           },
-                           600: {
-                               slidesPerView: 3,
-                               spaceBetween: 10,
-                           },
-                           900: {
-                               slidesPerView: 4,
-                               spaceBetween: 20,
-                           },
-                       }}
-                       className="mySwiper"
-                   >
-                       {product_list.map((item, index) => (
-                           <SwiperSlide key={index}>
-                               <div className="container flex justify-center mb-5">
-                                   <div className="max-w-sm">
-                                       <div className="bg-white relative transition duration-500 rounded-lg">
-                                           <img
-                                               className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                               src={item.image}
-                                               alt=""
-                                           />
-                                           <div className="py-6 px-8 rounded-lg bg-white ">
-                                               {/* reposive */}
-                                               <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
-                                                   <a
-                                                       href="san-pham/bo-cham-soc-da-toan-dien-limited-xuan-ruc-ro-full-qua-tang-gioi-han-100-hop-duy-nhat-cnc-d"
-                                                       title="Bộ Chăm Sóc Da Toàn Diện Limited  -  Xuân Rực Rỡ , Full Quà Tặng Giới Hạn 100 hộp duy nhất"
-                                                   >
-                                                       {item.name}
-                                                   </a>
-                                               </h1>
-                                               <p className="gia_sp">
-                                                   <span className="gia giamoi">{item.price}</span>
-                                               </p>
-                                               <div className="flex justify-center">
-                                                   <span className="border rounded p-1 border-green-500 text-green-500">
-                                                       New
-                                                   </span>
-                                               </div>
-                                               <div className="mt-2">
-                                                   <div className="text-gray-500 text-xs">{title.daban}</div>
-                                                   <Progress
-                                                       progress={50}
-                                                       color="pink"
-                                                       textLabel="50/100"
-                                                       size="lg"
-                                                       //    labelProgress
-                                                       labelText
-                                                   />
-                                               </div>
-                                           </div>
-                                           <span
-                                               className="cart-buy addcart transition"
-                                               data-id="157"
-                                               data-action="buynow"
-                                           ></span>
-                                           {!!item.voucher && (
-                                               <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                                   {item.voucher}%
-                                               </div>
-                                           )}
-                                       </div>
-                                   </div>
-                               </div>
-                           </SwiperSlide>
-                       ))}
-                   </Swiper>
+                        >
+                            {title.xemthem}
+                        </a>
+                    </p>
+                </Tabs.Item>
+                <Tabs.Item title="MỚI">
+                    <Swiper
+                        spaceBetween={20}
+                        freeMode={true}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        //  chạy
+                        autoplay={{
+                            delay: 5000,
+                        }}
+                        modules={[Autoplay]}
+                        breakpoints={{
+                            300: {
+                                slidesPerView: 2,
+                                spaceBetween: 2,
+                            },
+                            450: {
+                                slidesPerView: 2,
+                                spaceBetween: 5,
+                            },
+                            600: {
+                                slidesPerView: 3,
+                                spaceBetween: 10,
+                            },
+                            900: {
+                                slidesPerView: 4,
+                                spaceBetween: 20,
+                            },
+                        }}
+                        className="mySwiper"
+                    >
+                        {product_list.map((item, index) => (
+                            <SwiperSlide key={index}>
+                                <div className="container flex justify-center mb-5">
+                                    <div className="max-w-sm">
+                                        <div className="bg-white relative transition duration-500 rounded-lg">
+                                            <img
+                                                className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
+                                                src={item.image}
+                                                alt=""
+                                            />
+                                            <div className="rounded-lg bg-white">
+                                                {/* reposive */}
+                                                <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
+                                                    <a
+                                                        href="san-pham/bo-cham-soc-da-toan-dien-limited-xuan-ruc-ro-full-qua-tang-gioi-han-100-hop-duy-nhat-cnc-d"
+                                                        title="Bộ Chăm Sóc Da Toàn Diện Limited  -  Xuân Rực Rỡ , Full Quà Tặng Giới Hạn 100 hộp duy nhất"
+                                                    >
+                                                        {item.name}
+                                                    </a>
+                                                </h1>
+                                                <p className="gia_sp">
+                                                    <span className="gia giamoi">{item.price}</span>
+                                                </p>
+                                                <div className="flex justify-center">
+                                                    <span className="border rounded p-1 border-green-500 text-green-500">
+                                                        New
+                                                    </span>
+                                                </div>
+                                                <div className="mt-2">
+                                                    <div className="text-gray-500 text-xs">{title.daban}</div>
+                                                    <Progress
+                                                        progress={50}
+                                                        color="pink"
+                                                        textLabel="50/100"
+                                                        size="lg"
+                                                        //    labelProgress
+                                                        labelText
+                                                    />
+                                                </div>
+                                            </div>
+                                            <span
+                                                className="cart-buy addcart transition"
+                                                data-id="157"
+                                                data-action="buynow"
+                                            ></span>
+                                            {!!item.voucher && (
+                                                <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
+                                                    {item.voucher}%
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                    <Swiper
+                        spaceBetween={20}
+                        freeMode={true}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        //  chạy
+                        autoplay={{
+                            delay: 5000,
+                        }}
+                        modules={[Autoplay]}
+                        breakpoints={{
+                            300: {
+                                slidesPerView: 2,
+                                spaceBetween: 2,
+                            },
+                            450: {
+                                slidesPerView: 2,
+                                spaceBetween: 5,
+                            },
+                            600: {
+                                slidesPerView: 3,
+                                spaceBetween: 10,
+                            },
+                            900: {
+                                slidesPerView: 4,
+                                spaceBetween: 20,
+                            },
+                        }}
+                        className="mySwiper"
+                    >
+                        {product_list.map((item, index) => (
+                            <SwiperSlide key={index}>
+                                <div className="container flex justify-center mb-5">
+                                    <div className="max-w-sm">
+                                        <div className="bg-white relative transition duration-500 rounded-lg">
+                                            <img
+                                                className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
+                                                src={item.image}
+                                                alt=""
+                                            />
+                                            <div className="rounded-lg bg-white">
+                                                {/* reposive */}
+                                                <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
+                                                    <a
+                                                        href="san-pham/bo-cham-soc-da-toan-dien-limited-xuan-ruc-ro-full-qua-tang-gioi-han-100-hop-duy-nhat-cnc-d"
+                                                        title="Bộ Chăm Sóc Da Toàn Diện Limited  -  Xuân Rực Rỡ , Full Quà Tặng Giới Hạn 100 hộp duy nhất"
+                                                    >
+                                                        {item.name}
+                                                    </a>
+                                                </h1>
+                                                <p className="gia_sp">
+                                                    <span className="gia giamoi">{item.price}</span>
+                                                </p>
+                                                <div className="flex justify-center">
+                                                    <span className="border rounded p-1 border-green-500 text-green-500">
+                                                        New
+                                                    </span>
+                                                </div>
+                                                <div className="mt-2">
+                                                    <div className="text-gray-500 text-xs">{title.daban}</div>
+                                                    <Progress
+                                                        progress={50}
+                                                        color="pink"
+                                                        textLabel="50/100"
+                                                        size="lg"
+                                                        //    labelProgress
+                                                        labelText
+                                                    />
+                                                </div>
+                                            </div>
+                                            <span
+                                                className="cart-buy addcart transition"
+                                                data-id="157"
+                                                data-action="buynow"
+                                            ></span>
+                                            {!!item.voucher && (
+                                                <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
+                                                    {item.voucher}%
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
 
-                   <p className="xemtatca">
-                       <a
-                           href="https://ckdvietnam.com/san-pham/tot-nhat"
-                           className="bg-green-500 hover:bg-pink-400
+                    <p className="xemtatca">
+                        <a
+                            href="https://ckdvietnam.com/san-pham/tot-nhat"
+                            className="bg-green-500 hover:bg-pink-400
                      text-white hover:text-white
                       font-bold py-2 px-4 rounded-full"
-                       >
-                           {title.xemthem}
-                       </a>
-                   </p>
-               </Tabs.Item>
-           </Tabs>
-       </>
-   );
+                        >
+                            {title.xemthem}
+                        </a>
+                    </p>
+                </Tabs.Item>
+            </Tabs>
+        </>
+    );
 }
-  
+
 function Banner3() {
     return (
         <div>
-            <a
-                href={banner[1].url}
-                title={banner[1].title}
-            >
-                <img
-                    className="w-full h-full object-cover"
-                    src={banner[1].img}
-                    alt={banner[1].title}
-                />
+            <a href={banner[1].url} title={banner[1].title}>
+                <img className="w-full h-full object-cover" src={banner[1].img} alt={banner[1].title} />
             </a>
         </div>
     );
@@ -664,7 +654,7 @@ function PromotionSlide() {
                                         src={item.image}
                                         alt=""
                                     />
-                                    <div className="py-6 px-8 rounded-lg bg-white ">
+                                    <div className="rounded-lg bg-white">
                                         {/* reposive */}
                                         <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
                                             <a
@@ -750,7 +740,7 @@ function PromotionSlide() {
                                         src={item.image}
                                         alt=""
                                     />
-                                    <div className="py-6 px-8 rounded-lg bg-white ">
+                                    <div className="rounded-lg bg-white">
                                         <h1
                                             className=" mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs
                                         "

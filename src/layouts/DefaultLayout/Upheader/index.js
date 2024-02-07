@@ -151,7 +151,7 @@ function Upheader() {
                                                 {/* Bạn chưa có tài khoản? */}
                                                 <p className="text-center mt-4">
                                                     Bạn chưa có tài khoản?{' '}
-                                                    <a href="/" className="text-green-500 hover:text-green-600">
+                                                    <a href="/sign-in" className="text-green-500 hover:text-green-600">
                                                         Đăng ký ngay
                                                     </a>
                                                 </p>
