@@ -21,13 +21,13 @@ const Intro = () => {
     return (
         <div className="Intro container mx-auto" id="Intro">
             <div className="i-left">
-                <div className="i-name">
-                    <span>{Introduction.title}</span>
-                    <span
+                <div className="i-name p-3">
+                    <div className="text-blue-500 text-2xl font-bold">{Introduction.title}</div>
+                    <p
                         dangerouslySetInnerHTML={{
                             __html: Introduction.content,
                         }}
-                    ></span>
+                    ></p>
                 </div>
             </div>
             {/* right image side */}

@@ -18,12 +18,12 @@
   gap: 0.25rem;
 }
 .i-name > :nth-child(1) {
-  color: var(--black);
+  color: blue;
   font-weight: bold;
   font-size: 1rem;
 }
 .i-name > :nth-child(2) {
-  color: var(--orange);
+  color: pink;
   font-weight: bold;
   font-size: 1rem;
 }
