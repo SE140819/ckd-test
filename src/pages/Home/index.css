@@ -1,0 +1,28 @@
+.custom-item {
+  background-color: black;
+  color: white;
+}
+
+.active {
+    background: #000000;
+    color: #ffffff;
+}
+
+.addcart {
+    position: absolute;
+    right: 12px;
+    bottom: 16rem;
+    background: #ffffff url("https://ckdvietnam.com/assets/images/icon_gh.svg") center no-repeat;
+    background-size: 50% auto;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.showmore{
+   position: absolute;
+    right: 30rem;
+    bottom: 16rem;
+}
