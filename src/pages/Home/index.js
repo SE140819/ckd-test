@@ -9,24 +9,25 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 import { Avatar, Button, Modal, Progress } from 'flowbite-react';
 
-import { product_list, review, title } from '../../data/home';
-import  RatingComponent  from '../../components/intro/ratingComponent';
+
+import RatingComponent from '../../components/intro/ratingComponent';
 import { banner } from '../../data/banner2';
-import { brand } from '../../data/brandindex';  
+import { brand } from '../../data/brandindex';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
- 
 
 import { Tabs, Card } from 'flowbite-react';
 
-import  './index.css';
+import './index.css';
 import React from 'react';
 
 import { Rating } from 'flowbite-react';
 
- 
+// data
+import { product_list, review } from '../../data/home';
+import { title } from '../../data/title';
 
 
 function Home() {
