@@ -4,6 +4,9 @@ import './index.css';
 import { Button, Rating } from 'flowbite-react';
 import { HiShoppingCart } from 'react-icons/hi';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { act } from 'react-dom/test-utils';
+
 function DetailProduct() {
     const [images, setImages] = useState({
         img1: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
@@ -12,6 +15,8 @@ function DetailProduct() {
         img4: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
     });
 
+    const imageKeys = Object.keys(images);
+    const [activeImageKey, setActiveImageKey] = useState(imageKeys[0]);
     const voucherdata = [
         {
             id: 1,
@@ -73,38 +78,56 @@ function DetailProduct() {
         },
     ];
 
-    const [activeImg, setActiveImage] = useState(images.img1);
+    const activeImage = images[activeImageKey];
+    // const [activeImage, setActiveImage] = useState(images[Object.keys(images)[0]]);
 
     const [amount, setAmount] = useState(1);
 
+    const [isSticky, setSticky] = useState(false);
 
-      const [isSticky, setSticky] = useState(false);
+    useEffect(() => {
+        const handleScroll = () => {
+            setSticky(window.scrollY > 0);
+        };
 
-      useEffect(() => {
-          const handleScroll = () => {
-              setSticky(window.scrollY > 0);
-          };
+        window.addEventListener('scroll', handleScroll);
 
-          window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
-          return () => {
-              window.removeEventListener('scroll', handleScroll);
-          };
-      }, []);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveImageKey((prevKey) => {
+                const currentIndex = imageKeys.indexOf(prevKey);
+                const nextIndex = (currentIndex + 1) % imageKeys.length;
+                return imageKeys[nextIndex];
+            });
+        }, 5000); // Thay đổi hình ảnh sau mỗi 5 giây
+
+        return () => clearInterval(interval); // Hủy bỏ interval khi component unmount
+    }, [imageKeys]);
 
     return (
         <>
             <div className="container mx-auto flex flex-col justify-between lg:flex-row gap-16 lg:items-center">
                 <div className="flex flex-col gap-6 lg:w-2/4">
-                    <img src={activeImg} alt="" className="w-full h-full aspect-square object-cover rounded-xl" />
+                    <img
+                        key={activeImageKey}
+                        // nhận 2 giá trị slide và cả onclick
+                        src={activeImage}
+                        alt=""
+                        className="fade-in w-full h-full aspect-square object-cover rounded-xl"
+                    />
                     <div className="flex flex-row justify-between h-40">
-                        {Object.keys(images).map((key) => (
+                        {imageKeys.map((key) => (
                             <img
-                                key={key}
+                                key={images[key]}
                                 src={images[key]}
                                 alt=""
                                 className="w-24 h-24 rounded-md cursor-pointer md:w-40 md:h-40"
-                                onClick={() => setActiveImage(images[key])}
+                                onClick={() => setActiveImageKey(key)}
                             />
                         ))}
                     </div>
