@@ -59,7 +59,7 @@ function Shopping() {
                                         </span>
                                     </Tooltip>
                                 </div>
-                                {products.map((product, index) => {
+                                {products.map((product) => {
                                     return (
                                         <div
                                             key={product.id}
@@ -210,8 +210,9 @@ function Shopping() {
                                     <div className="text-xl font-bold leading-tight tracking-tight text-red-500 md:text-sm dark:text-white">
                                         Hình thức thanh toán
                                     </div>
-                                    {payment_method.map((payment) => (
-                                        <div key={payment.id} className="flex items-center gap-2">
+                                    {payment_method.map((payment, index) => (
+                                        <div key={index}
+                                         className="flex items-center gap-2">
                                             <Radio
                                                 id={payment.id}
                                                 name="countries"
@@ -388,10 +389,10 @@ function Shopping() {
                             <Table.HeadCell>Số lượng</Table.HeadCell>
                         </Table.Head>
                         <Table.Body className="divide-y overflow-y-auto h-40">
-                            {promotions.map((promotion) => (
+                            {promotions.map((promotion, index) => (
                                 <Table.Row
                                     className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                                    key={promotion.id}
+                                    key={index}
                                 >
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                         <img src={promotion.img} alt="ảnh sản phẩm" width="100px" height="100px" />
@@ -434,9 +435,13 @@ function Shopping() {
                 <Modal.Body>
                     <fieldset className="flex flex-col gap-4">
                         <div className="grid grid-cols-12 items-center p-4 bg-gray-100 dark:bg-gray-900 rounded-md justify-end">
-                            {vouchers.map((voucher) => (
-                                <>
-                                    <Label htmlFor={voucher.id} className="p-5 col-span-11 bg-gray-100 ">
+                            {vouchers.map((voucher, index) => (
+                                <div
+                                key={index}
+                                >
+                                     <Label
+                                    
+                                     htmlFor={voucher.id} className="p-5 col-span-11 bg-gray-100 ">
                                         <div className="flex items-center gap-2">
                                             <svg
                                                 fill="#000000"
@@ -481,7 +486,9 @@ function Shopping() {
                                         value={voucher.type}
                                         defaultChecked
                                     />
-                                </>
+                                
+                                </div>
+                                   
                             ))}
                         </div>
                     </fieldset>

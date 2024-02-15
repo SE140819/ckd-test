@@ -26,3 +26,42 @@
     right: 30rem;
     bottom: 16rem;
 }
+
+.zoom_hinh:hover img {
+    transform: scale(1.2);
+}
+
+.item a img {
+    width: 100%;
+}
+
+.zoom_hinh img {
+    transition: all 1s;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    border: 15px;
+}
+
+.item {
+    position: relative;
+    font-size: 15px;
+    text-align: center;
+}
+
+.item .img_sp {
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
+    /* height: 15rem; */
+}
+
+.image-container {
+    display: block;
+    height: inherit;
+    width: inherit;
+    position: relative;
+    cursor: pointer;
+}

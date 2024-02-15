@@ -19,7 +19,7 @@ const Intro = () => {
     // const darkMode = theme.state.darkMode;
 
     return (
-        <div className="Intro container mx-auto" id="Intro">
+        <div className="Intro " id="Intro">
             <div className="i-left">
                 <div className="i-name p-3">
                     <div className="text-blue-500 text-2xl font-bold">{Introduction.title}</div>

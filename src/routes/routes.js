@@ -5,6 +5,8 @@ import DetailProduct from '../pages/DetailProduct';
 import Introduction from '../pages/Introduction';
 import Contact from '../pages/Contact'; 
 import SignIn from '../pages/SignIn';
+import Event from '../pages/Event';
+import Product from '../pages/Product';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/review', component: Review },
@@ -23,6 +25,14 @@ const publicRoutes = [
         path: '/sign-in',
         component: SignIn,
     },
+    {
+        path: '/event',
+        component: Event,
+    },
+    {
+        path: '/product',
+        component: Product,
+    }
 ];
 
 const privateRoutes = [

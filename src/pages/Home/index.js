@@ -12,6 +12,7 @@ import { Avatar, Button, Modal, Progress } from 'flowbite-react';
 import { product_list, review, title } from '../../data/home';
 import  RatingComponent  from '../../components/intro/ratingComponent';
 import { banner } from '../../data/banner2';
+import { brand } from '../../data/brandindex';  
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -57,6 +58,9 @@ function Home() {
                 </div>
                 <div className="main_fix pt-5">
                     <Video />
+                </div>
+                <div className="main_fix pt-5">
+                <Brand />
                 </div>
             </section>
         </>
@@ -950,6 +954,68 @@ function Video() {
       </>
   );
 }
+
+function Brand() {
+    
+    return (
+        <>
+            <div className="title-main">
+                <h1 className="h1_home">{title.brand}</h1>
+            </div>
+            <Swiper
+            loop={true}
+      spaceBetween={50}
+        breakpoints={{
+            300: {
+            slidesPerView: 1,
+            spaceBetween: 10
+            },
+            450: {
+            slidesPerView: 2,
+            spaceBetween: 20
+            },
+            600: {
+            slidesPerView: 3,
+            spaceBetween: 30
+            },
+            900: {
+            slidesPerView: 3,
+            spaceBetween: 40
+            }
+        }}
+    >
+            {
+                brand.map((item, index) => (
+                    <SwiperSlide key={index}>
+                    <div className="item">
+              
+              <div className="img_sp zoom_hinh">
+              
+                  <div className="image-container">
+              
+                      <a href={item.href}
+                       title={item.alt}>
+                          <img className="img-fluid img-lazy img-load"
+                           src={item.img}
+                           alt={item.alt}
+                           title={item.alt}
+                            />
+                      </a>
+              
+                  </div>
+              
+              </div>
+              
+              </div>
+                    </SwiperSlide>
+                ))
+            }
+    </Swiper>
+        </>
+    );
+  }
+  
+  
 
 
 

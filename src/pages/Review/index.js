@@ -1,6 +1,3 @@
-
-
-// ---------
 import { Avatar, Button, Modal, Progress, Rating } from 'flowbite-react';
 import { review, title } from '../../data/home';
 import { useState } from 'react';

@@ -142,4 +142,5 @@ export const title = {
     xemthem: 'Xem thêm',
     reviewkhachhang: ' CÁC ĐÁNH GIÁ KHÁC VỀ SẢN PHẨM NÀY',
     ngaydanhgia: 'Ngày đánh giá: ',
+    brand: 'THƯƠNG HIỆU GIA ĐÌNH CKD',
 };
