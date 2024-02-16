@@ -257,14 +257,23 @@ function ProductSlide() {
                     >
                         {product_list.map((item, index) => (
                             <SwiperSlide key={index}>
-                                <div className="container flex justify-center mb-5">
+                                <div className="item container flex justify-center mb-5">
                                     <div className="max-w-sm">
                                         <div className="bg-white relative transition duration-500 rounded-lg">
-                                            <img
-                                                className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                                src={item.image}
-                                                alt=""
-                                            />
+                                            <div className="item">
+                                                <div className="img_sp zoom_hinh">
+                                                    <div className="image-container">
+                                                        <a href={item.href} title={item.alt}>
+                                                            <img
+                                                                className="img-fluid img-lazy img-load"
+                                                                src={item.image}
+                                                                alt={item.alt}
+                                                                title={item.alt}
+                                                            />
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div className="rounded-lg bg-white">
                                                 {/* reposive */}
                                                 <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
@@ -348,11 +357,20 @@ function ProductSlide() {
                                 <div className="container flex justify-center mb-5">
                                     <div className="max-w-sm">
                                         <div className="bg-white relative transition duration-500 rounded-lg">
-                                            <img
-                                                className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                                src={item.image}
-                                                alt=""
-                                            />
+                                            <div className="item">
+                                                <div className="img_sp zoom_hinh">
+                                                    <div className="image-container">
+                                                        <a href={item.href} title={item.alt}>
+                                                            <img
+                                                                className="img-fluid img-lazy img-load"
+                                                                src={item.image}
+                                                                alt={item.alt}
+                                                                title={item.alt}
+                                                            />
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div className="rounded-lg bg-white">
                                                 {/* reposive */}
                                                 <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
@@ -448,11 +466,20 @@ function ProductSlide() {
                                 <div className="container flex justify-center mb-5">
                                     <div className="max-w-sm">
                                         <div className="bg-white relative transition duration-500 rounded-lg">
-                                            <img
-                                                className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                                src={item.image}
-                                                alt=""
-                                            />
+                                            <div className="item">
+                                                <div className="img_sp zoom_hinh">
+                                                    <div className="image-container">
+                                                        <a href={item.href} title={item.alt}>
+                                                            <img
+                                                                className="img-fluid img-lazy img-load"
+                                                                src={item.image}
+                                                                alt={item.alt}
+                                                                title={item.alt}
+                                                            />
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div className="rounded-lg bg-white">
                                                 {/* reposive */}
                                                 <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
@@ -535,11 +562,20 @@ function ProductSlide() {
                                 <div className="container flex justify-center mb-5">
                                     <div className="max-w-sm">
                                         <div className="bg-white relative transition duration-500 rounded-lg">
-                                            <img
-                                                className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                                src={item.image}
-                                                alt=""
-                                            />
+                                            <div className="item">
+                                                <div className="img_sp zoom_hinh">
+                                                    <div className="image-container">
+                                                        <a href={item.href} title={item.alt}>
+                                                            <img
+                                                                className="img-fluid img-lazy img-load"
+                                                                src={item.image}
+                                                                alt={item.alt}
+                                                                title={item.alt}
+                                                            />
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div className="rounded-lg bg-white">
                                                 {/* reposive */}
                                                 <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
@@ -654,11 +690,20 @@ function PromotionSlide() {
                         <div className="container flex justify-center mb-5">
                             <div className="max-w-sm">
                                 <div className="bg-white relative transition duration-500 rounded-lg">
-                                    <img
-                                        className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                        src={item.image}
-                                        alt=""
-                                    />
+                                    <div className="item">
+                                        <div className="img_sp zoom_hinh">
+                                            <div className="image-container">
+                                                <a href={item.href} title={item.alt}>
+                                                    <img
+                                                        className="img-fluid img-lazy img-load"
+                                                        src={item.image}
+                                                        alt={item.alt}
+                                                        title={item.alt}
+                                                    />
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className="rounded-lg bg-white">
                                         {/* reposive */}
                                         <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
@@ -740,11 +785,20 @@ function PromotionSlide() {
                         <div className="container flex justify-center mb-5">
                             <div className="max-w-sm">
                                 <div className="bg-white relative transition duration-500 rounded-lg">
-                                    <img
-                                        className="rounded-t-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                        src={item.image}
-                                        alt=""
-                                    />
+                                    <div className="item">
+                                        <div className="img_sp zoom_hinh">
+                                            <div className="image-container">
+                                                <a href={item.href} title={item.alt}>
+                                                    <img
+                                                        className="img-fluid img-lazy img-load"
+                                                        src={item.image}
+                                                        alt={item.alt}
+                                                        title={item.alt}
+                                                    />
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className="rounded-lg bg-white">
                                         <h1
                                             className=" mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs

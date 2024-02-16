@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 
-import { Button, Rating } from 'flowbite-react';
+import { Breadcrumb, Button, Rating } from 'flowbite-react';
 import { HiShoppingCart } from 'react-icons/hi';
+import { HiHome } from 'react-icons/hi';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { act } from 'react-dom/test-utils';
@@ -93,6 +94,8 @@ function DetailProduct() {
 
     const [isSticky, setSticky] = useState(false);
 
+    const [indexDetail, setIndexDetail] = useState('Sữa rửa mặt dưỡng trắng da chuyên sâu CKD Việt Nam 100ml');
+
     useEffect(() => {
         const handleScroll = () => {
             setSticky(window.scrollY > 0);
@@ -120,6 +123,17 @@ function DetailProduct() {
     return (
         <>
             <div className="container mx-auto my-12">
+                <Breadcrumb aria-label="Breadcrumb" className="bg-gray-50 px-5 py-3 dark:bg-gray-800 mt-5">
+                    <Breadcrumb.Item href="/" icon={HiHome}>
+                        Trang chủ
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item href="/product">
+                        <span>Sản phẩm</span>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item href="/">
+                        <span>{indexDetail}</span>
+                    </Breadcrumb.Item>
+                </Breadcrumb>
                 <h1 className="text-4xl font-bold text-center main-color">{title.detail}</h1>
             </div>
             <div className="container mx-auto flex flex-col justify-between lg:flex-row gap-16 lg:items-center">
@@ -345,9 +359,9 @@ function DetailProduct() {
             </div>
 
             {/* EditorTextParser căn giữa */}
-            <div className="container mx-auto">
-                <EditorTextParser data={data} />
-            </div>
+            {/* <div className="container mx-auto">
+                        <EditorTextParser data={data} />
+                    </div> */}
         </>
     );
 }
