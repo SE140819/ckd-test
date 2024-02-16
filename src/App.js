@@ -12,34 +12,35 @@ import Media from './layouts/DefaultLayout/Media';
 
 function App() {
 	return (
-		<Router>
-			
-			<Routes>
-				{
-					publicRoutes.map((route, index) => {
-						const Page = route.component;
-						//const Layout = route.layout  === null ? Fragment : DefaultLayout;
-						let Layout = DefaultLayout;
-						if (route.layout) {
-							Layout = route.layout;
-						} else if (route.layout === null) {
-							Layout = Fragment;
-						}
-						return <Route
-							key={index}
-							path={route.path}
-							element={
-								<Layout>
-									<Page/>
-								</Layout>
-							}/>
-					})
-				}
-			</Routes>
-            <ScrollOnTop />
+        <Router>
+            <Routes>
+                {publicRoutes.map((route, index) => {
+                    const Page = route.component;
+                    //const Layout = route.layout  === null ? Fragment : DefaultLayout;
+                    let Layout = DefaultLayout;
+                    if (route.layout) {
+                        Layout = route.layout;
+                    } else if (route.layout === null) {
+                        Layout = Fragment;
+                    }
+                    return (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={
+                                <Layout>
+                                    <Page />
+                                </Layout>
+                            }
+                        />
+                    );
+                })}
+            </Routes>
+            {/* nếu đã ở đầu trang thì hiện nút scroll to top */}
+            {window.scrollY > 100 ? <ScrollOnTop /> : null}
             <Media />
-		</Router>
-	);
+        </Router>
+    );
 }
 
 

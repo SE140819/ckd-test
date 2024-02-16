@@ -74,32 +74,32 @@ function Footer() {
                     <div className="mr-12 hidden lg:block">
                         <ul className="flex space-x-4">
                             <li>
-                                <a title="" href="chinh-sach-ban-hang" target="_self">
+                                <a title="" href="/sale-policy" target="_self">
                                     Chính sách bán hàng
                                 </a>
                             </li>
                             <li>
-                                <a title="" href="chinh-sach-tra-hang" target="_self">
+                                <a title="" href="/return-policy" target="_self">
                                     Chính sách trả hàng
                                 </a>
                             </li>
                             <li>
-                                <a title="" href="chinh-sach-bao-hanh" target="_self">
+                                <a title="" href="/warranty-policy" target="_self">
                                     Chính sách bảo hành
                                 </a>
                             </li>
                             <li>
-                                <a title="" href="chinh-sach-bao-mat-thong-tin" target="_self">
+                                <a title="" href="/information-privacy-policy" target="_self">
                                     Chính sách bảo mật thông tin
                                 </a>
                             </li>
                             <li>
-                                <a title="" href="ho-tro-dat-hang" target="_self">
+                                <a title="" href="/order-support" target="_self">
                                     Hỗ trợ đặt hàng
                                 </a>
                             </li>
                             <li>
-                                <a title="" href="cau-hoi-thuong-gap" target="_self">
+                                <a title="" href="/questions" target="_self">
                                     Câu hỏi thường gặp
                                 </a>
                             </li>
@@ -134,10 +134,12 @@ function Footer() {
                         </div>
                         {/* <!-- Contact section --> */}
                         <div>
-                            <div className="grid grid-cols-2 grid-rows-2 gap-4 
+                            <div
+                                className="grid grid-cols-2 grid-rows-2 gap-4 
                             md:grid-cols-2 md:grid-rows-2 md:gap-4
                            
-                            ">
+                            "
+                            >
                                 <div className="p-4 border-2 border-gray-200">
                                     <p className="p-1 text-center">0번-키를-누르세요</p>
                                     <p className="p-5 text-center">한국 컨설턴트를 만나보세요~</p>
