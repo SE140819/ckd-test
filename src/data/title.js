@@ -26,4 +26,11 @@ export const title = {
     position: 'Chức vụ',
     // detail product
     detail: 'CHI TIẾT SẢN PHẨM',
+    // history
+    history: 'LỊCH SỬ MUA HÀNG',
+    productname: 'Tên sản phẩm',
+    createby: 'Ngày mua',
+    price: 'Giá',
+    quantity: 'Số lượng',
+    status: 'Trạng thái',
 };

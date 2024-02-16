@@ -7,6 +7,13 @@ import Contact from '../pages/Contact';
 import SignIn from '../pages/SignIn';
 import Event from '../pages/Event';
 import Product from '../pages/Product';
+import History from '../pages/History';
+import SalePolicy from '../pages/SalesPolicy';
+import ReturnPolicy from '../pages/ReturnPolicy';
+import WarrantyPolicy from '../pages/WarrantyPolicy';
+import InformationPrivacyPolicy from '../pages/InformationPrivacyPolicy';
+import OrderSupport from '../pages/OrderSupport';
+import Questions from '../pages/Questions';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/review', component: Review },
@@ -32,7 +39,35 @@ const publicRoutes = [
     {
         path: '/product',
         component: Product,
-    }
+    },
+    {
+        path: '/history',
+        component: History,
+    },
+    {
+        path: '/sale-policy',
+        component: SalePolicy,
+    },
+    {
+        path: '/return-policy',
+        component: ReturnPolicy,
+    },
+    {
+        path: '/warranty-policy',
+        component: WarrantyPolicy,
+    },
+    {
+        path: '/information-privacy-policy',
+        component: InformationPrivacyPolicy,
+    },
+    {
+        path: '/order-support',
+        component: OrderSupport,
+    },
+    {
+        path: '/questions',
+        component: Questions,
+    },
 ];
 
 const privateRoutes = [
