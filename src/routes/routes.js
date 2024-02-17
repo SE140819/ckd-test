@@ -14,6 +14,7 @@ import WarrantyPolicy from '../pages/WarrantyPolicy';
 import InformationPrivacyPolicy from '../pages/InformationPrivacyPolicy';
 import OrderSupport from '../pages/OrderSupport';
 import Questions from '../pages/Questions';
+import Account from '../pages/Account';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/review', component: Review },
@@ -67,6 +68,10 @@ const publicRoutes = [
     {
         path: '/questions',
         component: Questions,
+    },
+    {
+        path: '/account',
+        component: Account,
     },
 ];
 

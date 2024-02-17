@@ -37,4 +37,6 @@ export const title = {
     event: 'SỰ KIỆN',
     pre: 'Trước',
     next: 'Sau',
+    //thông tin tài khoản
+    account: 'THÔNG TIN TÀI KHOẢN',
 };

@@ -104,8 +104,8 @@ function Event() {
                         <Breadcrumb.Item href="/" icon={HiHome}>
                             Trang chủ
                         </Breadcrumb.Item>
-                        <Breadcrumb.Item href="/product">
-                            <span>Sự kiện</span>
+                        <Breadcrumb.Item href="/event">
+                            <span>Sự kiện</span>
                         </Breadcrumb.Item>
                     </Breadcrumb>
                     <h1 className="text-4xl font-bold text-center main-color">{title.event}</h1>
