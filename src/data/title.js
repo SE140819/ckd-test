@@ -33,4 +33,8 @@ export const title = {
     price: 'Giá',
     quantity: 'Số lượng',
     status: 'Trạng thái',
+    // pre and next
+    event: 'SỰ KIỆN',
+    pre: 'Trước',
+    next: 'Sau',
 };
