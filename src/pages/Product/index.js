@@ -23,7 +23,6 @@ function Product() {
     const filterProducts = () => {
         const newFilteredProducts = product_list.filter((product) => {
             const isPriceMatch = filterState.price === 0 || product.price <= filterState.price;
-
             const isBrandMatch = filterState.brand === '' || product.brand === filterState.brand;
             const isCategoryMatch = filterState.category === '' || product.category === filterState.category;
             const isBetterMatch = filterState.better === '' || product.better === filterState.better;

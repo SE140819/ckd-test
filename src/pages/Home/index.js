@@ -29,7 +29,11 @@ import { product_list, review } from '../../data/home';
 import { title } from '../../data/title';
 
 // SkeletonImg
-import SkeletonImg from '../../components/skeleton';
+import 
+{
+    SkeletonBanner,SkeletonCate,SkeletonProduct,SkeletonPromotion, SkeletonVideo
+}
+ from '../../components/skeleton';
 
 const Noimagebanner =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE-BANNER.png?alt=media&token=e121b01a-71dc-4f7f-bd51-6ad9243c3269';
@@ -50,7 +54,17 @@ function Home() {
         <>
             {/* logic skeleton */}
             {loading ? (
-                <SkeletonImg />
+                <>
+                <SkeletonBanner />
+                <SkeletonCate />
+                <SkeletonBanner />
+                <SkeletonProduct />
+                <SkeletonBanner />
+                <SkeletonPromotion />
+                <SkeletonVideo />
+                </>
+              
+
             ) : (
                 <section className=" data-te-lazy-load-init " data-te-lazy-load="true">
                     <div id="banner">
@@ -129,8 +143,11 @@ function Banner() {
                             <a className="bg-cover " href={i.link}>
                                 <img
                                     className="w-full object-cover h-auto"
-                                    // src={_url + i.photo}
-                                    src={Noimagebanner}
+                                    src={
+                                        i.photo
+                                            ? _url + i.photo
+                                            : Noimagebanner
+                                    }
                                     alt={i.ten}
                                 />
                             </a>
@@ -198,8 +215,11 @@ function Cate() {
                                     <a href={i.link} title={i.ten}>
                                         <img
                                             className="img-fluid border rounded-full transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                            // src={_url + i.photo}
-                                            src={Noimage}
+                                            src={
+                                                i.photo
+                                                    ? _url + i.photo
+                                                    : Noimage
+                                            }        
                                             alt="CKD COS VIETNAM"
                                         />
                                     </a>
@@ -255,8 +275,11 @@ function Banner2() {
                             <a className="bg-cover " href={i.link}>
                                 <img
                                     className="w-full object-cover h-auto"
-                                    // src={_url + i.photo}
-                                    src={Noimagebanner}
+                                    src={
+                                        i.photo
+                                            ? _url + i.photo
+                                            : Noimagebanner
+                                    }
                                     alt={i.ten}
                                 />
                             </a>
@@ -344,8 +367,12 @@ function ProductSlide() {
                                                         <a href={i.link} title={i.tenkhongdauvi}>
                                                             <img
                                                                 className="img-fluid img-lazy img-load object-cover"
-                                                                // src={path_upload().product + i.photo}
-                                                                src={Noimage}
+                                                                src={
+                                                                    i.photo
+                                                                        ? path_upload().product + i.photo
+                                                                        : Noimage
+                                                                }
+                                                              
                                                                 alt={i.tenkhongdauvi}
                                                                 title={i.tenkhongdauvi}
                                                             />
@@ -471,8 +498,11 @@ function ProductSlide() {
                                                         <a href={i.link} title={i.tenkhongdauvi}>
                                                             <img
                                                                 className="img-fluid img-lazy img-load object-cover"
-                                                                // src={path_upload().product + i.photo}
-                                                                src={Noimage}
+                                                                src={
+                                                                    i.photo
+                                                                        ? path_upload().product + i.photo
+                                                                        : Noimage
+                                                                }
                                                                 alt={i.tenkhongdauvi}
                                                                 title={i.tenkhongdauvi}
                                                             />
@@ -502,7 +532,7 @@ function ProductSlide() {
                                                 ) : (
                                                     <p className="gia_sp">
                                                         <span className="gia giamoi">
-                                                            {/* formatNumber */}
+                                                            {/* foratNumber */}
                                                             {formatNumber(i.gia)} đ
                                                         </span>
                                                     </p>
@@ -598,8 +628,12 @@ function Banner3() {
                             <a className="bg-cover " href={i.link}>
                                 <img
                                     className="w-full object-cover h-auto"
-                                    // src={_url + i.photo}
-                                    src={Noimagebanner}
+                                    src={
+                                        i.photo
+                                            ? _url + i.photo
+                                            : Noimagebanner
+                                    }
+                                    
                                     alt={i.ten}
                                 />
                             </a>
@@ -675,8 +709,12 @@ function PromotionSlide() {
                                                 <a href={i.link} title={i.tenkhongdauvi}>
                                                     <img
                                                         className="img-fluid img-lazy img-load object-cover"
-                                                        // src={path_upload().product + i.photo}
-                                                        src={Noimage}
+                                                       
+                                                        src={
+                                                            i.photo
+                                                                ? path_upload().product + i.photo
+                                                                : Noimage
+                                                        }
                                                         alt={i.tenkhongdauvi}
                                                         title={i.tenkhongdauvi}
                                                     />
@@ -766,7 +804,9 @@ function PromotionSlide() {
 
 function Review() {
     const [openModal, setOpenModal] = useState(false);
-    const [selectedItemId, setSelectedItemId] = useState(null);
+    const [selectedItemId, setSelectedItemId] = useState(
+        review[0].id
+    );
 
 
     const handleItemClick = (id) => {
@@ -791,7 +831,10 @@ function Review() {
     }, []);
 
     console.log('🚀 ~ file: index.js ~ line 444 ~ Review ~ reviewData', reviewData);
-    const _url = path_upload().photo;
+    console.log('🚀 ~ handleItemClick',
+    selectedItemId);
+    
+    const _url = path_upload().review;
     return (
         <>
             <div className="title-main">
@@ -807,9 +850,11 @@ function Review() {
                             >
                                 <img
                                     className="object-cover brightness-100 group-hover:brightness-50 w-full fixed-photo"
-                                    src={_url + item.icon}
-                                    // src={Noimage}
-                                    alt="CKD COS VIETNAM"
+                                    src={
+                                        item.photo ? _url + item.photo : Noimage
+                                    }
+                                    
+                                    alt={item.tenvi}
                                 />
                             </div>
                             <div className="group relative">
@@ -821,7 +866,6 @@ function Review() {
                                     <div className="grid gap-1 ">
                                         <RatingComponent
                                             rating={
-                                                //    options2\"sosao\":\"5\",\"thoigian\":\"16\\/1\\/2024\"}"
                                                 JSON.parse(item.options2).sosao
                                             }
                                         />
@@ -848,13 +892,17 @@ function Review() {
                     <div className="grid grid-rows-2 grid-flow-col">
                         <div className="row-span-3 flex items-center justify-center">
                             <Avatar
-                                img={reviewData.find((item) => item.id === selectedItemId)?.img}
+                                img={
+                                    reviewData.find((item) => item.id === selectedItemId)?.icon
+                                        ? _url + reviewData.find((item) => item.id === selectedItemId)?.icon
+                                        : Noimage
+                                }
                                 alt="Avatar"
                                 rounded
                             />
                         </div>
                         <div className="col-span-2">
-                            <span>{reviewData.find((item) => item.id === selectedItemId)?.customer}</span>
+                            <span>{reviewData.find((item) => item.id === selectedItemId)?.tenvi}</span>
                         </div>
                         <div className="">
                             <Rating>
@@ -866,17 +914,21 @@ function Review() {
                             </Rating>
                         </div>
                     </div>
-                    <div className="text-sm">{reviewData.find((item) => item.id === selectedItemId)?.feedback}</div>
+                    <div className="text-sm">{reviewData.find((item) => item.id === selectedItemId)?.motavi}</div>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-4">
                         <div className="row-span-1">
                             <div className="flex text-center justify-center items-center">
                                 <img
-                                    src={reviewData.find((item) => item.id === selectedItemId)?.img}
+                                    src={
+                                        reviewData.find((item) => item.id === selectedItemId)?.photo
+                                            ? _url + reviewData.find((item) => item.id === selectedItemId)?.photo
+                                            : Noimage
+                                    }
                                     width={500}
                                     height={500}
-                                    alt=""
+                                    alt={reviewData.find((item) => item.id === selectedItemId)?.tenvi}
                                 />
                             </div>
                         </div>
@@ -889,7 +941,11 @@ function Review() {
                                 <div className="grid grid-cols-4 gap-1">
                                     {reviewData.slice(0, 8).map((item, index) => (
                                         <div key={index}>
-                                            <img src={item.img} alt="blog" width={100} height={100} />
+                                            <img src={
+                                                item.photo ? _url + item.photo : Noimage
+                                            }
+                                            alt={item.tenvi}
+                                             width={100} height={100} />
                                         </div>
                                     ))}
                                 </div>
@@ -901,11 +957,10 @@ function Review() {
                     <div className="text-sm">
                         <span>
                             {title.ngaydanhgia}:
-                            {new Date().toLocaleDateString('vi-VN', {
-                                year: 'numeric',
-                                month: '2-digit',
-                                day: '2-digit',
-                            })}
+                            {(reviewData.find((item) => item.id === selectedItemId)?.options2) &&
+                                JSON.parse(reviewData.find((item) => item.id === selectedItemId)?.options2).thoigian}
+                
+
                         </span>
                     </div>
                 </Modal.Footer>

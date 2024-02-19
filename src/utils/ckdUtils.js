@@ -16,6 +16,7 @@ export const path_upload = ()=>{
     return {
         photo: _url + 'upload/photo/',
         product: _url + 'upload/product/',
+        review: _url + '/upload/news/',
     }
 }
 
