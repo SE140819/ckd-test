@@ -20,7 +20,7 @@
     "flowbite": "^2.2.1",
     "flowbite-react": "^0.7.2",
     "font-awesome": "^4.7.0",
-    "html-react-parser": "^5.1.5",
+    "html-react-parser": "^5.1.6",
     "material-icons": "^1.13.12",
     "postcss": "^8.4.33",
     "postcss-cli": "^11.0.0",
