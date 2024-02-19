@@ -65,3 +65,20 @@
     position: relative;
     cursor: pointer;
 }
+
+.giacu {
+    display: block !important;
+    color: #000000 !important;
+    text-decoration: line-through;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.giamoi {
+    display: block !important;
+    color: #dd1e8b !important;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+}
