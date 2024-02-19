@@ -28,47 +28,64 @@ import { Rating } from 'flowbite-react';
 import { product_list, review } from '../../data/home';
 import { title } from '../../data/title';
 
+// SkeletonImg
+import SkeletonImg from '../../components/skeleton';
+
 const Noimagebanner =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE-BANNER.png?alt=media&token=e121b01a-71dc-4f7f-bd51-6ad9243c3269';
 
 const Noimage =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
+
+  
 function Home() {
+    const [loading, setLoading] = useState(true);
+    
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+    }, []);
     return (
         <>
-            <section className=" data-te-lazy-load-init " data-te-lazy-load="true">
-                <div id="banner">
-                    <Banner />
-                </div>
+            {/* logic skeleton */}
+            {loading ? (
+                <SkeletonImg />
+            ) : (
+                <section className=" data-te-lazy-load-init " data-te-lazy-load="true">
+                    <div id="banner">
+                        <Banner />
+                    </div>
 
-                <div id="slick_cate" className="main_fix pt-5">
-                    <Cate />
-                </div>
+                    <div id="slick_cate" className="main_fix pt-5">
+                        <Cate />
+                    </div>
 
-                <div id="banner2" className="pt-5">
-                    <Banner2 />
-                </div>
+                    <div id="banner2" className="pt-5">
+                        <Banner2 />
+                    </div>
 
-                <div id="product_slide" className="p-5 main_fix bg-white">
-                    <ProductSlide />
-                </div>
+                    <div id="product_slide" className="p-5 main_fix bg-white">
+                        <ProductSlide />
+                    </div>
 
-                <div id="banner2" className="pt-5">
-                    <Banner3 />
-                </div>
-                <div id="promotion_slide" className="p-5 main_fix pt-5 bg-white">
-                    <PromotionSlide />
-                </div>
-                <div className="main_fix pt-5 bg-white">
-                    <Review />
-                </div>
-                <div className="main_fix pt-5">
-                    <Video />
-                </div>
-                <div className="main_fix pt-5">
-                    <Brand />
-                </div>
-            </section>
+                    <div id="banner2" className="pt-5">
+                        <Banner3 />
+                    </div>
+                    <div id="promotion_slide" className="p-5 main_fix pt-5 bg-white">
+                        <PromotionSlide />
+                    </div>
+                    <div className="main_fix pt-5 bg-white">
+                        <Review />
+                    </div>
+                    <div className="main_fix pt-5">
+                        <Video />
+                    </div>
+                    <div className="main_fix pt-5">
+                        <Brand />
+                    </div>
+                </section>
+            )}
         </>
     );
 }
