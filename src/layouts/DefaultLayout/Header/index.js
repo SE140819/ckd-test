@@ -11,13 +11,13 @@ import HeadlessTippy from '@tippyjs/react/headless';
 const navLinks = [
     { title: 'Home', url: '/' },
     { title: 'Giới thiệu', url: '/intro' },
-    { title: 'Giỏ hàng', url: '/shopping' },
-    { title: 'Đánh giá', url: '/review' },
-    // { title: 'Thương hiệu', url: '#' },
-    // { title: 'Khuyến mãi', url: '#' },
-    // { title: 'Sản phẩm', url: '#' },
-    // { title: 'Sự kiện', url: '#' },
-    // { title: 'Tin tức', url: '#' },
+    // { title: 'Giỏ hàng', url: '/shopping' },
+    // { title: 'Đánh giá', url: '/review' },
+    { title: 'Thương hiệu', url: '/' },
+    { title: 'Khuyến mãi', url: '/' },
+    { title: 'Sản phẩm', url: '/product' },
+    { title: 'Sự kiện', url: '/event' },
+    { title: 'Tin tức', url: '/event' },
     { title: 'Liện hệ', url: '/contact' },
 ];
 function Header() {

@@ -12,6 +12,30 @@ const DEFAULT_PAYMENT_METHOD = 'TIỀN MẶT'
 
 function Shopping() {
 
+    const [voucher, setVoucher] = useState('');
+    const [selectedVoucher, setSelectedVoucher] = useState('');
+    const [inputValue, setInputValue] = useState('');
+
+    
+
+  const handleVoucherSelect = (selectedVoucher) => {
+    setOpenModal(true);
+    setVoucher(selectedVoucher);
+  };
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+  
+
+//   console.log("voucher", voucher);
+//   console.log("selectedVoucher", selectedVoucher);
+
+  const handleVoucherChange = (e) => {
+    setSelectedVoucher(e.target.value);
+    };
+
+
     const [openModal, setOpenModal] = useState(false);
     const [openModalPromotions, setOpenModalPromotions] = useState(false);
     const [quantity, setQuantity] = useState(1);
@@ -333,10 +357,12 @@ function Shopping() {
                                     type="text"
                                     className="w-4/4 border border-r-4 border-gray-300 rounded-lg text-sm "
                                     placeholder="Nhập mã giảm giá"
+                                    value={selectedVoucher}
+                                    onChange={handleInputChange}
                                 />
                                 <button
                                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                    onClick={() => setOpenModal(true)}
+                                    onClick={() => handleVoucherSelect(voucher)}   
                                 >
                                     Chọn Voucher
                                 </button>
@@ -434,63 +460,29 @@ function Shopping() {
 
                 <Modal.Body>
                     <fieldset className="flex flex-col gap-4">
-                        <div className="grid grid-cols-12 items-center p-4 bg-gray-100 dark:bg-gray-900 rounded-md justify-end">
-                            {vouchers.map((voucher, index) => (
-                                <div
-                                key={index}
-                                >
-                                     <Label
-                                    
-                                     htmlFor={voucher.id} className="p-5 col-span-11 bg-gray-100 ">
-                                        <div className="flex items-center gap-2">
-                                            <svg
-                                                fill="#000000"
-                                                width="40px"
-                                                height="40px"
-                                                viewBox="0 0 64 64"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <g data-name="33 discount ticket" id="_33_discount_ticket">
-                                                    <path d="M57.46,27.91H59.5a1,1,0,0,0,1-1V18.76a2.027,2.027,0,0,0-2.02-2.02H5.52A2.027,2.027,0,0,0,3.5,18.76v8.15a1,1,0,0,0,1,1H6.54a4.09,4.09,0,1,1,0,8.18H4.5a1,1,0,0,0-1,1v8.15a2.027,2.027,0,0,0,2.02,2.02H58.48a2.027,2.027,0,0,0,2.02-2.02V37.09a1,1,0,0,0-1-1H57.46a4.09,4.09,0,1,1,0-8.18Zm0,10.18H58.5l-.02,7.17L5.5,45.24V38.09H6.54a6.09,6.09,0,0,0,0-12.18H5.5l.02-7.17,52.98.02v7.15H57.46a6.09,6.09,0,0,0,0,12.18Z" />
-
-                                                    <path d="M32,20.814a1,1,0,0,0-1,1v2.038a1,1,0,1,0,2,0V21.814A1,1,0,0,0,32,20.814Z" />
-
-                                                    <path d="M32,39.148a1,1,0,0,0-1,1v2.038a1,1,0,1,0,2,0V40.148A1,1,0,0,0,32,39.148Z" />
-
-                                                    <path d="M32,33.037a1,1,0,0,0-1,1v2.037a1,1,0,0,0,2,0V34.037A1,1,0,0,0,32,33.037Z" />
-
-                                                    <path d="M32,26.926a1,1,0,0,0-1,1v2.037a1,1,0,0,0,2,0V27.926A1,1,0,0,0,32,26.926Z" />
-
-                                                    <path d="M16.722,26.889H20.8a1,1,0,0,0,0-2H16.722a1,1,0,0,0,0,2Z" />
-
-                                                    <path d="M16.722,33h6.111a1,1,0,0,0,0-2H16.722a1,1,0,0,0,0,2Z" />
-
-                                                    <path d="M24.871,37.111H16.722a1,1,0,0,0,0,2h8.149a1,1,0,1,0,0-2Z" />
-
-                                                    <path d="M39.13,24.89a3.035,3.035,0,1,0,3.04,3.04A3.045,3.045,0,0,0,39.13,24.89Zm0,4.07a1.035,1.035,0,1,1,1.04-1.03A1.037,1.037,0,0,1,39.13,28.96Z" />
-
-                                                    <path d="M47.28,33.04a3.035,3.035,0,1,0,3.03,3.03A3.037,3.037,0,0,0,47.28,33.04Zm0,4.07a1.035,1.035,0,1,1,0-2.07,1.035,1.035,0,0,1,0,2.07Z" />
-
-                                                    <path d="M49,26.2a1,1,0,0,0-1.414,0L37.4,36.386A1,1,0,1,0,38.818,37.8L49,27.614A1,1,0,0,0,49,26.2Z" />
-                                                </g>
-                                            </svg>
-                                            <div className="text-xl font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                                {voucher.name}
-                                            </div>
-                                        </div>
-                                    </Label>
-                                    <Radio
-                                        className="flex justify-end"
+                       {
+                            vouchers.map((voucher, index) => (
+                                 <div key={index} className="flex items-center gap-2">
+                                      <Radio
                                         id={voucher.id}
                                         name="voucher"
-                                        value={voucher.type}
-                                        defaultChecked
-                                    />
-                                
-                                </div>
-                                   
-                            ))}
-                        </div>
+                                        value={voucher.name}
+                                        checked={selectedVoucher === voucher.name}
+                                        onChange={handleVoucherChange}
+                                        
+                                      />
+                                      <div className="flex flex-col">
+                                        <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
+                                             {voucher.name}
+                                        </div>
+                                        <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
+                                             {voucher.description}
+                                        </div>
+                                      </div>
+                                 </div>
+                            ))
+                       }
+                       
                     </fieldset>
                 </Modal.Body>
 

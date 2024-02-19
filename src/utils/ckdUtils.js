@@ -18,4 +18,13 @@ export const path_upload = ()=>{
         product: _url + 'upload/product/',
     }
 }
- 
+
+ export const formatNumber = (value) => {
+     // Chia mỗi 3 chữ số bằng dấu phẩy
+     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+ };
+
+ //  phần trăm khuyến mãi được tính theo công thức: (giá gốc - giá khuyến mãi) / giá gốc * 100
+ export const getDiscount = (price, sale) => {
+     return Math.round(((price - sale) / price) * 100);
+ };

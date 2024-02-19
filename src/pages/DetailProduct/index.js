@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 
-import { Button, Rating } from 'flowbite-react';
+import { Breadcrumb, Button, Rating } from 'flowbite-react';
 import { HiShoppingCart } from 'react-icons/hi';
+import { HiHome } from 'react-icons/hi';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { act } from 'react-dom/test-utils';
+
+import { title } from '../../data/title';
+
+import { exampleData } from '../../data/exampleData';
+import EditorTextParser from '../../components/editor-parser/EditorTextParser';
 
 function DetailProduct() {
     const [images, setImages] = useState({
@@ -13,6 +19,8 @@ function DetailProduct() {
         img2: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-gau-bong-1-4800.webp',
         img3: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
         img4: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
+        img5: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
+        img6: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
     });
 
     const imageKeys = Object.keys(images);
@@ -78,12 +86,15 @@ function DetailProduct() {
         },
     ];
 
+    const [data, setData] = useState(exampleData);
+
     const activeImage = images[activeImageKey];
-    // const [activeImage, setActiveImage] = useState(images[Object.keys(images)[0]]);
 
     const [amount, setAmount] = useState(1);
 
     const [isSticky, setSticky] = useState(false);
+
+    const [indexDetail, setIndexDetail] = useState('Sữa rửa mặt dưỡng trắng da chuyên sâu CKD Việt Nam 100ml');
 
     useEffect(() => {
         const handleScroll = () => {
@@ -111,6 +122,20 @@ function DetailProduct() {
 
     return (
         <>
+            <div className="container mx-auto my-12">
+                <Breadcrumb aria-label="Breadcrumb" className="bg-gray-50 px-5 py-3 dark:bg-gray-800 mt-5">
+                    <Breadcrumb.Item href="/" icon={HiHome}>
+                        Trang chủ
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item href="/product">
+                        <span>Sản phẩm</span>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item href="/">
+                        <span>{indexDetail}</span>
+                    </Breadcrumb.Item>
+                </Breadcrumb>
+                <h1 className="text-4xl font-bold text-center main-color">{title.detail}</h1>
+            </div>
             <div className="container mx-auto flex flex-col justify-between lg:flex-row gap-16 lg:items-center">
                 <div className="flex flex-col gap-6 lg:w-2/4">
                     <img
@@ -121,15 +146,25 @@ function DetailProduct() {
                         className="fade-in w-full h-full aspect-square object-cover rounded-xl"
                     />
                     <div className="flex flex-row justify-between h-40">
-                        {imageKeys.map((key) => (
-                            <img
-                                key={images[key]}
-                                src={images[key]}
-                                alt=""
-                                className="w-24 h-24 rounded-md cursor-pointer md:w-40 md:h-40"
-                                onClick={() => setActiveImageKey(key)}
-                            />
-                        ))}
+                        {/* cuộn ngang loopp ảnh */}
+                        <Swiper
+                            spaceBetween={10}
+                            slidesPerView={4}
+                            autoplay={{ delay: 2500, disableOnInteraction: false }}
+                            onSlideChange={() => console.log('slide change')}
+                            onSwiper={(swiper) => console.log(swiper)}
+                        >
+                            {Object.entries(images).map(([key, value]) => (
+                                <SwiperSlide key={key}>
+                                    <img
+                                        src={value}
+                                        alt=""
+                                        className="w-24 h-24 rounded-md cursor-pointer md:w-40 md:h-40"
+                                        onClick={() => setActiveImageKey(key)}
+                                    />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
                 </div>
                 <div className="flex flex-col gap-4 lg:w-2/4">
@@ -162,14 +197,14 @@ function DetailProduct() {
                     <div className="flex flex-row items-center gap-12">
                         <div className="flex flex-row items-center">
                             <button
-                                className="bg-gray-200 py-2 px-5 rounded-lg text-violet-800 text-3xl"
+                                className="bg-gray-200 py-2 px-5 rounded-lg text-gray-800 text-3xl"
                                 onClick={() => setAmount((prev) => prev - 1)}
                             >
                                 -
                             </button>
                             <span className="py-4 px-6 rounded-lg">{amount}</span>
                             <button
-                                className="bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl"
+                                className="bg-gray-200 py-2 px-4 rounded-lg text-gray-800 text-3xl"
                                 onClick={() => setAmount((prev) => prev + 1)}
                             >
                                 +
@@ -273,8 +308,8 @@ function DetailProduct() {
                         <div className="col-start-1"></div>
                         <div className="col-end-5 md:col-end-6">
                             <div className="flex space-x-4">
-                                <Button className="flex items-center justify-center gap-2 border-2 bg-white border-green-500 hover:bg-green-500 text-white">
-                                    <HiShoppingCart className="mr-2 h-8 w-8 text-green-700" />
+                                <Button className="flex items-center justify-center gap-2 border-2 bg-white border-green-500 hover:bg-green-10">
+                                    <HiShoppingCart className="mr-2 h-8 w-8 text-green-500" />
                                 </Button>
                                 <Button>
                                     <span className="text-white font-bold">Zalo</span>
@@ -322,49 +357,11 @@ function DetailProduct() {
                     <Rating.Advanced percentFilled={1}>1 sao</Rating.Advanced>
                 </div>
             </div>
-            <div className="bg-gray-100 p-4">
-                <div className={`bg-white p-4 rounded ${isSticky ? 'sticky top-0 shadow' : ''}`}>
-                    <ul className="flex border-b">
-                        <li className="-mb-px mr-1">
-                            <a
-                                href="#tab1-content"
-                                className="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold"
-                            >
-                                Tab 1
-                            </a>
-                        </li>
-                        <li className="mr-1">
-                            <a
-                                href="#tab2-content"
-                                className="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-                            >
-                                Tab 2
-                            </a>
-                        </li>
-                        <li className="mr-1">
-                            <a
-                                href="#tab3-content"
-                                className="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-                            >
-                                Tab 3
-                            </a>
-                        </li>
-                    </ul>
-                </div>
 
-                <div className="p-4">
-                    {/* Content for each tab goes here */}
-                    <div className="tab-content" id="tab1-content">
-                        Content for Tab 1
-                    </div>
-                    <div className="tab-content hidden" id="tab2-content">
-                        Content for Tab 2
-                    </div>
-                    <div className="tab-content hidden" id="tab3-content">
-                        Content for Tab 3
-                    </div>
-                </div>
-            </div>
+            {/* EditorTextParser căn giữa */}
+            {/* <div className="container mx-auto">
+                        <EditorTextParser data={data} />
+                    </div> */}
         </>
     );
 }
