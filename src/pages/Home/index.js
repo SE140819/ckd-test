@@ -767,12 +767,31 @@ function PromotionSlide() {
 function Review() {
     const [openModal, setOpenModal] = useState(false);
     const [selectedItemId, setSelectedItemId] = useState(null);
-    const [reviewData, setReviewData] = useState(review);
+
 
     const handleItemClick = (id) => {
         setSelectedItemId(id);
         setOpenModal(true);
     };
+
+    const options = {
+        table: 'news',
+        select: '*',
+        where: 'hienthi >0' + ' and type="review"',
+    };
+
+    const [reviewData, setReviewData] = useState([]);
+    useEffect(() => {
+        const fetch = async () => {
+            const _review = await get('tab', { params: options });
+            setReviewData(_review);
+        };
+
+        fetch();
+    }, []);
+
+    console.log('🚀 ~ file: index.js ~ line 444 ~ Review ~ reviewData', reviewData);
+    const _url = path_upload().photo;
     return (
         <>
             <div className="title-main">
@@ -788,8 +807,8 @@ function Review() {
                             >
                                 <img
                                     className="object-cover brightness-100 group-hover:brightness-50 w-full fixed-photo"
-                                    // src={item.img}
-                                    src={Noimage}
+                                    src={_url + item.icon}
+                                    // src={Noimage}
                                     alt="CKD COS VIETNAM"
                                 />
                             </div>
@@ -800,14 +819,19 @@ function Review() {
                                         <Rating></Rating>
                                     </div>
                                     <div className="grid gap-1 ">
-                                        <RatingComponent rating={item.rating} />
+                                        <RatingComponent
+                                            rating={
+                                                //    options2\"sosao\":\"5\",\"thoigian\":\"16\\/1\\/2024\"}"
+                                                JSON.parse(item.options2).sosao
+                                            }
+                                        />
                                         <p className="text-white text-sm sm:text-xs md:text-xs lg:text-xs xl:text-xs 2xl:text-xs line-clamp-3">
                                             {item.customer}
                                         </p>
                                         <div className="flex items-center mb-4">
                                             <div>
                                                 <p className="text-white text-sm sm:text-xs md:text-xs lg:text-xs xl:text-xs 2xl:text-xs line-clamp-3">
-                                                    {item.feedback}
+                                                    {item.motavi}
                                                 </p>
                                             </div>
                                         </div>
