@@ -27,7 +27,7 @@ function Promotion() {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 1000);
+        }, 200);
     }, []);
     useEffect(() => {
         const fetch = async () => {

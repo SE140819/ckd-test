@@ -50,7 +50,7 @@ import React from 'react';
      useEffect(() => {
          setTimeout(() => {
              setLoading(false);
-         }, 1000);
+         }, 200);
      }, []);
      return (
          <>
@@ -361,15 +361,22 @@ import React from 'react';
                                                                  alt={i.tenkhongdauvi}
                                                                  title={i.tenkhongdauvi}
                                                              />
+                                                              <span
+                                                 className="cart-buy addcart transition"
+                                                 data-id="157"
+                                                 data-action="buynow"
+                                             ></span>
                                                          </a>
                                                      </div>
                                                  </div>
                                              </div>
                                              <div className="rounded-lg bg-white">
                                                  {/* reposive */}
-                                                 <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
+                                                 <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
                                                      <a href={i.link} title={i.tenkhongdauvi}>
-                                                         {i.tenvi}
+                                                        <span className="line-clamp-2">
+                                                        {i.tenvi}
+                                                        </span>
                                                      </a>
                                                  </h1>
                                                  {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
@@ -414,11 +421,7 @@ import React from 'react';
                                                  </div>
                                              </div>
 
-                                             <span
-                                                 className="cart-buy addcart transition"
-                                                 data-id="157"
-                                                 data-action="buynow"
-                                             ></span>
+                                            
                                              {!!i.khuyenmai && i.khuyenmai > 0 && (
                                                  <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
                                                      {getDiscount(i.gia, i.giamoi) + '%'}
@@ -473,14 +476,14 @@ import React from 'react';
                          className="mySwiper"
                      >
                          {productNew.map((i, index) => (
-                             <SwiperSlide key={i.id}>
-                                 <div className="item container flex justify-center mb-5">
+                               <SwiperSlide key={i.id}>
+                               <div className="item container flex justify-center mb-5">
                                      <div className="max-w-sm">
                                          <div className="bg-white relative transition duration-500 rounded-lg">
                                              <div className="item">
                                                  <div className="img_sp zoom_hinh">
                                                      <div className="image-container">
-                                                         <Link to={`/product/${i.id}`} title={i.tenkhongdauvi}>
+                                                         <a href={`/product/${i.id}`} title={i.tenkhongdauvi}>
                                                              <img
                                                                  className="img-fluid img-lazy img-load object-cover"
                                                                  src={
@@ -489,15 +492,22 @@ import React from 'react';
                                                                  alt={i.tenkhongdauvi}
                                                                  title={i.tenkhongdauvi}
                                                              />
-                                                         </Link>
+                                                              <span
+                                                 className="cart-buy addcart transition"
+                                                 data-id="157"
+                                                 data-action="buynow"
+                                             ></span>
+                                                         </a>
                                                      </div>
                                                  </div>
                                              </div>
                                              <div className="rounded-lg bg-white">
                                                  {/* reposive */}
-                                                 <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
+                                                 <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
                                                      <a href={i.link} title={i.tenkhongdauvi}>
-                                                         {i.tenvi}
+                                                        <span className="line-clamp-2">
+                                                        {i.tenvi}
+                                                        </span>
                                                      </a>
                                                  </h1>
                                                  {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
@@ -542,11 +552,7 @@ import React from 'react';
                                                  </div>
                                              </div>
 
-                                             <span
-                                                 className="cart-buy addcart transition"
-                                                 data-id="157"
-                                                 data-action="buynow"
-                                             ></span>
+                                            
                                              {!!i.khuyenmai && i.khuyenmai > 0 && (
                                                  <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
                                                      {getDiscount(i.gia, i.giamoi) + '%'}
@@ -555,7 +561,7 @@ import React from 'react';
                                          </div>
                                      </div>
                                  </div>
-                             </SwiperSlide>
+                           </SwiperSlide>
                          ))}
                      </Swiper>
                      <p className="xemtatca">
@@ -678,62 +684,71 @@ import React from 'react';
              >
                  {product.map((i, index) => (
                      <SwiperSlide key={i.id}>
-                         <div className="item container flex justify-center mb-5">
-                             <div className="max-w-sm">
-                                 <div className="bg-white relative transition duration-500 rounded-lg">
-                                     <div className="item">
-                                         <div className="img_sp zoom_hinh">
-                                             <div className="image-container">
-                                                 <Link to={`/product/${i.id}`} title={i.tenkhongdauvi}>
-                                                     <img
-                                                         className="img-fluid img-lazy img-load object-cover"
-                                                         src={i.photo ? path_upload().product + i.photo : Noimage}
-                                                         alt={i.tenkhongdauvi}
-                                                         title={i.tenkhongdauvi}
-                                                     />
-                                                 </Link>
+                       <div className="item container flex justify-center mb-5">
+                                     <div className="max-w-sm">
+                                         <div className="bg-white relative transition duration-500 rounded-lg">
+                                             <div className="item">
+                                                 <div className="img_sp zoom_hinh">
+                                                     <div className="image-container">
+                                                         <a href={`/product/${i.id}`} title={i.tenkhongdauvi}>
+                                                             <img
+                                                                 className="img-fluid img-lazy img-load object-cover"
+                                                                 src={
+                                                                     i.photo ? path_upload().product + i.photo : Noimage
+                                                                 }
+                                                                 alt={i.tenkhongdauvi}
+                                                                 title={i.tenkhongdauvi}
+                                                             />
+                                                              <span
+                                                 className="cart-buy addcart transition"
+                                                 data-id="157"
+                                                 data-action="buynow"
+                                             ></span>
+                                                         </a>
+                                                     </div>
+                                                 </div>
                                              </div>
-                                         </div>
-                                     </div>
-                                     <div className="rounded-lg bg-white">
-                                         {/* reposive */}
-                                         <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
-                                             <a href={i.link} title={i.tenkhongdauvi}>
-                                                 {i.tenvi}
-                                             </a>
-                                         </h1>
-                                         {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
-                                         {i.giamoi > 0 ? (
-                                             <p className="gia_sp">
-                                                 <span className="gia giamoi">
-                                                     {/* formatNumber */}
-                                                     {formatNumber(i.giamoi)} đ
-                                                 </span>
-                                                 <span className=" giacu">
-                                                     {/* formatNumber */}
-                                                     {formatNumber(i.gia)} đ
-                                                 </span>
-                                             </p>
-                                         ) : (
-                                             <p className="gia_sp">
-                                                 <span className="gia giamoi">
-                                                     {/* formatNumber */}
-                                                     {formatNumber(i.gia)} đ
-                                                 </span>
-                                             </p>
-                                         )}
-                                         <div className="flex justify-center">
-                                             {i.moi > 0 && (
-                                                 <span className="border rounded p-1 border-green-500 text-green-500">
-                                                     New
-                                                 </span>
-                                             )}
-                                         </div>
-                                         <div className="mt-2">
-                                             <div className="text-gray-500 text-xs">
-                                                 {title.daban} {i.nhaplieu_daban}
-                                             </div>
-                                             {/* <Progress
+                                             <div className="rounded-lg bg-white">
+                                                 {/* reposive */}
+                                                 <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
+                                                     <a href={i.link} title={i.tenkhongdauvi}>
+                                                        <span className="line-clamp-2">
+                                                        {i.tenvi}
+                                                        </span>
+                                                     </a>
+                                                 </h1>
+                                                 {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
+                                                 {i.giamoi > 0 ? (
+                                                     <p className="gia_sp">
+                                                         <span className="gia giamoi">
+                                                             {/* formatNumber */}
+                                                             {formatNumber(i.giamoi)} đ
+                                                         </span>
+                                                         <span className=" giacu">
+                                                             {/* formatNumber */}
+                                                             {formatNumber(i.gia)} đ
+                                                         </span>
+                                                     </p>
+                                                 ) : (
+                                                     <p className="gia_sp">
+                                                         <span className="gia giamoi">
+                                                             {/* formatNumber */}
+                                                             {formatNumber(i.gia)} đ
+                                                         </span>
+                                                     </p>
+                                                 )}
+                                                 <div className="flex justify-center">
+                                                     {i.moi > 0 && (
+                                                         <span className="border rounded p-1 border-green-500 text-green-500">
+                                                             New
+                                                         </span>
+                                                     )}
+                                                 </div>
+                                                 <div className="mt-2">
+                                                     <div className="text-gray-500 text-xs">
+                                                         {title.daban} {i.nhaplieu_daban}
+                                                     </div>
+                                                     {/* <Progress
                                                         progress={50}
                                                         color="pink"
                                                         textLabel="50/100"
@@ -741,29 +756,25 @@ import React from 'react';
                                                         //    labelProgress
                                                         labelText
                                                     /> */}
+                                                 </div>
+                                             </div>
+
+                                            
+                                             {!!i.khuyenmai && i.khuyenmai > 0 && (
+                                                 <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
+                                                     {getDiscount(i.gia, i.giamoi) + '%'}
+                                                 </div>
+                                             )}
                                          </div>
                                      </div>
-
-                                     <span
-                                         className="cart-buy addcart transition"
-                                         data-id="157"
-                                         data-action="buynow"
-                                     ></span>
-                                     {!!i.khuyenmai && i.khuyenmai > 0 && (
-                                         <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                             {getDiscount(i.gia, i.giamoi) + '%'}
-                                         </div>
-                                     )}
                                  </div>
-                             </div>
-                         </div>
                      </SwiperSlide>
                  ))}
              </Swiper>
 
              <p className="xemtatca">
                  <a
-                     href="https://ckdvietnam.com/san-pham/tot-nhat"
+                     href="/promotion"
                      className="bg-green-500 hover:bg-pink-400
                      text-white hover:text-white
                       font-bold py-2 px-4 rounded-full"

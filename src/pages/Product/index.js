@@ -22,12 +22,19 @@ function Product() {
         select: '*',
         where: 'hienthi >0',
     };
+
+    const options2 = {
+        table: 'product_list',
+        select: 'id,tenvi as ten,tenkhongdauvi as link,photo',
+        where: 'type="san-pham" and hienthi >0',
+        order_by: 'stt,id desc',
+    };
     const [product_list, setProductList] = useState([]);
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 1000);
+        }, 200);
     }, []);
     useEffect(() => {
         const fetch = async () => {
@@ -38,12 +45,25 @@ function Product() {
         fetch();
     }, []);
 
+
+  
+
+    const [categorty, setCategorty] = useState([]);
+
+    useEffect(() => {
+        const fetch = async () => {
+            const _category = await get('tab', { params: options2 });
+            setCategorty(_category || []);
+        };
+
+        fetch();
+    }, []);
     const initialFilterState = {
         id_thuonghieu: '', //done
         id_cat: '', //done
         id_dong: '', //done
     };
-
+    console.log('categorty', categorty);
     const [filterState, setFilterState] = useState(initialFilterState);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [noProductFound, setNoProductFound] = useState(false);
@@ -127,7 +147,7 @@ function Product() {
                                             <option value="">Tất cả</option>
                                             {categorty.map((item, index) => (
                                                 <option key={index} value={item.id}>
-                                                    {item.name}
+                                                    {item.ten}
                                                 </option>
                                             ))}
                                         </select>
@@ -234,6 +254,11 @@ function Product() {
                                                                     alt={i.tenkhongdauvi}
                                                                     title={i.tenkhongdauvi}
                                                                 />
+                                                                 <span
+                                                                    className="cart-buy addcart transition"
+                                                                    data-id="157"
+                                                                    data-action="buynow"
+                                                                ></span>
                                                             </Link>
                                                         </div>
                                                     </div>
@@ -242,7 +267,9 @@ function Product() {
                                                     {/* reposive */}
                                                     <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
                                                         <a href={i.link} title={i.tenkhongdauvi}>
+                                                            <span className="line-clamp-2">
                                                             {i.tenvi}
+                                                            </span>
                                                         </a>
                                                     </h1>
                                                     {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
@@ -287,11 +314,7 @@ function Product() {
                                                     </div>
                                                 </div>
 
-                                                <span
-                                                    className="cart-buy addcart transition"
-                                                    data-id="157"
-                                                    data-action="buynow"
-                                                ></span>
+                                            
                                                 {!!i.khuyenmai && i.khuyenmai > 0 && (
                                                     <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
                                                         {getDiscount(i.gia, i.giamoi) + '%'}

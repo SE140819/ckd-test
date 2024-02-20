@@ -177,7 +177,7 @@ function DetailProduct() {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 1000);
+        }, 200);
     }, []);
 
     console.log('imgDetail', imgDetail);
@@ -191,18 +191,24 @@ function DetailProduct() {
                     <div className="container mx-auto my-12">
                         <Breadcrumb aria-label="Breadcrumb" className="bg-gray-50 px-5 py-3 dark:bg-gray-800 mt-5">
                             <Breadcrumb.Item href="/" icon={HiHome}>
+                                <span className="line-clamp-1">
                                 Trang chủ
+                                </span>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item href="/product">
-                                <span>Sản phẩm</span>
+                                <span
+                                 className="line-clamp-1"
+                                >Sản phẩm</span>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item href="/">
-                                <span>{productId ? productId.tenvi : ''}</span>
+                                <span
+                                    className="line-clamp-1"
+                                >{productId ? productId.tenvi : ''}</span>
                             </Breadcrumb.Item>
                         </Breadcrumb>
-                        <h1 className="text-4xl font-bold text-center main-color">{title.detail}</h1>
+                        {/* <h1 className="text-2xl font-bold text-center main-color">{title.detail}</h1> */}
                     </div>
-                    <div className="container mx-auto flex flex-col justify-between lg:flex-row gap-16 lg:items-center">
+                    <div className="container mx-auto flex flex-col justify-between lg:flex-row lg:items-center">
                         <div className="flex flex-col gap-6 lg:w-2/4">
                             <img
                                 key={activeImageKey}
@@ -232,8 +238,8 @@ function DetailProduct() {
                                 </Swiper>
                             </div>
                         </div>
-                        <div className="flex flex-col gap-4 lg:w-2/4">
-                            <div>
+                        <div className="flex flex-col gap-4 mx-4 lg:w-2/4">
+                            <div className=''>
                                 <span className=" text-green-700 font-semibold border border-green-700">
                                     {/* {productId ? productId.id_thuonghieu : ''} */}
                                     {/* nếu id_thuonghieu =65 thì hiển thị lacto-derm còn 66 thì hiển thị bellasu con lại thì hiển thị CKD */}
@@ -423,7 +429,7 @@ function DetailProduct() {
                             </div>
                         </div>
                     </div>
-                    <div className="container mx-auto grid grid-cols-2 gap-4 shadow-md dark:bg-gray-800 p-4 mt-5 rounded-lg">
+                    <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 shadow-md dark:bg-gray-800 p-4 mt-5 rounded-lg">
                         {/* Left Column */}
                         <div
                             // căn giữa
@@ -446,21 +452,23 @@ function DetailProduct() {
 
                         {/* Right Column */}
                         {/* căn giữa */}
-                        <div className=" flex flex-col justify-center  gap-4 p-4 bg-white rounded-lg">
+                        <div className="flex flex-col gap-4 p-4 bg-white rounded-lg">
                             {/* Other content goes here */}
-                            <Rating.Advanced percentFilled={100} className="mb-2">
+                            <Rating.Advanced percentFilled={100} className="mb-2 justify-center">
                                 5 sao
                             </Rating.Advanced>
-                            <Rating.Advanced percentFilled={17} className="mb-2">
+                            <Rating.Advanced percentFilled={0} className="mb-2 justify-center">
                                 4 sao
                             </Rating.Advanced>
-                            <Rating.Advanced percentFilled={8} className="mb-2">
+                            <Rating.Advanced percentFilled={0} className="mb-2 justify-center">
                                 3 sao
                             </Rating.Advanced>
-                            <Rating.Advanced percentFilled={4} className="mb-2">
+                            <Rating.Advanced percentFilled={0} className="mb-2 justify-center">
                                 2 sao
                             </Rating.Advanced>
-                            <Rating.Advanced percentFilled={1}>1 sao</Rating.Advanced>
+                            <Rating.Advanced percentFilled={0} className="mb-2 justify-center">
+                                1 sao
+                            </Rating.Advanced>
                         </div>
                     </div>
 
