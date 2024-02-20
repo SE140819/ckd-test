@@ -208,7 +208,7 @@ import React from 'react';
                          <SwiperSlide key={i.id}>
                              <div className="item_dm">
                                  <p className="img_sp_home zoom_hinh border overflow-hidden">
-                                     <a href={i.link} title={i.ten}>
+                                     <a href="/product" title={i.ten}>
                                          <img
                                              className="img-fluid border rounded-full transform hover:scale-105 transition-transform duration-300 ease-in-out"
                                              src={i.photo ? _url + i.photo : Noimage}
@@ -217,7 +217,7 @@ import React from 'react';
                                      </a>
                                  </p>
                                  <h2 className="name_sp catchuoi2">
-                                     <a href={i.link} title={i.ten}>
+                                     <a href="/product" title={i.ten}>
                                          {i.ten}
                                      </a>
                                  </h2>

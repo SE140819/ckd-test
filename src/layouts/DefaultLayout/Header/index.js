@@ -15,11 +15,11 @@ const navLinks = [
     { title: 'Giới thiệu', url: '/intro' },
     // { title: 'Giỏ hàng', url: '/shopping' },
     // { title: 'Đánh giá', url: '/review' },
-    { title: 'Thương hiệu', url: '/' },
-    { title: 'Khuyến mãi', url: '/' },
+    { title: 'Thương hiệu', url: '/comingsoon' },
+    { title: 'Khuyến mãi', url: '/promotion' },
     { title: 'Sản phẩm', url: '/product' },
-    { title: 'Sự kiện', url: '/event' },
-    { title: 'Tin tức', url: '/event' },
+    { title: 'Sự kiện', url: '/comingsoon' },
+    { title: 'Tin tức', url: '/comingsoon' },
     { title: 'Liện hệ', url: '/contact' },
 ];
 

@@ -14,13 +14,13 @@ const Noimage =
 
 const BAN = 'album-sneaker-shoes';
 // ngayhethan  khác 0
-function Product() {
+function Promotion() {
     const [loading, setLoading] = useState(true);
 
     const options = {
         table: 'product',
         select: '*',
-        where: 'hienthi >0',
+        where: 'hienthi >0 AND khuyenmai >0',
     };
     const [product_list, setProductList] = useState([]);
 
@@ -91,126 +91,11 @@ function Product() {
                     <SkeletonProducts />
                 ) : (
                     <>
-                        <div className="container mx-auto mt-5">
-                            <form
-                                className="max-w-3xl
-                    mx-auto flex"
-                            >
-                                {/* select theo tên brand */}
-                                <div className="flex-1 mr-2">
-                                    <div className="mb-5">
-                                        <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
-                                            Thương hiệu
-                                        </label>
-                                        <select
-                                            onChange={(e) =>
-                                                setFilterState({ ...filterState, id_thuonghieu: e.target.value })
-                                            }
-                                            className="w-full px-4 py-2 border rounded-lg"
-                                        >
-                                            <option value="">Tất cả</option>
-                                            <option value="65">CKD</option>
-                                            <option value="66">Lactto</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex-1 mr-2">
-                                    <div className="mb-5">
-                                        <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
-                                            Loại sản phẩm
-                                        </label>
-                                        <select
-                                            onChange={(e) => setFilterState({ ...filterState, id_cat: e.target.value })}
-                                            className="w-full px-4 py-2 border rounded-lg"
-                                        >
-                                            {/* mặc định sẽ là tất cả */}
-                                            <option value="">Tất cả</option>
-                                            {categorty.map((item, index) => (
-                                                <option key={index} value={item.id}>
-                                                    {item.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="flex-1 mr-2">
-                                    <div className="mb-5">
-                                        <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
-                                            Theo dòng
-                                        </label>
-                                        <select
-                                            onChange={(e) =>
-                                                setFilterState({ ...filterState, id_dong: e.target.value })
-                                            }
-                                            className="w-full px-4 py-2 border rounded-lg"
-                                        >
-                                            <option value="">Tất cả</option>
-                                            {type.map((item, index) => (
-                                                <option key={index} value={item.id}>
-                                                    {item.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
-                                {/* Tìm kiếm giá */}
-                                {/* <div className="flex-1 mr-2">
-                            <div className="mb-5">
-                                <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
-                                    Giá
-                                </label>
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="1000000"
-                                    value={filterState.priceRange.max}
-                                    onChange={handlePriceChange}
-                                    className="w-full px-4 py-2 border rounded-lg"
-                                />
-                            </div>
-                        </div> */}
-                                {/*  chọn giá theo khoảng */}
-                                {/* <div className="flex-1 mr-2">
-                            <div className="mb-5">
-                                <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
-                                    Giá
-                                </label>
-                                <select
-                                    onChange={(e) =>
-                                        setFilterState({ ...filterState, priceRange: { max: e.target.value } })
-                                    }
-                                    className="w-full px-4 py-2 border rounded-lg"
-                                >
-                                    <option value="0">Tất cả</option>
-                                    <option value="100000">Dưới 100.000</option>
-                                    <option value="200000">Dưới 200.000</option>
-                                    <option value="300000">Dưới 300.000</option>
-                                    <option value="400000">Dưới 400.000</option>
-                                    <option value="500000">Dưới 500.000</option>
-                                    <option value="600000">Dưới 600.000</option>
-                                    <option value="700000">Dưới 700.000</option>
-                                    <option value="800000">Dưới 800.000</option>
-                                    <option value="900000">Dưới 900.000</option>
-                                    <option value="1000000">Dưới 1.000.000</option>
-                                </select>
-                            </div>
-                        </div> */}
-                            </form>
-                        </div>
                         {/* Hiển thị thông báo nếu không có sản phẩm */}
                         {noProductFound && (
                             <div className="flex justify-center items-center h-96">
                                 {/* <img src="./assets/images/not-found/no-product.jpg" alt="Không có sản phẩm" /> */}
-                                <h1 className="text-2xl font-bold">
-                                    <a href="https://vectorified.com/no-data-icon" title="No Data Icon">
-                                        <img
-                                            src="https://vectorified.com/images/no-data-icon-10.png"
-                                            width="600"
-                                            height="600"
-                                            alt="No Data Icon"
-                                        />
-                                    </a>
-                                </h1>
+                                <h1 className="text-2xl font-bold">Không có sản phẩm nào phù hợp</h1>
                             </div>
                         )}
                         <div className=" grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-5">
@@ -310,6 +195,4 @@ function Product() {
     );
 }
 
-
-
-export default Product;
+export default Promotion;
