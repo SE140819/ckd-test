@@ -20,7 +20,10 @@ const publicRoutes = [
     { path: '/review', component: Review },
     { path: '/video', component: Review, layout: null },
     { path: '/shopping', component: Shopping },
-    { path: '/detail-product', component: DetailProduct },
+    {
+        path: '/product/:id',
+        component: DetailProduct,
+    },
     {
         path: '/intro',
         component: Introduction,

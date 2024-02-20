@@ -1,53 +1,70 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumb, Progress } from 'flowbite-react';
 import { HiHome } from 'react-icons/hi';
-import { product_list, review, title, categorty, type } from '../../data/home';
+import { product_list_text, review, title, categorty, type } from '../../data/home';
 import EditorTextParser from '../../components/editor-parser/EditorTextParser';
 import { exampleData } from '../../data/exampleData';
+import { get } from '../../utils/httpRequest';
+import { formatNumber, getDiscount, path_upload } from '../../utils/ckdUtils';
+import { Link } from 'react-router-dom';
+
+const Noimage =
+    'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
+
+const BAN = 'album-sneaker-shoes';
+// ngayhethan  khác 0
 function Product() {
+    const options = {
+        table: 'product',
+        select: '*',
+        where: 'hienthi >0',
+    };
+    const [product_list, setProductList] = useState([]);
+    useEffect(() => {
+        const fetch = async () => {
+            const _product = await get('tab', { params: options });
+            setProductList(_product || []);
+        };
+
+        fetch();
+    }, []);
+
     const initialFilterState = {
-        price: 0,
-        brand: '',
-        category: '',
-        better: '',
-        sold: 0,
-        type: '',
-        date: { type: Date, default: Date.now },
+        id_thuonghieu: '', //done
+        id_cat: '', //done
+        id_dong: '', //done
     };
 
     const [filterState, setFilterState] = useState(initialFilterState);
-    const [filteredProducts, setFilteredProducts] = useState([...product_list]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [noProductFound, setNoProductFound] = useState(false);
-    const [data, setData] = useState(exampleData);;
 
     const filterProducts = () => {
         const newFilteredProducts = product_list.filter((product) => {
-            const isPriceMatch = filterState.price === 0 || product.price <= filterState.price;
-            const isBrandMatch = filterState.brand === '' || product.brand === filterState.brand;
-            const isCategoryMatch = filterState.category === '' || product.category === filterState.category;
-            const isBetterMatch = filterState.better === '' || product.better === filterState.better;
-            const isSoldMatch = filterState.sold === 0 || product.sold >= filterState.sold;
-            const isTypeMatch = filterState.type === '' || product.type === filterState.type;
+            // const isPriceMatch = filterState.price === 0 || product.price <= filterState.price;
+            const isBrandMatch =
+                filterState.id_thuonghieu === '' || product.id_thuonghieu === filterState.id_thuonghieu;
+            const isCategoryMatch = filterState.id_cat === '' || product.id_cat === filterState.id_cat;
+            // const isBetterMatch = filterState.better === '' || product.better === filterState.better;
+            // const isSoldMatch = filterState.sold === 0 || product.sold >= filterState.sold;
+            const isTypeMatch = filterState.id_dong === '' || product.id_dong === filterState.id_dong;
 
-            return isBrandMatch && isCategoryMatch && isBetterMatch && isSoldMatch && isTypeMatch && isPriceMatch;
+            return isBrandMatch && isCategoryMatch && isTypeMatch /*  && isBetterMatch && isSoldMatch */;
         });
-
+        console.log('newFilteredProducts', newFilteredProducts);
         setFilteredProducts(newFilteredProducts);
         setNoProductFound(newFilteredProducts.length === 0);
     };
 
     useEffect(() => {
         filterProducts();
-    }, [filterState]); // Recalculate filteredProducts whenever filterState changes
+    }, [product_list, filterState]);
 
-    const handlePriceChange = (e) => {
-        const { value } = e.target;
-        setFilterState((prevState) => ({
-            ...prevState,
-            priceRange: { ...prevState.priceRange, max: parseInt(value) },
-        }));
-    };
+    const _url = path_upload().product;
 
+    console.log('product_list', product_list);
+    console.log('filterProducts', filteredProducts);
+    console.log('filterState', filterState);
     return (
         <>
             {/* dùng grid  4 sản phẩm 1 hàng */}
@@ -72,12 +89,12 @@ function Product() {
                                     Thương hiệu
                                 </label>
                                 <select
-                                    onChange={(e) => setFilterState({ ...filterState, brand: e.target.value })}
+                                    onChange={(e) => setFilterState({ ...filterState, id_thuonghieu: e.target.value })}
                                     className="w-full px-4 py-2 border rounded-lg"
                                 >
                                     <option value="">Tất cả</option>
-                                    <option value="CKD">CKD</option>
-                                    <option value="Lactto">Lactto</option>
+                                    <option value="65">CKD</option>
+                                    <option value="66">Lactto</option>
                                 </select>
                             </div>
                         </div>
@@ -87,7 +104,7 @@ function Product() {
                                     Loại sản phẩm
                                 </label>
                                 <select
-                                    onChange={(e) => setFilterState({ ...filterState, category: e.target.value })}
+                                    onChange={(e) => setFilterState({ ...filterState, id_cat: e.target.value })}
                                     className="w-full px-4 py-2 border rounded-lg"
                                 >
                                     {/* mặc định sẽ là tất cả */}
@@ -106,7 +123,7 @@ function Product() {
                                     Theo dòng
                                 </label>
                                 <select
-                                    onChange={(e) => setFilterState({ ...filterState, type: e.target.value })}
+                                    onChange={(e) => setFilterState({ ...filterState, id_dong: e.target.value })}
                                     className="w-full px-4 py-2 border rounded-lg"
                                 >
                                     <option value="">Tất cả</option>
@@ -135,13 +152,15 @@ function Product() {
                             </div>
                         </div> */}
                         {/*  chọn giá theo khoảng */}
-                        <div className="flex-1 mr-2">
+                        {/* <div className="flex-1 mr-2">
                             <div className="mb-5">
                                 <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200">
                                     Giá
                                 </label>
                                 <select
-                                    onChange={(e) => setFilterState({ ...filterState, priceRange: { max: e.target.value } })}
+                                    onChange={(e) =>
+                                        setFilterState({ ...filterState, priceRange: { max: e.target.value } })
+                                    }
                                     className="w-full px-4 py-2 border rounded-lg"
                                 >
                                     <option value="0">Tất cả</option>
@@ -157,7 +176,7 @@ function Product() {
                                     <option value="1000000">Dưới 1.000.000</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> */}
                     </form>
                 </div>
                 {/* Hiển thị thông báo nếu không có sản phẩm */}
@@ -168,53 +187,74 @@ function Product() {
                     </div>
                 )}
                 <div className=" grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-5">
-                    {filteredProducts.map((item, index) => (
+                    {filteredProducts.map((i, index) => (
                         <div className="col-span-1" key={index}>
-                            <div className="container flex justify-center mb-5">
+                            <div className="item container flex justify-center mb-5">
                                 <div className="max-w-sm">
                                     <div className="bg-white relative transition duration-500 rounded-lg">
                                         <div className="item">
                                             <div className="img_sp zoom_hinh">
                                                 <div className="image-container">
-                                                    <a href={item.href} title={item.alt}>
+                                                    <Link to={`/product/${i.id}`} title={i.tenkhongdauvi}>
                                                         <img
-                                                            className="img-fluid img-lazy img-load"
-                                                            src={item.image}
-                                                            alt={item.alt}
-                                                            title={item.alt}
+                                                            className="img-fluid img-lazy img-load object-cover"
+                                                            src={
+                                                                i.photo ? path_upload().product + i.photo : Noimage
+                                                                // nếu i.tenvi = BAN thì sẽ hiển thị Noimage
+                                                            }
+                                                            alt={i.tenkhongdauvi}
+                                                            title={i.tenkhongdauvi}
                                                         />
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="rounded-lg bg-white">
                                             {/* reposive */}
                                             <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
-                                                <a
-                                                    href="san-pham/bo-cham-soc-da-toan-dien-limited-xuan-ruc-ro-full-qua-tang-gioi-han-100-hop-duy-nhat-cnc-d"
-                                                    title="Bộ Chăm Sóc Da Toàn Diện Limited  -  Xuân Rực Rỡ , Full Quà Tặng Giới Hạn 100 hộp duy nhất"
-                                                >
-                                                    {item.name}
+                                                <a href={i.link} title={i.tenkhongdauvi}>
+                                                    {i.tenvi}
                                                 </a>
                                             </h1>
-                                            <p className="gia_sp">
-                                                <span className="gia giamoi">{item.price}</span>
-                                            </p>
+                                            {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
+                                            {i.giamoi > 0 ? (
+                                                <p className="gia_sp">
+                                                    <span className="gia giamoi">
+                                                        {/* formatNumber */}
+                                                        {formatNumber(i.giamoi)} đ
+                                                    </span>
+                                                    <span className=" giacu">
+                                                        {/* formatNumber */}
+                                                        {formatNumber(i.gia)} đ
+                                                    </span>
+                                                </p>
+                                            ) : (
+                                                <p className="gia_sp">
+                                                    <span className="gia giamoi">
+                                                        {/* formatNumber */}
+                                                        {formatNumber(i.gia)} đ
+                                                    </span>
+                                                </p>
+                                            )}
                                             <div className="flex justify-center">
-                                                <span className="border rounded p-1 border-green-500 text-green-500">
-                                                    New
-                                                </span>
+                                                {i.moi > 0 && (
+                                                    <span className="border rounded p-1 border-green-500 text-green-500">
+                                                        New
+                                                    </span>
+                                                )}
                                             </div>
                                             <div className="mt-2">
-                                                <div className="text-gray-500 text-xs">{title.daban}</div>
-                                                <Progress
-                                                    progress={50}
-                                                    color="pink"
-                                                    textLabel="50/100"
-                                                    size="lg"
-                                                    //    labelProgress
-                                                    labelText
-                                                />
+                                                <div className="text-gray-500 text-xs">
+                                                    {title.daban} {i.nhaplieu_daban}
+                                                </div>
+                                                {/* <Progress
+                                                        progress={50}
+                                                        color="pink"
+                                                        textLabel="50/100"
+                                                        size="lg"
+                                                        //    labelProgress
+                                                        labelText
+                                                    /> */}
                                             </div>
                                         </div>
 
@@ -223,9 +263,9 @@ function Product() {
                                             data-id="157"
                                             data-action="buynow"
                                         ></span>
-                                        {!!item.voucher && (
+                                        {!!i.khuyenmai && i.khuyenmai > 0 && (
                                             <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                                {item.voucher}%
+                                                {getDiscount(i.gia, i.giamoi) + '%'}
                                             </div>
                                         )}
                                     </div>
@@ -234,7 +274,6 @@ function Product() {
                         </div>
                     ))}
                 </div>
-            
             </div>
         </>
     );

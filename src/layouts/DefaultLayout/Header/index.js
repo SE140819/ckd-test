@@ -6,7 +6,9 @@ import Upheader from '../Upheader';
 import cx from 'classnames';
 import HeadlessTippy from '@tippyjs/react/headless';
 
+import { get } from '../../../utils/httpRequest';
 
+import { path_upload } from '../../../utils/ckdUtils';
 
 const navLinks = [
     { title: 'Home', url: '/' },
@@ -20,6 +22,9 @@ const navLinks = [
     { title: 'Tin tức', url: '/event' },
     { title: 'Liện hệ', url: '/contact' },
 ];
+
+const Noimage =
+    'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
 function Header() {
     const [isHeaderFixed, setIsHeaderFixed] = useState(false);
 
@@ -37,72 +42,48 @@ function Header() {
     }, []);
 
     // search
-      const [searchValue, setSearchValue] = useState('');
-      const [searchResult, setSearchResult] = useState([]);
-      const [showResult, setShowResult] = useState(false);
- 
+    const [searchValue, setSearchValue] = useState('');
+    const [searchResult, setSearchResult] = useState([]);
+    const [showResult, setShowResult] = useState(false);
+    const _url = path_upload().product;
 
-      const inputRef = useRef();
+    const inputRef = useRef();
 
-    
+    const options = {
+        table: 'product',
+        select: '*',
+        where: 'hienthi >0',
+    };
+    const [product_list, setProductList] = useState([]);
     useEffect(() => {
-            const data = [
-                {
-                    id: 1,
-                    title: 'Dầu Gội Trị Gàu, Ngăn Ngừa Rụng Tóc CKD Amino Biotin 750ML ',
-                    description: 'Trị mụn',
-                    img: 'https://ckdvietnam.com/upload/product/ads-fb-set-9853.jpg',
-                    url: 'https://ckdvietnam.com/san-pham/bo-cham-soc-da-toan-dien-limited-tet-doan-vien-full-qua-tang-gioi-han-100-hop-duy-nhat',
-                },
-                {
-                    id: 2,
-                    title: 'Tinh Chất Dưỡng Trắng Da CKD Amino Whitening Essence 30ml',
-                    description: 'Trị mụn',
-                    img: 'https://ckdvietnam.com/upload/product/ads-fb-set-9853.jpg',
-                    url: 'https://ckdvietnam.com/san-pham/bo-cham-soc-da-toan-dien-limited-tet-doan-vien-full-qua-tang-gioi-han-100-hop-duy-nhat',
-                },
-                {
-                    id: 3,
-                    title: 'Tinh Chất Dưỡng Trắng Da CKD Amino Whitening Essence 30ml',
-                    description: 'Trị mụn',
-                    img: 'https://ckdvietnam.com/upload/product/ads-fb-set-9853.jpg',
-                    url: 'https://ckdvietnam.com/san-pham/bo-cham-soc-da-toan-dien-limited-tet-doan-vien-full-qua-tang-gioi-han-100-hop-duy-nhat',
-                },
-                {
-                    id: 4,
-                    title: 'Tinh Chất Dưỡng Trắng Da CKD Amino Whitening Essence 30ml',
-                    description: 'Trị mụn',
-                    img: 'https://ckdvietnam.com/upload/product/ads-fb-set-9853.jpg',
-                    url: 'https://ckdvietnam.com/san-pham/bo-cham-soc-da-toan-dien-limited-tet-doan-vien-full-qua-tang-gioi-han-100-hop-duy-nhat',
-                },
-                {
-                    id: 5,
-                    title: '3',
-                    description: '5',
-                    img: '',
-                    url: '3',
-                },
-            ];
-    
-            const result = data.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()));
-        setSearchResult(result);   
-    }
-    , [searchValue]);
+        const fetch = async () => {
+            const _product = await get('tab', { params: options });
+            setProductList(_product || []);
+        };
 
-      const handleHideResult = () => {
-          setShowResult(false);
-      };
+        fetch();
+    }, []);
 
-      const handleChange = (e) => {
-          const searchValue = e.target.value;
-          console.log('New search value:', searchValue);
+    useEffect(() => {
+        const result = product_list.filter((item) => {
+            return item.tenvi.toLowerCase().includes(searchValue.toLowerCase());
+        });
+        setSearchResult(result);
+    }, [searchValue]);
 
-          if (!searchValue.startsWith(' ')) {
-              setSearchValue(searchValue);
-              setShowResult(true); 
-          }
-      };
-    
+    const handleHideResult = () => {
+        setShowResult(false);
+    };
+
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+        console.log('New search value:', searchValue);
+
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+            setShowResult(true);
+        }
+    };
 
     return (
         <React.Fragment>
@@ -151,18 +132,19 @@ function Header() {
                                                 <div key={index} className="py-2 px-3 hover:bg-slate-100">
                                                     <div className="grid grid-cols-6">
                                                         <div className="col-span-1">
-                                                            <a href={item.url} title={item.title}>
+                                                            <a href={`/product/${item.id}`}>
                                                                 <img
-                                                                    src={item.img}
+                                                                    src={item.photo ? `${_url}${item.photo}` : Noimage}
                                                                     className="w-20 h-20"
-                                                                    alt="CKD COS VIETNAM"
+                                                                    alt={item.tenkhongdauvi}
+                                                                    title={item.tenkhongdauvi}
                                                                 />
                                                             </a>
                                                         </div>
                                                         <div className="col-span-5">
                                                             <a href={item.url} title={item.title}>
                                                                 <div className="font-semibold w-30 text-sm text-gray-900">
-                                                                    {item.title}
+                                                                    {item.tenvi}
                                                                 </div>
                                                             </a>
                                                         </div>

@@ -13,6 +13,15 @@ import { title } from '../../data/title';
 import { exampleData } from '../../data/exampleData';
 import EditorTextParser from '../../components/editor-parser/EditorTextParser';
 
+import { useParams } from 'react-router-dom';
+
+import { get } from '../../utils/httpRequest';
+
+import { checkIsMobile, path_upload, formatNumber, getDiscount } from '../../utils/ckdUtils';
+
+const Noimage =
+    'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
+
 function DetailProduct() {
     const [images, setImages] = useState({
         img1: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
@@ -94,8 +103,33 @@ function DetailProduct() {
 
     const [isSticky, setSticky] = useState(false);
 
-    const [indexDetail, setIndexDetail] = useState('Sữa rửa mặt dưỡng trắng da chuyên sâu CKD Việt Nam 100ml');
+    const [id_list, setId_list] = useState(0);
 
+    const options = {
+        table: 'product',
+        select: '*',
+        where: 'hienthi >0',
+    };
+
+    const option2s = {
+        from: 'gallery,product',
+        select: '*',
+        where: 'product.id_list == gallery.id_photo',
+    };
+
+    // const selectImgDetail = {
+    //     table: 'product,gallery',
+    //     select: '*',
+    //     where: 'product.id_list == gallery.id_photo',
+    // };
+
+    const [imgDetail, setImgDetail] = useState([]);
+    const [product, setProduct] = useState([]);
+
+    const { id } = useParams();
+    const productId = product.find((item) => item.id === id);
+
+    // console.log('productLink', productId);
     useEffect(() => {
         const handleScroll = () => {
             setSticky(window.scrollY > 0);
@@ -120,6 +154,26 @@ function DetailProduct() {
         return () => clearInterval(interval); // Hủy bỏ interval khi component unmount
     }, [imageKeys]);
 
+    useEffect(() => {
+        const fetch = async () => {
+            const _product = await get('tab', { params: options });
+            setProduct(_product);
+        };
+
+        fetch();
+    }, []);
+
+    useEffect(() => {
+        const fetch = async () => {
+            const _imgDetail = await get('tab', { params: option2s });
+            setImgDetail(_imgDetail);
+        };
+
+        fetch();
+    }, []);
+
+    console.log('imgDetail', imgDetail);
+    const _url = path_upload().product;
     return (
         <>
             <div className="container mx-auto my-12">
@@ -131,7 +185,7 @@ function DetailProduct() {
                         <span>Sản phẩm</span>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item href="/">
-                        <span>{indexDetail}</span>
+                        <span>{productId ? productId.tenvi : ''}</span>
                     </Breadcrumb.Item>
                 </Breadcrumb>
                 <h1 className="text-4xl font-bold text-center main-color">{title.detail}</h1>
@@ -140,8 +194,7 @@ function DetailProduct() {
                 <div className="flex flex-col gap-6 lg:w-2/4">
                     <img
                         key={activeImageKey}
-                        // nhận 2 giá trị slide và cả onclick
-                        src={activeImage}
+                        src={productId ? _url + productId.photo : Noimage}
                         alt=""
                         className="fade-in w-full h-full aspect-square object-cover rounded-xl"
                     />
@@ -157,7 +210,7 @@ function DetailProduct() {
                             {Object.entries(images).map(([key, value]) => (
                                 <SwiperSlide key={key}>
                                     <img
-                                        src={value}
+                                        src={Noimage}
                                         alt=""
                                         className="w-24 h-24 rounded-md cursor-pointer md:w-40 md:h-40"
                                         onClick={() => setActiveImageKey(key)}
@@ -169,27 +222,63 @@ function DetailProduct() {
                 </div>
                 <div className="flex flex-col gap-4 lg:w-2/4">
                     <div>
-                        <span className=" text-green-700 font-semibold border border-green-700">CKD</span>
-                        <h1 className="text-3xl font-bold">Sữa rửa mặt dưỡng trắng da chuyên sâu</h1>
+                        <span className=" text-green-700 font-semibold border border-green-700">
+                            {/* {productId ? productId.id_thuonghieu : ''} */}
+                            {/* nếu id_thuonghieu =65 thì hiển thị lacto-derm còn 66 thì hiển thị bellasu con lại thì hiển thị CKD */}
+                            {productId
+                                ? productId.id_thuonghieu === 65
+                                    ? 'Lacto-Derm'
+                                    : productId.id_thuonghieu === 66
+                                    ? 'Bellasu'
+                                    : 'CKD'
+                                : ''}
+                        </span>
+
+                        <h1 className="text-3xl font-bold">{productId ? productId.tenvi : ''}</h1>
                     </div>
                     <div className="text-gray-700">
                         <table>
                             <thead>
                                 <tr>
+                                    <td className="font-semibold">Mã Sản phẩm:</td>
+                                    <td>
+                                        <span className="text-green-500 font-semibold">
+                                            {productId ? productId.masp : ''}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td className="font-semibold">Thương hiệu:</td>
-                                    <td>CKD</td>
+                                    <td>
+                                        {productId
+                                            ? productId.id_thuonghieu === 65
+                                                ? 'Lacto-Derm'
+                                                : productId.id_thuonghieu === 66
+                                                ? 'Bellasu'
+                                                : 'CKD'
+                                            : ''}
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td className="font-semibold">Xuất xứ:</td>
-                                    <td>Việt Nam</td>
+                                    <td className="font-semibold">Đã bán:</td>
+                                    <td>{productId ? productId.daban : ''}</td>
                                 </tr>
                                 <tr>
-                                    <td className="font-semibold">Dung tích:</td>
-                                    <td>100ml</td>
+                                    <td className="font-semibold">Khối lượng:</td>
+                                    <td>{productId ? productId.thetich : ''}</td>
                                 </tr>
                                 <tr>
                                     <td className="font-semibold">Giá:</td>
-                                    <td>199.000đ</td>
+                                    <td>
+                                        <span className="text-gray-500 line-through">
+                                            {formatNumber(productId ? productId.gia : '')} VND
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span className="text-red-500 font-semibold text-2xl">
+                                            {formatNumber(productId ? productId.giamoi : '')} VND
+                                        </span>
+                                    </td>
                                 </tr>
                             </thead>
                         </table>
