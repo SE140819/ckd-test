@@ -5,51 +5,82 @@ import { Label, Radio, Modal } from 'flowbite-react';
 import { Button, Tooltip } from 'flowbite-react';
 import { Autoplay } from 'swiper/modules';
 import { products, promotions, vouchers, payment_method } from '../../data/shopping';
+import { useSelector } from 'react-redux';
+import { formatNumber, path_upload } from '../../utils/ckdUtils';
 
-const DEFAULT_PAYMENT_METHOD = 'TIỀN MẶT'
+const DEFAULT_PAYMENT_METHOD = 'TIỀN MẶT';
 
+const Noimage =
+    'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
 
+function countProducts(cart) {
+    return cart.reduce((count, product) => {
+        count[product.id] = (count[product.id] || 0) + 1;
+        return count;
+    }, {});
+}
+// Tạm tính Temporary payment bằng công thức tổng giá mới * số lượng sản phẩm
+
+function TemporaryPayment(cart) {
+    return cart.reduce((total, product) => {
+        //  ép thành kiểu dữ liệu number
+        return total + Number(product.giamoi);
+    }, 0);
+}
 
 function Shopping() {
-
     const [voucher, setVoucher] = useState('');
     const [selectedVoucher, setSelectedVoucher] = useState('');
+    // giá trị giảm giá
+    const [discount, setDiscount] = useState(0);
     const [inputValue, setInputValue] = useState('');
+    const [cart, setCart] = useState([]);
+    const productCounts = countProducts(cart);
 
-    
+    const uniqueProducts = cart.reduce((unique, product) => {
+        return unique.some((item) => item.id === product.id) ? unique : [...unique, product];
+    }, []);
 
-  const handleVoucherSelect = (selectedVoucher) => {
-    setOpenModal(true);
-    setVoucher(selectedVoucher);
-  };
+    const temporaryPayment = TemporaryPayment(cart);
+    console.log('TemporaryPayment :>> ', temporaryPayment);
+    useEffect(() => {
+        const cartData = JSON.parse(localStorage.getItem('cart'));
+        if (cartData) {
+            setCart(cartData);
+        }
+    }, []);
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
-  
-
-//   console.log("voucher", voucher);
-//   console.log("selectedVoucher", selectedVoucher);
-
-  const handleVoucherChange = (e) => {
-    setSelectedVoucher(e.target.value);
+    const handleVoucherSelect = (selectedVoucher) => {
+        setOpenModal(true);
+        setVoucher(selectedVoucher);
     };
 
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+    };
+
+    const handleVoucherChange = (e) => {
+        setSelectedVoucher(e.target.value);
+        setDiscount(vouchers.find((voucher) => voucher.name === e.target.value)?.value || 0);
+    };
 
     const [openModal, setOpenModal] = useState(false);
     const [openModalPromotions, setOpenModalPromotions] = useState(false);
     const [quantity, setQuantity] = useState(1);
 
-     const increaseQuantity = () => {
-         setQuantity((prevQuantity) => prevQuantity + 1);
-     };
+    const increaseQuantity = () => {
+        setQuantity((prevQuantity) => prevQuantity + 1);
+    };
 
-     const decreaseQuantity = () => {
-         if (quantity > 0) {
-             setQuantity((prevQuantity) => prevQuantity - 1);
-         }
-     };
+    const decreaseQuantity = () => {
+        if (quantity > 0) {
+            setQuantity((prevQuantity) => prevQuantity - 1);
+        }
+    };
 
+    const _url = path_upload().product;
+    console.log('cart :>> ', cart);
+    console.log('productCounts :>> ', productCounts);
     return (
         <>
             <div className="container mx-auto p-5 mt-5 shadow-lg bg-white">
@@ -83,113 +114,132 @@ function Shopping() {
                                         </span>
                                     </Tooltip>
                                 </div>
-                                {products.map((product) => {
-                                    return (
-                                        <div
-                                            key={product.id}
-                                            className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full"
-                                        >
-                                            <div className="pb-4 md:pb-8 w-full md:w-40">
-                                                <img className="w-full hidden md:block" src={product.img} alt="dress" />
-                                                <img
-                                                    className="w-50 md:hidden"
-                                                    width={70}
-                                                    src={product.img}
-                                                    alt="dress"
-                                                />
-                                            </div>
-                                            <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
-                                                <div className="w-full flex flex-col justify-start items-start space-y-8">
-                                                    <h3 className="text-sm dark:text-white xl:text-sm font-semibold leading-6 text-gray-800">
-                                                        {product.name}
-                                                    </h3>
-                                                </div>
-                                                <div className="flex justify-between space-x-8 items-start w-full">
-                                                    <div className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">
-                                                        <div
-                                                            className="py-2 px-3 inline-block bg-white border border-gray-200 rounded-lg dark:bg-slate-900 dark:border-gray-700"
-                                                            data-hs-input-number=""
-                                                        >
-                                                            <div className="flex items-center gap-x-1.5">
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={increaseQuantity}
-                                                                    className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                                                                    data-hs-input-number-decrement=""
-                                                                >
-                                                                    <svg
-                                                                        className="flex-shrink-0 w-3.5 h-3.5"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        width={24}
-                                                                        height={24}
-                                                                        viewBox="0 0 24 24"
-                                                                        fill="none"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    >
-                                                                        <path d="M5 12h14" />
-                                                                    </svg>
-                                                                </button>
-                                                                <input
-                                                                    className="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
-                                                                    type="text"
-                                                                    defaultValue={product.quantity}
-                                                                    data-hs-input-number-input=""
-                                                                />
-                                                                <button
-                                                                    type="button"
-                                                                    className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                                                                    onClick={decreaseQuantity}
-                                                                    data-hs-input-number-increment=""
-                                                                >
-                                                                    <svg
-                                                                        className="flex-shrink-0 w-3.5 h-3.5"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        width={24}
-                                                                        height={24}
-                                                                        viewBox="0 0 24 24"
-                                                                        fill="none"
-                                                                        stroke="currentColor"
-                                                                        strokeWidth={2}
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                    >
-                                                                        <path d="M5 12h14" />
-                                                                        <path d="M12 5v14" />
-                                                                    </svg>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <p className="text-base dark:text-white xl:text-lg leading-6">
-                                                        {product.price.toLocaleString('vi-VN', {
-                                                            style: 'currency',
-                                                            currency: 'VND',
-                                                        })}{' '}
-                                                        <span className="text-red-300 line-through"> $45.00</span>
-                                                    </p>
-                                                    {/* button xoa */}
 
-                                                    <button className="hover:text-red-500">
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            width="16"
-                                                            height="16"
-                                                            fill="currentColor"
-                                                            className="bi bi-trash"
-                                                            viewBox="0 0 16 16"
-                                                        >
-                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                                                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
+                                {uniqueProducts.length === 0 ? (
+                                    <div className="flex justify-center items-center w-full h-96">
+                                        <div className="flex flex-col justify-center items-center space-y-4">
+                                            <div className="text-2xl dark:text-white">Giỏ hàng trống</div>
+                                            <div className="text-sm dark:text-white">
+                                                Hãy chọn sản phẩm để thêm vào giỏ hàng
                                             </div>
                                         </div>
-                                    );
-                                })}
+                                    </div>
+                                ) : (
+                                    uniqueProducts.map((product) => {
+                                        return (
+                                            <div
+                                                key={product.id}
+                                                className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full"
+                                            >
+                                                <div className="pb-4 md:pb-8 w-full md:w-40">
+                                                    <img
+                                                        className="w-full hidden md:block"
+                                                        src={product.photo ? `${_url}${product.photo}` : Noimage}
+                                                        alt={product.tenvi}
+                                                    />
+                                                    <img
+                                                        className="w-50 md:hidden"
+                                                        width={70}
+                                                        src={product.photo ? `${_url}${product.photo}` : Noimage}
+                                                        alt={product.tenvi}
+                                                    />
+                                                </div>
+                                                <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
+                                                    <div className="w-full flex flex-col justify-start items-start space-y-8">
+                                                        <h3 className="text-sm dark:text-white xl:text-sm font-semibold leading-6 text-gray-800">
+                                                            {product.tenvi}
+                                                        </h3>
+                                                    </div>
+                                                    <div className="flex justify-between space-x-8 items-start w-full">
+                                                        <div className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">
+                                                            <div
+                                                                className="py-2 px-3 inline-block bg-white border border-gray-200 rounded-lg dark:bg-slate-900 dark:border-gray-700"
+                                                                data-hs-input-number=""
+                                                            >
+                                                                <div className="flex items-center gap-x-1.5">
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={increaseQuantity}
+                                                                        className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                                                        data-hs-input-number-decrement=""
+                                                                    >
+                                                                        <svg
+                                                                            className="flex-shrink-0 w-3.5 h-3.5"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            width={24}
+                                                                            height={24}
+                                                                            viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            stroke="currentColor"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        >
+                                                                            <path d="M5 12h14" />
+                                                                        </svg>
+                                                                    </button>
+                                                                    <input
+                                                                        className="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
+                                                                        type="text"
+                                                                        defaultValue={productCounts[product.id] || 1}
+                                                                        data-hs-input-number-input=""
+                                                                    />
+                                                                    <button
+                                                                        type="button"
+                                                                        className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                                                        onClick={decreaseQuantity}
+                                                                        data-hs-input-number-increment=""
+                                                                    >
+                                                                        <svg
+                                                                            className="flex-shrink-0 w-3.5 h-3.5"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            width={24}
+                                                                            height={24}
+                                                                            viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            stroke="currentColor"
+                                                                            strokeWidth={2}
+                                                                            strokeLinecap="round"
+                                                                            strokeLinejoin="round"
+                                                                        >
+                                                                            <path d="M5 12h14" />
+                                                                            <path d="M12 5v14" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <p className="text-base dark:text-white xl:text-lg leading-6">
+                                                            {formatNumber(
+                                                                product.giamoi * productCounts[product.id] || 1,
+                                                            )}
+                                                            đ
+                                                        </p>
+                                                        <p className="text-red-300 xl:text-lg line-through">
+                                                            {formatNumber(product.gia * productCounts[product.id] || 1)}
+                                                            đ
+                                                        </p>
+                                                        {/* button xoa */}
+
+                                                        <button className="hover:text-red-500">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                width="16"
+                                                                height="16"
+                                                                fill="currentColor"
+                                                                className="bi bi-trash"
+                                                                viewBox="0 0 16 16"
+                                                            >
+                                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                )}
                             </div>
                             <div className="flex flex-col justify-start items-start dark:bg-gray-800 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
                                 <div className="mt-5">
@@ -235,8 +285,7 @@ function Shopping() {
                                         Hình thức thanh toán
                                     </div>
                                     {payment_method.map((payment, index) => (
-                                        <div key={index}
-                                         className="flex items-center gap-2">
+                                        <div key={index} className="flex items-center gap-2">
                                             <Radio
                                                 id={payment.id}
                                                 name="countries"
@@ -362,7 +411,7 @@ function Shopping() {
                                 />
                                 <button
                                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                    onClick={() => handleVoucherSelect(voucher)}   
+                                    onClick={() => handleVoucherSelect(voucher)}
                                 >
                                     Chọn Voucher
                                 </button>
@@ -374,18 +423,31 @@ function Shopping() {
                             <div className="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-gray-800 space-y-6">
                                 <div className="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
                                     <div className="flex justify-between w-full">
-                                        <p className="text-sm dark:text-white leading-4 text-gray-800">
-                                            Tạm tính:
-                                        </p>
+                                        <p className="text-sm dark:text-white leading-4 text-gray-800">Tạm tính:</p>
                                         <p className="text-sm dark:text-gray-300 leading-4 text-gray-600">
-                                            45.000.000đ
+                                            {formatNumber(temporaryPayment)}đ
                                         </p>
                                     </div>
+                                    <div className="flex justify-between items-center w-full">
+                                        <p className="text-sm dark:text-white leading-4 text-gray-800">Giảm giá:</p>
+                                        <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
+                                            {formatNumber((temporaryPayment * discount) / 100)}đ
+                                        </p>
+                                    </div>
+
                                     <div className="flex justify-between items-center w-full">
                                         <p className="text-sm dark:text-white leading-4 text-gray-800">
                                             Phí vận chuyển:
                                         </p>
-                                        <p className="text-base dark:text-gray-300 leading-4 text-gray-600">0đ</p>
+                                        {selectedVoucher === 'FreeShip' ? (
+                                            <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
+                                                {formatNumber(0)}đ
+                                            </p>
+                                        ) : (
+                                            <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
+                                                {voucher.money ? formatNumber(voucher.money) : formatNumber(30000)}đ
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="flex justify-between items-center w-full">
@@ -393,7 +455,11 @@ function Shopping() {
                                         Tổng cộng:
                                     </p>
                                     <p className="text-sm dark:text-gray-300 font-semibold leading-4 text-gray-600">
-                                        45.000.000đ
+                                        {formatNumber(
+                                            temporaryPayment -
+                                                (temporaryPayment * discount) / 100 +
+                                                (selectedVoucher === 'FreeShip' ? 0 : voucher.money || 30000),
+                                        )}
                                     </p>
                                 </div>
                             </div>
@@ -416,10 +482,7 @@ function Shopping() {
                         </Table.Head>
                         <Table.Body className="divide-y overflow-y-auto h-40">
                             {promotions.map((promotion, index) => (
-                                <Table.Row
-                                    className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                                    key={index}
-                                >
+                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                         <img src={promotion.img} alt="ảnh sản phẩm" width="100px" height="100px" />
                                     </Table.Cell>
@@ -460,29 +523,25 @@ function Shopping() {
 
                 <Modal.Body>
                     <fieldset className="flex flex-col gap-4">
-                       {
-                            vouchers.map((voucher, index) => (
-                                 <div key={index} className="flex items-center gap-2">
-                                      <Radio
-                                        id={voucher.id}
-                                        name="voucher"
-                                        value={voucher.name}
-                                        checked={selectedVoucher === voucher.name}
-                                        onChange={handleVoucherChange}
-                                        
-                                      />
-                                      <div className="flex flex-col">
-                                        <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                             {voucher.name}
-                                        </div>
-                                        <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                             {voucher.description}
-                                        </div>
-                                      </div>
-                                 </div>
-                            ))
-                       }
-                       
+                        {vouchers.map((voucher, index) => (
+                            <div key={index} className="flex items-center gap-2">
+                                <Radio
+                                    id={voucher.id}
+                                    name="voucher"
+                                    value={voucher.name}
+                                    checked={selectedVoucher === voucher.name}
+                                    onChange={handleVoucherChange}
+                                />
+                                <div className="flex flex-col">
+                                    <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
+                                        {voucher.name}
+                                    </div>
+                                    <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
+                                        {voucher.description}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </fieldset>
                 </Modal.Body>
 

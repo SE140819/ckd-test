@@ -1,51 +1,42 @@
 
 import React from 'react'
 import './index.css';
-
-function Media() {
-    // 2 cục zalo và instagram
+import { useSelector } from 'react-redux';
+const Instagram =
+    'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/media%20index%2FICON-01.png?alt=media&token=832cb6fd-d187-416c-a548-830cf53c74c7';
+const Zalo =
+    'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/media%20index%2FICON-02.png?alt=media&token=5fcd2b64-ceaf-488c-a5bd-598248901d3b';
+const Cart =
+    'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/media%20index%2FICON-03.png?alt=media&token=219b07b1-386d-494e-8a06-63b105378239';
+    function Media() {
+        // 2 cục zalo và instagram
+        
+         const cart = useSelector((state) => state.cart);
     return (
         <div className="media">
             <div className="zalo">
                 <a href="https://zalo.me/0961248596" target="_blank" rel="noreferrer">
-                    <img src="https://img.icons8.com/color/48/000000/zalo.png" alt="zalo" />
+                    <img src={Zalo} alt="zalo" className="p-[1px]" />
                 </a>
             </div>
             <div className="instagram">
                 <a href="https://www.instagram.com/ckd_vietnam/" target="_blank" rel="noreferrer">
-                    <img src="https://img.icons8.com/color/48/000000/instagram-new--v1.png" alt="instagram" />
+                    <img src={Instagram} alt="instagram" className="p-[1px]" />
                 </a>
             </div>
             <div className="instagram">
+                {/* vòng tròn màu đỏ cho giỏ hàng */}
+                <div className="cart-fixed-circle" style={{ display: cart.length > 0 ? 'block' : 'none' }}>
+                
+                    {/* chữ nằm giữa */}
+                    <div className="cart-fixed-circle__text">{cart.length}</div>
+                </div>
                 <a className="cart-fixed text-decoration-none " href="/shopping" title="Giỏ hàng">
-                    <svg
-                        fill="#4fa15d"
-                        width="50px"
-                        height="50px"
-                        viewBox="0 0 19.00 19.00"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="cf-icon-svg"
-                        stroke="#4fa15d"
-                        strokeWidth="0.00019"
-                    >
-                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                        <g
-                            id="SVGRepo_tracerCarrier"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            stroke="#f7f7f7"
-                            strokeWidth="0.5700000000000001"
-                        >
-                            <path d="M16.417 9.579A7.917 7.917 0 1 1 8.5 1.662a7.917 7.917 0 0 1 7.917 7.917zm-3.34-2.323a.63.63 0 0 0-.628-.628H5.892l-.436-1a.384.384 0 0 0-.351-.23H3.68a.384.384 0 1 0 0 .768h1.173l1.785 4.096a.37.37 0 0 0-.087-.01 1.161 1.161 0 1 0 0 2.322h.042a.792.792 0 1 0 .864 0h3.452a.792.792 0 1 0 .864 0h.565a.384.384 0 1 0 0-.767H6.55a.393.393 0 0 1 0-.787.38.38 0 0 0 .098-.013l5.803-.602a.714.714 0 0 0 .625-.694z"></path>
-                        </g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path d="M16.417 9.579A7.917 7.917 0 1 1 8.5 1.662a7.917 7.917 0 0 1 7.917 7.917zm-3.34-2.323a.63.63 0 0 0-.628-.628H5.892l-.436-1a.384.384 0 0 0-.351-.23H3.68a.384.384 0 1 0 0 .768h1.173l1.785 4.096a.37.37 0 0 0-.087-.01 1.161 1.161 0 1 0 0 2.322h.042a.792.792 0 1 0 .864 0h3.452a.792.792 0 1 0 .864 0h.565a.384.384 0 1 0 0-.767H6.55a.393.393 0 0 1 0-.787.38.38 0 0 0 .098-.013l5.803-.602a.714.714 0 0 0 .625-.694z"></path>
-                        </g>
-                    </svg>
+                    <img src={Cart} alt="cart" className="p-[1px]" />
                 </a>
             </div>
         </div>
     );
-}
+};
 
 export default Media;

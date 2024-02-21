@@ -7,3 +7,28 @@
     height: 50px;
     z-index: 5;
 }
+
+.cart-fixed-circle{
+    position: fixed;
+    /* bottom: 400px; */
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    z-index: 5;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s;
+}
+
+.cart-fixed-circle__text{
+    font-size: 12px;
+    color: #000;
+    font-weight: 700;
+    text-align: center;
+    line-height: 20px;
+}
