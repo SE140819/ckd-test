@@ -9,13 +9,22 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import { get } from '../../../utils/httpRequest';
 
 import { path_upload } from '../../../utils/ckdUtils';
+import Tippy from '@tippyjs/react/headless';
 
 const navLinks = [
     { title: 'Home', url: '/' },
     { title: 'Giới thiệu', url: '/intro' },
     // { title: 'Giỏ hàng', url: '/shopping' },
     // { title: 'Đánh giá', url: '/review' },
-    { title: 'Thương hiệu', url: '/comingsoon' },
+    { 
+        title: 'Thương hiệu', 
+        subLinks: [
+            { title: 'Brand', url: '/brand' },
+            { title: 'Câu chuyện thương hiệu', url: '/comingsoon' },
+            { title: 'Giới thiệu thương hiệu', url: '/comingsoon' },
+            { title: 'Lời hứa CKD', url: '/comingsoon' },
+        ] 
+    },
     { title: 'Khuyến mãi', url: '/promotion' },
     { title: 'Sản phẩm', url: '/product' },
     { title: 'Sự kiện', url: '/comingsoon' },
@@ -177,12 +186,45 @@ function Header() {
                             <Navbar.Toggle />
                         </div>
                         <Navbar.Collapse>
-                            {navLinks.map((link, index) => (
-                                <Navbar.Link key={index} href={link.url} active={link.active}>
-                                    <div className="font-semibold">{link.title}</div>
-                                </Navbar.Link>
-                            ))}
-                        </Navbar.Collapse>
+    {navLinks.map((link, index) => (
+     <Navbar.Link key={index} href={link.url} active={link.active}>
+     <Tippy
+      interactive
+         render={attrs => (
+             <div {...attrs}>
+                 {/* Đây là nơi bạn đặt submenu của mình */}
+                 {link.subLinks && link.subLinks.length > 0 && (
+                        // <div className="bg-white border border-gray-200 rounded-md shadow-lg p-3">
+                        //     {link.subLinks.map((subLink, index) => (
+                        //         <a
+                        //             key={index}
+                        //             href={subLink.url}
+                        //             className="block py-2 text-sm text-gray-900 hover:text-primary-500"
+                        //         >
+                        //             {subLink.title}
+                        //         </a>
+                        //     ))}
+                        // </div>
+                        <Navbar.Collapse>
+                    <div className="bg-white border border-gray-200 rounded-md shadow-lg p-5">
+                    {link.subLinks.map((subLink, subIndex) => (
+                        <Navbar.Link key={subIndex} href={subLink.url} active={subLink.active}
+                        >
+                            <div className="font-semibold px-3 py-2 ">
+                                {subLink.title}</div>
+                        </Navbar.Link>   
+                    ))}
+                     </div>
+                </Navbar.Collapse>
+                 )}
+             </div>
+         )}
+     >
+         <div className="font-semibold">{link.title}</div>
+     </Tippy>
+ </Navbar.Link>
+    ))}
+</Navbar.Collapse>
                     </Navbar>
                 </div>
             </div>

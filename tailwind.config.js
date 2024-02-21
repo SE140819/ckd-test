@@ -55,8 +55,13 @@ module.exports = {
 						}
 						
                     } ,
-		extend: {},
+		extend: {
+					backgroundImage: theme => ({
+						  'gradient-bg': 'linear-gradient(to bottom, #0e3a0b 72.7%, #fcbdc2 53%)'
+						})
+					  }
 	},
+	variants: {},
 	plugins: [
 		require('flowbite/plugin')
 	],

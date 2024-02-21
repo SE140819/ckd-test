@@ -68,7 +68,7 @@ import React from 'react';
                  </>
              ) : (
                  <section className=" data-te-lazy-load-init " data-te-lazy-load="true">
-                     <div id="banner">
+                     <div id="banner" className="pt-5">
                          <Banner />
                      </div>
 

@@ -17,6 +17,7 @@ import OrderSupport from '../pages/OrderSupport';
 import Questions from '../pages/Questions';
 import Account from '../pages/Account';
 import ComingSoon from '../pages/ComingSoon';
+import Brand from '../pages/Brand';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/review', component: Review },
@@ -81,6 +82,10 @@ const publicRoutes = [
     {
         path: '/account',
         component: Account,
+    },
+    {
+        path: '/brand',
+        component: Brand,
     },
     {
         path: '/comingsoon',
