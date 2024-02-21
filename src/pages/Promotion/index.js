@@ -8,6 +8,8 @@ import { get } from '../../utils/httpRequest';
 import { formatNumber, getDiscount, path_upload } from '../../utils/ckdUtils';
 import { Link } from 'react-router-dom';
 import { SkeletonProducts } from '../../components/skeleton';
+import { useDispatch } from 'react-redux';
+import { addToCart, loadCart } from '../../actions';
 
 const Noimage =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
@@ -16,7 +18,17 @@ const BAN = 'album-sneaker-shoes';
 // ngayhethan  khác 0
 function Promotion() {
     const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product));
+    };
 
+    useEffect(() => {
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+            dispatch(loadCart(JSON.parse(savedCart)));
+        }
+    }, [dispatch]);
     const options = {
         table: 'product',
         select: '*',
@@ -107,29 +119,40 @@ function Promotion() {
                                                 <div className="item">
                                                     <div className="img_sp zoom_hinh">
                                                         <div className="image-container">
-                                                            <Link to={`/product/${i.id}`} title={i.tenkhongdauvi}>
+                                                            <a href={`/product/${i.id}`} title={i.tenkhongdauvi}>
                                                                 <img
                                                                     className="img-fluid img-lazy img-load object-cover"
                                                                     src={
                                                                         i.photo
                                                                             ? path_upload().product + i.photo
                                                                             : Noimage
-                                                                        // nếu i.tenvi = BAN thì sẽ hiển thị Noimage
                                                                     }
                                                                     alt={i.tenkhongdauvi}
                                                                     title={i.tenkhongdauvi}
                                                                 />
-                                                            </Link>
+
+                                                                <button
+                                                                    className="cart-buy addcart transition"
+                                                                    data-id="157"
+                                                                    onClick={() => handleAddToCart(i)}
+                                                                ></button>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="rounded-lg bg-white">
-                                                    {/* reposive */}
-                                                    <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs">
+                                                    <button
+                                                        className="bg-green-600 hover:bg-pink-400 p-4 text-white hover:text-white font-bold py-2 px-4 rounded-full"
+                                                        onClick={() => handleAddToCart(i)}
+                                                    >
+                                                        Thêm vào giỏ hàng
+                                                    </button>
+                                                    <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
                                                         <a href={i.link} title={i.tenkhongdauvi}>
-                                                            {i.tenvi}
+                                                            <span className="line-clamp-2">{i.tenvi}</span>
                                                         </a>
                                                     </h1>
+
                                                     {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
                                                     {i.giamoi > 0 ? (
                                                         <p className="gia_sp">
@@ -161,6 +184,7 @@ function Promotion() {
                                                         <div className="text-gray-500 text-xs">
                                                             {title.daban} {i.nhaplieu_daban}
                                                         </div>
+
                                                         {/* <Progress
                                                         progress={50}
                                                         color="pink"
@@ -172,11 +196,6 @@ function Promotion() {
                                                     </div>
                                                 </div>
 
-                                                <span
-                                                    className="cart-buy addcart transition"
-                                                    data-id="157"
-                                                    data-action="buynow"
-                                                ></span>
                                                 {!!i.khuyenmai && i.khuyenmai > 0 && (
                                                     <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
                                                         {getDiscount(i.gia, i.giamoi) + '%'}

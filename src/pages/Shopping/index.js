@@ -7,6 +7,9 @@ import { Autoplay } from 'swiper/modules';
 import { products, promotions, vouchers, payment_method } from '../../data/shopping';
 import { useSelector } from 'react-redux';
 import { formatNumber, path_upload } from '../../utils/ckdUtils';
+import { removeFromCart, decreaseQuantity, updateQuantity } from '../../actions';
+import { useDispatch } from 'react-redux';
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 const DEFAULT_PAYMENT_METHOD = 'TIỀN MẶT';
 
@@ -19,7 +22,19 @@ function countProducts(cart) {
         return count;
     }, {});
 }
-// Tạm tính Temporary payment bằng công thức tổng giá mới * số lượng sản phẩm
+
+// const cart = JSON.parse(localStorage.getItem('cart'));
+
+// console.log('cart :>> ', cart);
+// handleRemove
+function handleRemove(product) {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    const newCart = cart.filter((item) => item.id !== product.id);
+    localStorage.setItem('cart', JSON.stringify(newCart));
+    window.location.reload();
+}
+
+// handleDecrease
 
 function TemporaryPayment(cart) {
     return cart.reduce((total, product) => {
@@ -28,14 +43,15 @@ function TemporaryPayment(cart) {
     }, 0);
 }
 
-function Shopping() {
+function Shopping({ product }) {
+    const dispatch = useDispatch();
     const [voucher, setVoucher] = useState('');
     const [selectedVoucher, setSelectedVoucher] = useState('');
-    // giá trị giảm giá
     const [discount, setDiscount] = useState(0);
     const [inputValue, setInputValue] = useState('');
     const [cart, setCart] = useState([]);
     const productCounts = countProducts(cart);
+    //  lưu productCounts vào localstorage
 
     const uniqueProducts = cart.reduce((unique, product) => {
         return unique.some((item) => item.id === product.id) ? unique : [...unique, product];
@@ -64,20 +80,16 @@ function Shopping() {
         setDiscount(vouchers.find((voucher) => voucher.name === e.target.value)?.value || 0);
     };
 
+    const handleDecrease = () => {
+        dispatch(decreaseQuantity(product.id));
+    };
+
+    const handleQuantityChange = (newQuantity) => {
+        dispatch(updateQuantity(product.id, newQuantity));
+    };
     const [openModal, setOpenModal] = useState(false);
     const [openModalPromotions, setOpenModalPromotions] = useState(false);
-    const [quantity, setQuantity] = useState(1);
-
-    const increaseQuantity = () => {
-        setQuantity((prevQuantity) => prevQuantity + 1);
-    };
-
-    const decreaseQuantity = () => {
-        if (quantity > 0) {
-            setQuantity((prevQuantity) => prevQuantity - 1);
-        }
-    };
-
+    const [openModalConfirm, setOpenModalConfirm] = useState(false);
     const _url = path_upload().product;
     console.log('cart :>> ', cart);
     console.log('productCounts :>> ', productCounts);
@@ -159,7 +171,7 @@ function Shopping() {
                                                                 <div className="flex items-center gap-x-1.5">
                                                                     <button
                                                                         type="button"
-                                                                        onClick={increaseQuantity}
+                                                                        onClick={handleDecrease}
                                                                         className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                                                                         data-hs-input-number-decrement=""
                                                                     >
@@ -180,14 +192,19 @@ function Shopping() {
                                                                     </button>
                                                                     <input
                                                                         className="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
-                                                                        type="text"
-                                                                        defaultValue={productCounts[product.id] || 1}
-                                                                        data-hs-input-number-input=""
+                                                                        type="number"
+                                                                        value={productCounts[product.id] || 1}
+                                                                        onChange={(e) => {
+                                                                            if (e.target.value <= 0) {
+                                                                                e.target.value = 1;
+                                                                            }
+                                                                            handleQuantityChange(e.target.value);
+                                                                        }}
                                                                     />
                                                                     <button
                                                                         type="button"
                                                                         className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                                                                        onClick={decreaseQuantity}
+                                                                        onClick={() => handleRemove(product)}
                                                                         data-hs-input-number-increment=""
                                                                     >
                                                                         <svg
@@ -221,7 +238,12 @@ function Shopping() {
                                                         </p>
                                                         {/* button xoa */}
 
-                                                        <button className="hover:text-red-500">
+                                                        <button
+                                                            className="hover:text-red-500"
+                                                            onClick={() => {
+                                                                setOpenModalConfirm(true);
+                                                            }}
+                                                        >
                                                             <svg
                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                 width="16"
@@ -396,7 +418,7 @@ function Shopping() {
             <div className="sticky bottom-0 z-50">
                 {/* shadow top */}
                 <div className="container mx-auto shadow-lg">
-                    <div className="container bg-gray-50 border-gray-200 border-b pb-4">
+                    <div className="container bg-gray-50 border-gray-200 border-b">
                         <div>
                             <div className="flex items-center gap-2 justify-end">
                                 <div className="text-[0.6rem] font-bold leading-tight tracking-tight text-red-500 md:text-sm dark:text-white">
@@ -420,8 +442,8 @@ function Shopping() {
                     </div>
                     <div className="container flex justify-center items-center w-full">
                         <div className="flex justify-center  md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
-                            <div className="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-gray-800 space-y-6">
-                                <div className="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
+                            <div className="flex flex-col px-2 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-gray-800 space-y-6">
+                                <div className="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b">
                                     <div className="flex justify-between w-full">
                                         <p className="text-sm dark:text-white leading-4 text-gray-800">Tạm tính:</p>
                                         <p className="text-sm dark:text-gray-300 leading-4 text-gray-600">
@@ -431,7 +453,7 @@ function Shopping() {
                                     <div className="flex justify-between items-center w-full">
                                         <p className="text-sm dark:text-white leading-4 text-gray-800">Giảm giá:</p>
                                         <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
-                                            {formatNumber((temporaryPayment * discount) / 100)}đ
+                                            - {formatNumber((temporaryPayment * discount) / 100)}đ
                                         </p>
                                     </div>
 
@@ -440,11 +462,11 @@ function Shopping() {
                                             Phí vận chuyển:
                                         </p>
                                         {selectedVoucher === 'FreeShip' ? (
-                                            <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
+                                            <p className="text-sm dark:text-gray-300 leading-4 text-gray-600">
                                                 {formatNumber(0)}đ
                                             </p>
                                         ) : (
-                                            <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
+                                            <p className="text-sm dark:text-gray-300 leading-4 text-gray-600">
                                                 {voucher.money ? formatNumber(voucher.money) : formatNumber(30000)}đ
                                             </p>
                                         )}
@@ -554,6 +576,25 @@ function Shopping() {
                         Xác nhận
                     </Button>
                 </Modal.Footer>
+            </Modal>
+            <Modal show={openModalConfirm} size="md" onClose={() => setOpenModalConfirm(false)}>
+                <Modal.Header />
+                <Modal.Body>
+                    <div className="text-center">
+                        <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                            <Button color="failure" onClick={() => handleRemove(product)}>
+                                Đồng ý
+                            </Button>
+                            <Button color="gray" onClick={() => setOpenModalConfirm(false)}>
+                                Hủy
+                            </Button>
+                        </div>
+                    </div>
+                </Modal.Body>
             </Modal>
         </>
     );

@@ -37,7 +37,6 @@ import React from 'react';
      SkeletonPromotion,
      SkeletonVideo,
  } from '../../components/skeleton';
-
  import { useDispatch, useSelector } from 'react-redux';
  import { addToCart, loadCart } from '../../actions';
  const Noimagebanner =
@@ -282,7 +281,6 @@ import React from 'react';
 
  function ProductSlide() {
      const dispatch = useDispatch();
-     const cart = useSelector((state) => state.cart);
      const handleAddToCart = (product) => {
          dispatch(addToCart(product));
      };
@@ -424,15 +422,6 @@ import React from 'react';
                                                      <div className="text-gray-500 text-xs">
                                                          {title.daban} {i.nhaplieu_daban}
                                                      </div>
-
-                                                     {/* <Progress
-                                                        progress={50}
-                                                        color="pink"
-                                                        textLabel="50/100"
-                                                        size="lg"
-                                                        //    labelProgress
-                                                        labelText
-                                                    /> */}
                                                  </div>
                                              </div>
 
