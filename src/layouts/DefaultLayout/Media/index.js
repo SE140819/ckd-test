@@ -16,23 +16,22 @@ const Cart =
         <div className="media">
             <div className="zalo">
                 <a href="https://zalo.me/0961248596" target="_blank" rel="noreferrer">
-                    <img src={Zalo} alt="zalo" className="p-[1px]" />
+                    <img src={Zalo} alt="zalo" className="pb-[2px]" />
                 </a>
             </div>
             <div className="instagram">
                 <a href="https://www.instagram.com/ckd_vietnam/" target="_blank" rel="noreferrer">
-                    <img src={Instagram} alt="instagram" className="p-[1px]" />
+                    <img src={Instagram} alt="instagram" className="pb-[2px]" />
                 </a>
             </div>
             <div className="instagram">
                 {/* vòng tròn màu đỏ cho giỏ hàng */}
                 <div className="cart-fixed-circle" style={{ display: cart.length > 0 ? 'block' : 'none' }}>
-                
                     {/* chữ nằm giữa */}
                     <div className="cart-fixed-circle__text">{cart.length}</div>
                 </div>
                 <a className="cart-fixed text-decoration-none " href="/shopping" title="Giỏ hàng">
-                    <img src={Cart} alt="cart" className="p-[1px]" />
+                    <img src={Cart} alt="cart" className="pb-[2px]" />
                 </a>
             </div>
         </div>

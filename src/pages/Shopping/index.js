@@ -397,11 +397,11 @@ function Shopping() {
                 {/* shadow top */}
                 <div className="container mx-auto shadow-lg">
                     <div className="container bg-gray-50 border-gray-200 border-b pb-4">
-                        <div className="text-sm font-bold leading-tight tracking-tight text-red-500 md:text-sm dark:text-white">
-                            Voucher giảm giá:
-                        </div>
                         <div>
                             <div className="flex items-center gap-2 justify-end">
+                                <div className="text-[0.6rem] font-bold leading-tight tracking-tight text-red-500 md:text-sm dark:text-white">
+                                    Voucher giảm giá:
+                                </div>
                                 <input
                                     type="text"
                                     className="w-4/4 border border-r-4 border-gray-300 rounded-lg text-sm "
