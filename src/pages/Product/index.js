@@ -298,6 +298,8 @@ import { SkeletonProducts } from '../../components/skeleton';
                                  </div>
                              ))}
                          </div>
+
+                         <div></div>
                      </>
                  )}
              </div>

@@ -172,8 +172,12 @@ function DetailProduct() {
         }, 200);
     }, []);
 
-    console.log('imgDetail', imgDetail);
+
+    const encodedHtmlContent = productId ? productId.noidungvi : '';
+    const parser = new DOMParser();
+    const decodedString = parser.parseFromString(encodedHtmlContent, 'text/html').documentElement.textContent;
     const _url = path_upload().product;
+
     return (
         <>
             {loading ? (
@@ -183,19 +187,13 @@ function DetailProduct() {
                     <div className="container mx-auto my-12">
                         <Breadcrumb aria-label="Breadcrumb" className="bg-gray-50 px-5 py-3 dark:bg-gray-800 mt-5">
                             <Breadcrumb.Item href="/" icon={HiHome}>
-                                <span className="line-clamp-1">
-                                Trang chủ
-                                </span>
+                                <span className="line-clamp-1">Trang chủ</span>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item href="/product">
-                                <span
-                                 className="line-clamp-1"
-                                >Sản phẩm</span>
+                                <span className="line-clamp-1">Sản phẩm</span>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item href="/">
-                                <span
-                                    className="line-clamp-1"
-                                >{productId ? productId.tenvi : ''}</span>
+                                <span className="line-clamp-1">{productId ? productId.tenvi : ''}</span>
                             </Breadcrumb.Item>
                         </Breadcrumb>
                         {/* <h1 className="text-2xl font-bold text-center main-color">{title.detail}</h1> */}
@@ -231,7 +229,7 @@ function DetailProduct() {
                             </div>
                         </div>
                         <div className="flex flex-col gap-4 mx-4 lg:w-2/4">
-                            <div className=''>
+                            <div className="">
                                 <span className=" text-green-700 font-semibold border border-green-700">
                                     {/* {productId ? productId.id_thuonghieu : ''} */}
                                     {/* nếu id_thuonghieu =65 thì hiển thị lacto-derm còn 66 thì hiển thị bellasu con lại thì hiển thị CKD */}
@@ -463,6 +461,8 @@ function DetailProduct() {
                             </Rating.Advanced>
                         </div>
                     </div>
+
+                    <div dangerouslySetInnerHTML={{ __html: decodedString }}></div>
 
                     {/* EditorTextParser căn giữa */}
                     {/* <div className="container mx-auto">
