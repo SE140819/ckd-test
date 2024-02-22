@@ -51,13 +51,13 @@ export const products = [
 ];
 
 export const promotions = [
-          {
-            id: 1,
-            img: 'https://ckdvietnam.com/assets/images/gifts/lixi.webp',
-            name: 'Bao Lì Xì',
-            price: 0,
-            quantity: 1,
-        },
+        //   {
+        //     id: 1,
+        //     img: 'https://ckdvietnam.com/assets/images/gifts/lixi.webp',
+        //     name: 'Bao Lì Xì',
+        //     price: 0,
+        //     quantity: 1,
+        // },
         {
             id: 2,
             img: 'https://ckdvietnam.com/assets/images/gifts/sample.webp',
@@ -67,14 +67,14 @@ export const promotions = [
         },
         {
             id: 3,
-            img: 'https://ckdvietnam.com/assets/images/gifts/tuivai.webp',
+            img: 'https://ckdvietnam.com/assets/images/gifts/tote-1.webp',
             name: 'Túi Vải Canvas CKD',
             price: 0,
             quantity: 1,
         },
         {
             id: 4,
-            img: 'https://ckdvietnam.com/assets/images/gifts/gaubong.webp',
+            img: 'https://ckdvietnam.com/assets/images/gifts/gau-bong.webp',
             name: 'Gấu Bông CKD',
             price: 0,
             quantity: 1,
@@ -124,21 +124,21 @@ export const payment_method = [
         {
             id: 1,
             img: 'https://ckdvietnam.com/assets/images/momo.png',
-            name: 'Momo',
+            name: ' Phương thức thanh toán Momo',
         },
         {
             id: 2,
-            img: 'https://ckdvietnam.com/assets/images/momo.png',
-            name: 'TIỀN MẶT',
+            img: 'https://firebasestorage.googleapis.com/v0/b/rn-uber-eats-clone-yt-edc9d.appspot.com/o/zaloPay.webp?alt=media&token=78c6b661-9bbe-43f6-a567-c59b9532d037',
+            name: ' Phương thức thanh toán ZaloPay',
         },
         {
             id: 3,
-            img: 'https://ckdvietnam.com/assets/images/momo.png',
-            name: 'ZaloPay',
+            img: 'https://firebasestorage.googleapis.com/v0/b/rn-uber-eats-clone-yt-edc9d.appspot.com/o/chuyenkhoan.png?alt=media&token=734e268d-ef98-43c4-a676-8d62f6bc5f7c',
+            name: ' Phương thức thanh toán Chuyển khoản',
         },
         {
             id: 4,
-            img: 'https://ckdvietnam.com/assets/images/momo.png',
-            name: 'AirPay',
+            img: 'https://firebasestorage.googleapis.com/v0/b/rn-uber-eats-clone-yt-edc9d.appspot.com/o/tienmat.png?alt=media&token=6dd445b5-58c9-42c4-8c21-72e0f649eab7',
+            name: ' Phương thức thanh toán Tiền mặt',
         },
 ];

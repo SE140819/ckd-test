@@ -34,6 +34,7 @@ function handleRemove(product) {
     const newCart = cart.filter((item) => item.id !== product.id);
     localStorage.setItem('cart', JSON.stringify(newCart));
     window.location.reload();
+    
 }
 
 // handleDecrease
@@ -130,9 +131,9 @@ function Shopping({ product }) {
                                 </div>
 
                                 {uniqueProducts.length === 0 ? (
-                                    <div className="flex justify-center items-center w-full h-96">
+                                    <div className="flex justify-center items-center w-full h-80">
                                         <div className="flex flex-col justify-center items-center space-y-4">
-                                            <img src={NofoundInCart} width="250" height="250" alt="No Data Icon" />
+                                            <img src={NofoundInCart} width="200" height="200" alt="No Data Icon" />
                                             <div className="text-2xl dark:text-white">Giỏ hàng trống</div>
                                             <div className="text-sm dark:text-white">
                                                 Hãy chọn sản phẩm để thêm vào giỏ hàng
@@ -308,9 +309,9 @@ function Shopping({ product }) {
                             </div>
                         </div>
 
-                        <div className="md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
+                        <div className="">
                             <div className="col-span- mb-3">
-                                <fieldset className="flex flex-col gap-4">
+                                <fieldset className="flex flex-col gap-1">
                                     <div className="text-xl font-bold leading-tight tracking-tight text-red-500 md:text-sm dark:text-white">
                                         Hình thức thanh toán
                                     </div>
@@ -324,7 +325,7 @@ function Shopping({ product }) {
                                             />
                                             <img src={payment.img} alt={payment.name} width="30px" height="30px" />
                                             <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                                Phương thức thanh toán {payment.name}
+                                                {payment.name}
                                             </div>
                                         </div>
                                     ))}
@@ -423,7 +424,7 @@ function Shopping({ product }) {
                 </div>
             </div>
             {/* zindex = 5 */}
-            <div className="sticky bottom-0 z-50">
+            <div className="sticky bottom-0">
                 {/* shadow top */}
                 <div className="container mx-auto shadow-lg">
                     <div className="container bg-gray-50 border-gray-200 border-b">
@@ -433,9 +434,11 @@ function Shopping({ product }) {
                                     Voucher giảm giá:
                                 </div>
                                 <input
+                                    // khoong cho nhập
+                                    disabled
                                     type="text"
                                     className="w-4/4 border border-r-4 border-gray-300 rounded-lg text-sm "
-                                    placeholder="Nhập mã giảm giá"
+                                    placeholder=""
                                     value={selectedVoucher}
                                     onChange={handleInputChange}
                                 />
@@ -450,7 +453,7 @@ function Shopping({ product }) {
                     </div>
                     <div className="container flex justify-center items-center w-full">
                         <div className="flex justify-center  md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
-                            <div className="flex flex-col px-2 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-gray-800 space-y-6">
+                            <div className="flex flex-col px-2 md:p-1 xl: w-full bg-gray-50 dark:bg-gray-800 space-y-6">
                                 <div className="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b">
                                     <div className="flex justify-between w-full">
                                         <p className="text-sm dark:text-white leading-4 text-gray-800">Tạm tính:</p>
@@ -460,7 +463,7 @@ function Shopping({ product }) {
                                     </div>
                                     <div className="flex justify-between items-center w-full">
                                         <p className="text-sm dark:text-white leading-4 text-gray-800">Giảm giá:</p>
-                                        <p className="text-base dark:text-gray-300 leading-4 text-gray-600">
+                                        <p className="text-sm dark:text-gray-300 leading-4 text-gray-600">
                                             - {formatNumber((temporaryPayment * discount) / 100)}đ
                                         </p>
                                     </div>

@@ -1,5 +1,7 @@
-
+import React from 'react';
+import {payment_method} from '../../../data/shopping';
 function Footer() {
+
     const footer = [
         {
             id: 1,
@@ -178,38 +180,18 @@ function Footer() {
                     </div>
                     {/* theo chiều dọc */}
                     <div className="flex justify-center">
-                        <span>
-                            <img
-                                width="46px"
-                                className="mx-auto p-1"
-                                src="https://tse3.mm.bing.net/th?id=OIP.ftxXobVdiOrwkCGDs7lG1QAAAA&pid=Api&P=0&h=220s"
-                                alt="payment"
-                            />
-                        </span>
-                        <span>
-                            <img
-                                width="46px"
-                                className="mx-auto p-1"
-                                src="https://tse3.mm.bing.net/th?id=OIP.ftxXobVdiOrwkCGDs7lG1QAAAA&pid=Api&P=0&h=220s"
-                                alt="payment"
-                            />
-                        </span>
-                        <span>
-                            <img
-                                width="46px"
-                                className="mx-auto p-1"
-                                src="https://tse3.mm.bing.net/th?id=OIP.ftxXobVdiOrwkCGDs7lG1QAAAA&pid=Api&P=0&h=220s"
-                                alt="payment"
-                            />
-                        </span>
-                        <span>
-                            <img
-                                width="46px"
-                                className="mx-auto p-1"
-                                src="https://tse3.mm.bing.net/th?id=OIP.ftxXobVdiOrwkCGDs7lG1QAAAA&pid=Api&P=0&h=220s"
-                                alt="payment"
-                            />
-                        </span>
+                        {payment_method.map((item) => (
+                            <span key={item.id}>
+                                <img
+                                    width="46px"
+                                    className="mx-auto p-1"
+                                    src={item.img}
+                                    alt="payment"
+                                />
+                            </span>
+                        ))}
+                        
+                    
                     </div>
 
                     <span>© 2023 Copyright:</span>

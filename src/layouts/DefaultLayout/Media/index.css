@@ -2,7 +2,7 @@
 .media {
     position: fixed;
     bottom: 400px;
-    right: 30px;
+    right: 10px;
     width: 40px;
     height: 40px;
     z-index: 999;
@@ -11,11 +11,11 @@
 .cart-fixed-circle{
     position: fixed;
     /* bottom: 400px; */
-    right: 18px;
+    right: 7px;
     width: 20px;
     height: 20px;
     z-index: 5;
-    background-color: #fff;
+    background-color: green;
     border-radius: 50%;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
     cursor: pointer;
@@ -27,7 +27,7 @@
 
 .cart-fixed-circle__text{
     font-size: 12px;
-    color: #000;
+    color: #fff;
     font-weight: 700;
     text-align: center;
     line-height: 20px;
