@@ -141,7 +141,7 @@ function Product() {
                                         >
                                             <option value="">Tất cả</option>
                                             <option value="65">CKD</option>
-                                            <option value="66">Lactto</option>
+                                            <option value="66">Lacto</option>
                                         </select>
                                     </div>
                                 </div>
