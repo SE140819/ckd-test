@@ -76,14 +76,16 @@ function Event() {
                                 <Accordion.Content>
                                     {event.slice(0, 4).map((item, index) => (
                                         <div className="mt-5" key={index}>
-                                            <Card className="max-w-sm" imgSrc={_url + item.photo} vertical={true}>
-                                                <h5 className="font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
-                                                    {item.tenvi}
-                                                </h5>
-                                                <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-3">
-                                                    {item.motavi}
-                                                </p>
-                                            </Card>
+                                            <a href={`/event/${item.id}`} className="text-black">
+                                                <Card className="max-w-sm" imgSrc={_url + item.photo} vertical={true}>
+                                                    <h5 className="font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
+                                                        {item.tenvi}
+                                                    </h5>
+                                                    <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-3">
+                                                        {item.motavi}
+                                                    </p>
+                                                </Card>
+                                            </a>
                                         </div>
                                     ))}
                                 </Accordion.Content>
@@ -95,21 +97,25 @@ function Event() {
                             .sort((a, b) => a.het_han - b.het_han)
                             .map((item, index) => (
                                 <div className="mt-5" key={index}>
-                                    <Card width="max-w-lg" imgSrc={_url + item.photo} vertical={true}>
-                                        <h5 className="font-bold tracking-tight text-gray-900 dark:text-white">
-                                            {item.tenvi}
-                                        </h5>
-                                        <p className="font-normal text-gray-700 dark:text-gray-400">{item.motavi}</p>
-                                        {item.het_han === '1' ? (
-                                            <div className="flex justify-end mt-2">
-                                                <p className="text-red-500 font-bold">Sự kiện đã kết thúc</p>
-                                            </div>
-                                        ) : (
-                                            <div className="flex justify-end mt-2">
-                                                <p className="text-green-500 font-bold">Sự kiện đang diễn ra</p>
-                                            </div>
-                                        )}
-                                    </Card>
+                                    <a href={`/event/${item.id}`} className="text-black">
+                                        <Card width="max-w-lg" imgSrc={_url + item.photo} vertical={true}>
+                                            <h5 className="font-bold tracking-tight text-gray-900 dark:text-white">
+                                                {item.tenvi}
+                                            </h5>
+                                            <p className="font-normal text-gray-700 dark:text-gray-400">
+                                                {item.motavi}
+                                            </p>
+                                            {item.het_han === '1' ? (
+                                                <div className="flex justify-end mt-2">
+                                                    <p className="text-red-500 font-bold">Sự kiện đã kết thúc</p>
+                                                </div>
+                                            ) : (
+                                                <div className="flex justify-end mt-2">
+                                                    <p className="text-green-500 font-bold">Sự kiện đang diễn ra</p>
+                                                </div>
+                                            )}
+                                        </Card>
+                                    </a>
                                 </div>
                             ))}
                         <div className="flex overflow-x-auto sm:justify-center">

@@ -10,7 +10,7 @@ function DetailNews() {
     const options = {
         table: 'news',
         select: '*',
-        where: 'type="tin-tuc" AND hienthi > 0',
+        where: 'type="su-kien" AND hienthi > 0',
     };
 
     const { id } = useParams();
@@ -29,7 +29,7 @@ function DetailNews() {
     const option2s = {
         table: 'news',
         select: '*',
-        where: 'type="tin-tuc" AND hienthi > 0  AND noibat = 1',
+        where: 'type="su-kien" AND hienthi > 0  AND noibat = 1',
     };
     const [noiBat, setNoibat] = useState([]);
 
@@ -67,12 +67,12 @@ function DetailNews() {
                         <Accordion>
                             <Accordion.Panel>
                                 <Accordion.Title className=" font-bold text-xl text-gray-900 dark:text-white ">
-                                    Tin tức nổi bật
+                                    Sự kiện nổi bật
                                 </Accordion.Title>
                                 <Accordion.Content>
                                     {noiBat.map((item, index) => (
                                         <div className="mt-5" key={index}>
-                                            <a href={`/news/${item.id}`} className="text-black">
+                                            <a href={`/event/${item.id}`} className="text-black">
                                                 <Card className="max-w-sm" imgSrc={_url + item.photo} vertical={true}>
                                                     <h5 className="font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
                                                         {item.tenvi}

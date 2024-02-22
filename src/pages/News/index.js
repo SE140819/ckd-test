@@ -26,7 +26,7 @@ function News() {
     const option2s = {
         table: 'news',
         select: '*',
-        where: 'type="su-kien" AND hienthi > 0  AND noibat = 1',
+        where: 'type="tin-tuc" AND hienthi > 0  AND noibat = 1',
     };
     const [noiBat, setNoibat] = useState([]);
 
@@ -50,7 +50,6 @@ function News() {
     // Change page
     const onPageChange = (pageNumber) => setCurrentPage(pageNumber);
 
-    console.log('event', noiBat || []);
     const _url = path_upload().review;
     return (
         <>
@@ -76,14 +75,16 @@ function News() {
                                 <Accordion.Content>
                                     {noiBat.map((item, index) => (
                                         <div className="mt-5" key={index}>
-                                            <Card className="max-w-sm" imgSrc={_url + item.photo} vertical={true}>
-                                                <h5 className="font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
-                                                    {item.tenvi}
-                                                </h5>
-                                                <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-3">
-                                                    {item.motavi}
-                                                </p>
-                                            </Card>
+                                            <a href={`/news/${item.id}`} className="text-black">
+                                                <Card className="max-w-sm" imgSrc={_url + item.photo} vertical={true}>
+                                                    <h5 className="font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
+                                                        {item.tenvi}
+                                                    </h5>
+                                                    <p className="font-normal text-gray-700 dark:text-gray-400 line-clamp-3">
+                                                        {item.motavi}
+                                                    </p>
+                                                </Card>
+                                            </a>
                                         </div>
                                     ))}
                                 </Accordion.Content>

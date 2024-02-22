@@ -20,6 +20,7 @@ import Account from '../pages/Account';
 import ComingSoon from '../pages/ComingSoon';
 import Brand from '../pages/Brand';
 import DetailNews from '../pages/DetailNews';
+import DetailEvent from '../pages/DetailEvent';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/review', component: Review },
@@ -100,6 +101,10 @@ const publicRoutes = [
     {
         path: 'news/:id',
         component: DetailNews,
+    },
+    {
+        path: 'event/:id',
+        component: DetailEvent,
     },
 ];
 
