@@ -100,7 +100,7 @@ function Header() {
 
             <Upheader />
 
-            <div className="bg-gray-100">
+            {/* <div className="bg-gray-100">
                 <div className="container mx-auto">
                     <div className="flex justify-center items-center">
                         <div className="w-1/2">
@@ -111,7 +111,7 @@ function Header() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div
                 id="main_menu"
@@ -186,45 +186,49 @@ function Header() {
                             <Navbar.Toggle />
                         </div>
                         <Navbar.Collapse>
-    {navLinks.map((link, index) => (
-     <Navbar.Link key={index} href={link.url} active={link.active}>
-     <Tippy
-      interactive
-         render={attrs => (
-             <div {...attrs}>
-                 {/* Đây là nơi bạn đặt submenu của mình */}
-                 {link.subLinks && link.subLinks.length > 0 && (
-                        // <div className="bg-white border border-gray-200 rounded-md shadow-lg p-3">
-                        //     {link.subLinks.map((subLink, index) => (
-                        //         <a
-                        //             key={index}
-                        //             href={subLink.url}
-                        //             className="block py-2 text-sm text-gray-900 hover:text-primary-500"
-                        //         >
-                        //             {subLink.title}
-                        //         </a>
-                        //     ))}
-                        // </div>
-                        <Navbar.Collapse>
-                    <div className="bg-white border border-gray-200 rounded-md shadow-lg p-5">
-                    {link.subLinks.map((subLink, subIndex) => (
-                        <Navbar.Link key={subIndex} href={subLink.url} active={subLink.active}
-                        >
-                            <div className="font-semibold px-3 py-2 ">
-                                {subLink.title}</div>
-                        </Navbar.Link>   
-                    ))}
-                     </div>
-                </Navbar.Collapse>
-                 )}
-             </div>
-         )}
-     >
-         <div className="font-semibold">{link.title}</div>
-     </Tippy>
- </Navbar.Link>
-    ))}
-</Navbar.Collapse>
+                            {navLinks.map((link, index) => (
+                                <Navbar.Link key={index} href={link.url} active={link.active}>
+                                    <Tippy
+                                        interactive
+                                        render={(attrs) => (
+                                            <div {...attrs}>
+                                                {/* Đây là nơi bạn đặt submenu của mình */}
+                                                {link.subLinks && link.subLinks.length > 0 && (
+                                                    // <div className="bg-white border border-gray-200 rounded-md shadow-lg p-3">
+                                                    //     {link.subLinks.map((subLink, index) => (
+                                                    //         <a
+                                                    //             key={index}
+                                                    //             href={subLink.url}
+                                                    //             className="block py-2 text-sm text-gray-900 hover:text-primary-500"
+                                                    //         >
+                                                    //             {subLink.title}
+                                                    //         </a>
+                                                    //     ))}
+                                                    // </div>
+                                                    <Navbar.Collapse>
+                                                        <div className="bg-white border border-gray-200 rounded-md shadow-lg p-5">
+                                                            {link.subLinks.map((subLink, subIndex) => (
+                                                                <Navbar.Link
+                                                                    key={subIndex}
+                                                                    href={subLink.url}
+                                                                    active={subLink.active}
+                                                                >
+                                                                    <div className="font-semibold px-3 py-2 ">
+                                                                        {subLink.title}
+                                                                    </div>
+                                                                </Navbar.Link>
+                                                            ))}
+                                                        </div>
+                                                    </Navbar.Collapse>
+                                                )}
+                                            </div>
+                                        )}
+                                    >
+                                        <div className="font-semibold">{link.title}</div>
+                                    </Tippy>
+                                </Navbar.Link>
+                            ))}
+                        </Navbar.Collapse>
                     </Navbar>
                 </div>
             </div>
