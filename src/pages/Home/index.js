@@ -844,10 +844,6 @@ import React from 'react';
          fetch();
      }, []);
 
-     // console.log('🚀 ~ file: index.js ~ line 444 ~ Review ~ reviewData', reviewData);
-     // console.log('🚀 ~ handleItemClick',
-     // selectedItemId);
-
      const _url = path_upload().review;
      return (
          <>
@@ -1001,55 +997,77 @@ function Video() {
 }
 
 function Brand() {
-    return (
-        <>
-            <div className="title-main">
-                <h1 className="h1_home">{title.brand}</h1>
-            </div>
-            <Swiper
-                loop={true}
-                spaceBetween={50}
-                breakpoints={{
-                    300: {
-                        slidesPerView: 1,
-                        spaceBetween: 10,
-                    },
-                    450: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    600: {
-                        slidesPerView: 3,
-                        spaceBetween: 30,
-                    },
-                    900: {
-                        slidesPerView: 3,
-                        spaceBetween: 40,
-                    },
-                }}
-            >
-                {brand.map((item, index) => (
-                    <SwiperSlide key={index}>
-                        <div className="item">
-                            <div className="img_sp zoom_hinh">
-                                <div className="image-container">
-                                    <a href={item.href} title={item.alt}>
-                                        <img
-                                            className="img-fluid img-lazy img-load"
-                                            //    src={item.img}
-                                            src={Noimage}
-                                            alt={item.alt}
-                                            title={item.alt}
-                                        />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </>
-    );
+      const tag_mb = checkIsMobile();
+
+      const options = {
+          table: 'photo',
+          select: 'id,tenvi as ten,photo,link',
+          where: 'type="quang-cao" and hienthi >0',
+          order_by: 'stt,id desc',
+      };
+
+      const [banner, setBanner] = useState([]);
+      const _url = path_upload().photo;
+      useEffect(() => {
+          const fetch = async () => {
+              const _banner = await get('tab', { params: options });
+              setBanner(_banner);
+          };
+
+          fetch();
+      }, []);
+
+      console.log('🚀 ~ file: index.js ~ line 444 ~ Review ~ reviewData', banner);
+      return (
+          <>
+              <div className="title-main">
+                  <h1 className="h1_home">{title.brand}</h1>
+              </div>
+              <Swiper
+                  loop={true}
+                  spaceBetween={50}
+                  breakpoints={{
+                      300: {
+                          slidesPerView: 1,
+                          spaceBetween: 10,
+                      },
+                      450: {
+                          slidesPerView: 2,
+                          spaceBetween: 20,
+                      },
+                      600: {
+                          slidesPerView: 2,
+                          spaceBetween: 30,
+                      },
+                      900: {
+                          slidesPerView: 2,
+                          spaceBetween: 40,
+                      },
+                  }}
+              >
+                  {banner.map((item, index) => (
+                      <SwiperSlide key={index}>
+                          {/* border góc dưới bên trái và góc trên bên phải */}
+                          <div className="item rounded-lg overflow-hidden">
+                              <div className="img_sp zoom_hinh">
+                                  <div className="image-container">
+                                      <a href={item.href} title={item.alt}>
+                                          <img
+                                              className="img-fluid img-lazy img-load"
+                                              //    src={item.img}
+                                              src={item.photo ? _url + item.photo : Noimage}
+                                              alt={item.alt}
+                                              title={item.alt}
+                                          />
+                                      </a>
+                                  </div>
+                              </div>
+                          </div>
+                      </SwiperSlide>
+                  ))}
+              </Swiper>
+          </>
+      );
 }
 
 export default Home;

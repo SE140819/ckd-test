@@ -1,16 +1,42 @@
 import { Avatar, Button, Modal, Progress, Rating } from 'flowbite-react';
 import { review, title } from '../../data/home';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RatingComponent from '../../components/intro/ratingComponent';
-
+import { get } from '../../utils/httpRequest';
+import { path_upload } from '../../utils/ckdUtils';
 function Review() {
+    const [selectedItemId, setSelectedItemId] = useState(review[0].id);
+
+    const handleItemClick = (id) => {
+        setSelectedItemId(id);
+        setOpenModal(true);
+    };
+
+    const options = {
+        table: 'news',
+        select: '*',
+        where: 'hienthi >0' + ' and type="review"',
+    };
+
+    const [reviewData, setReviewData] = useState([]);
+    useEffect(() => {
+        const fetch = async () => {
+            const _review = await get('tab', { params: options });
+            setReviewData(_review);
+        };
+
+        fetch();
+    }, []);
+
+    const _url = path_upload().review;
     const [openModal, setOpenModal] = useState(false);
     const [visibleImages, setVisibleImages] = useState(8);
-    const totalImages = review.length;
-
+    const totalImages = reviewData.length;
+    const Noimage =
+        'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
     const showMore = () => {
         //
-        setVisibleImages((prevVisible) => prevVisible + 3);
+        setVisibleImages((prevVisible) => prevVisible + 4);
     };
     return (
         <>
@@ -19,34 +45,33 @@ function Review() {
             </div>
             <div className="container mx-auto p-5">
                 <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-4 gap-7 xl:gap-10">
-                    {review.slice(0, visibleImages).map((item, index) => (
-                        <div
-                            className="card rounded overflow-hidden relative"
-                            key={index}
-                            onClick={() => setOpenModal(true)}
-                        >
-                            <div className="aspect-w-16 aspect-h-9 img_post cursor-pointer">
+                    {reviewData.slice(0, visibleImages).map((item, index) => (
+                        <div className="card rounded overflow-hidden relative" key={index}>
+                            <div
+                                className="aspect-w-16 aspect-h-9 img_post cursor-pointer"
+                                onClick={() => handleItemClick(item.id)}
+                            >
                                 <img
-                                    className="object-cover brightness-100 group-hover:brightness-50 w-full fixed-photo"
-                                    src={item.img}
-                                    alt="CKD COS VIETNAM"
+                                    className="object-cover brightness-100 group-hover:brightness-50 w-full fixed-photo aspect-[3/4]"
+                                    src={item.photo ? _url + item.photo : Noimage}
+                                    alt={item.tenvi}
                                 />
                             </div>
                             <div className="group relative">
-                                <div className=" text-white glass absolute bottom-[8px] m-4 p-4 translate-y-[80%] group-hover:translate-y-[0%] transition-transform duration-300">
+                                <div className=" text-white glass absolute bottom-[30px] m-4 p-4 translate-y-[80%] group-hover:translate-y-[0%] transition-transform duration-300">
                                     {/* Rating */}
                                     <div className="absolute top-0 right-0 p-2">
                                         <Rating></Rating>
                                     </div>
                                     <div className="grid gap-1 ">
-                                        <RatingComponent rating={item.rating} />
+                                        <RatingComponent rating={JSON.parse(item.options2).sosao} />
                                         <p className="text-white text-sm sm:text-xs md:text-xs lg:text-xs xl:text-xs 2xl:text-xs line-clamp-3">
                                             {item.customer}
                                         </p>
                                         <div className="flex items-center mb-4">
                                             <div>
                                                 <p className="text-white text-sm sm:text-xs md:text-xs lg:text-xs xl:text-xs 2xl:text-xs line-clamp-3">
-                                                    {item.feedback}
+                                                    {item.motavi}
                                                 </p>
                                             </div>
                                         </div>
@@ -64,7 +89,7 @@ function Review() {
                      text-white hover:text-white
                       font-bold py-2 px-4 rounded-full"
                             >
-                                {title.xemthem} 3 đánh giá
+                                {title.xemthem} 4 đánh giá
                             </p>
                         </button>
                     </div>

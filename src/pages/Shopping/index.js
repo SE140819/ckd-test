@@ -16,6 +16,8 @@ const DEFAULT_PAYMENT_METHOD = 'TIỀN MẶT';
 const Noimage =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
 
+const NofoundInCart =
+    'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2Fnotfound%2Fkh%C3%B4ng%20t%C3%ACm%20th%E1%BA%A5y%20s%E1%BA%A3n%20ph%E1%BA%A9m%20trong%20gi%E1%BB%8F%20h%C3%A0ng.png?alt=media&token=60a133f4-e278-4bb6-a282-72d246617a9a';
 function countProducts(cart) {
     return cart.reduce((count, product) => {
         count[product.id] = (count[product.id] || 0) + 1;
@@ -130,6 +132,7 @@ function Shopping({ product }) {
                                 {uniqueProducts.length === 0 ? (
                                     <div className="flex justify-center items-center w-full h-96">
                                         <div className="flex flex-col justify-center items-center space-y-4">
+                                            <img src={NofoundInCart} width="250" height="250" alt="No Data Icon" />
                                             <div className="text-2xl dark:text-white">Giỏ hàng trống</div>
                                             <div className="text-sm dark:text-white">
                                                 Hãy chọn sản phẩm để thêm vào giỏ hàng
@@ -226,16 +229,21 @@ function Shopping({ product }) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <p className="text-base dark:text-white xl:text-lg leading-6">
-                                                            {formatNumber(
-                                                                product.giamoi * productCounts[product.id] || 1,
-                                                            )}
-                                                            đ
-                                                        </p>
-                                                        <p className="text-red-300 xl:text-lg line-through">
-                                                            {formatNumber(product.gia * productCounts[product.id] || 1)}
-                                                            đ
-                                                        </p>
+                                                        {/* máy tính sẽ giá tiền mới và giá tiền cũ trên 1 dòng và trên điện thoại sẽ xuống hàng mới */}
+                                                        <div className="flex flex-col justify-start items-start space-y-2">
+                                                            <div className="text-sm dark:text-white xl:text-sm font-semibold leading-6 text-gray-800">
+                                                                {formatNumber(
+                                                                    product.giamoi * productCounts[product.id] || 1,
+                                                                )}
+                                                                đ
+                                                            </div>
+                                                            <div className="text-sm dark:text-white xl:text-sm font-semibold leading-6 text-gray-800 line-through">
+                                                                {formatNumber(
+                                                                    product.gia * productCounts[product.id] || 1,
+                                                                )}
+                                                                đ
+                                                            </div>
+                                                        </div>
                                                         {/* button xoa */}
 
                                                         <button
