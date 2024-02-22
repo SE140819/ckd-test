@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 
 import { Breadcrumb, Button, Rating } from 'flowbite-react';
-import { HiShoppingCart } from 'react-icons/hi';
-import { HiHome } from 'react-icons/hi';
+import { HiShoppingCart, HiHome } from 'react-icons/hi';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { act } from 'react-dom/test-utils';
@@ -119,19 +118,12 @@ function DetailProduct() {
         where: 'product.id_list == gallery.id_photo',
     };
 
-    // const selectImgDetail = {
-    //     table: 'product,gallery',
-    //     select: '*',
-    //     where: 'product.id_list == gallery.id_photo',
-    // };
 
     const [imgDetail, setImgDetail] = useState([]);
     const [product, setProduct] = useState([]);
 
     const { id } = useParams();
     const productId = product.find((item) => item.id === id);
-
-    // console.log('productLink', productId);
     useEffect(() => {
         const handleScroll = () => {
             setSticky(window.scrollY > 0);

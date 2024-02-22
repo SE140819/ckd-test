@@ -19,6 +19,7 @@ import Questions from '../pages/Questions';
 import Account from '../pages/Account';
 import ComingSoon from '../pages/ComingSoon';
 import Brand from '../pages/Brand';
+import DetailNews from '../pages/DetailNews';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/review', component: Review },
@@ -95,6 +96,10 @@ const publicRoutes = [
     {
         path: '/comingsoon',
         component: ComingSoon,
+    },
+    {
+        path: 'news/:id',
+        component: DetailNews,
     },
 ];
 
