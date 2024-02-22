@@ -39,4 +39,5 @@ export const title = {
     next: 'Sau',
     //thông tin tài khoản
     account: 'THÔNG TIN TÀI KHOẢN',
+    news: 'TIN TỨC',
 };

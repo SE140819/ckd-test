@@ -6,6 +6,7 @@ import Introduction from '../pages/Introduction';
 import Contact from '../pages/Contact'; 
 import SignIn from '../pages/SignIn';
 import Event from '../pages/Event';
+import News from '../pages/News';
 import Product from '../pages/Product';
 import Promotion from '../pages/Promotion';
 import History from '../pages/History';
@@ -42,6 +43,10 @@ const publicRoutes = [
     {
         path: '/event',
         component: Event,
+    },
+    {
+        path: '/news',
+        component: News,
     },
     {
         path: '/product',

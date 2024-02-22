@@ -16,19 +16,19 @@ const navLinks = [
     { title: 'Giới thiệu', url: '/intro' },
     // { title: 'Giỏ hàng', url: '/shopping' },
     // { title: 'Đánh giá', url: '/review' },
-    { 
-        title: 'Thương hiệu', 
+    {
+        title: 'Thương hiệu',
         subLinks: [
             { title: 'Brand', url: '/brand' },
             { title: 'Câu chuyện thương hiệu', url: '/comingsoon' },
             { title: 'Giới thiệu thương hiệu', url: '/comingsoon' },
             { title: 'Lời hứa CKD', url: '/comingsoon' },
-        ] 
+        ],
     },
     { title: 'Khuyến mãi', url: '/promotion' },
     { title: 'Sản phẩm', url: '/product' },
-    { title: 'Sự kiện', url: '/comingsoon' },
-    { title: 'Tin tức', url: '/comingsoon' },
+    { title: 'Sự kiện', url: '/event' },
+    { title: 'Tin tức', url: '/news' },
     { title: 'Liện hệ', url: '/contact' },
 ];
 

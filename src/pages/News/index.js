@@ -6,11 +6,11 @@ import './index.css';
 import { title } from '../../data/title';
 import { get } from '../../utils/httpRequest';
 import { path_upload } from '../../utils/ckdUtils';
-function Event() {
+function News() {
     const options = {
         table: 'news',
         select: '*',
-        where: 'type="su-kien" AND hienthi > 0',
+        where: 'type="tin-tuc" AND hienthi > 0',
     };
     const [event, setEvent] = useState([]);
 
@@ -26,7 +26,7 @@ function Event() {
     const option2s = {
         table: 'news',
         select: '*',
-        where: 'type="su-kien" AND hienthi > 0  AND noi_bat = 1',
+        where: 'type="su-kien" AND hienthi > 0  AND noibat = 1',
     };
     const [noiBat, setNoibat] = useState([]);
 
@@ -50,7 +50,7 @@ function Event() {
     // Change page
     const onPageChange = (pageNumber) => setCurrentPage(pageNumber);
 
-    console.log('event', event);
+    console.log('event', noiBat || []);
     const _url = path_upload().review;
     return (
         <>
@@ -64,7 +64,7 @@ function Event() {
                             <span>Sự kiện</span>
                         </Breadcrumb.Item>
                     </Breadcrumb>
-                    <h1 className="text-4xl font-bold text-center main-color">{title.event}</h1>
+                    <h1 className="text-4xl font-bold text-center main-color">{title.news}</h1>
                 </div>
                 <div className="flex flex-row justify-center ">
                     <div className="basis-1/3 pr-5 pt-5  hidden md:block lg:block">
@@ -74,7 +74,7 @@ function Event() {
                                     Sự kiện nổi bật
                                 </Accordion.Title>
                                 <Accordion.Content>
-                                    {event.slice(0, 4).map((item, index) => (
+                                    {noiBat.map((item, index) => (
                                         <div className="mt-5" key={index}>
                                             <Card className="max-w-sm" imgSrc={_url + item.photo} vertical={true}>
                                                 <h5 className="font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
@@ -128,4 +128,4 @@ function Event() {
     );
 }
 
-export default Event;
+export default News;

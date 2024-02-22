@@ -586,9 +586,17 @@ function Shopping({ product }) {
                             Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button color="failure" onClick={() => handleRemove(product)}>
-                                Đồng ý
-                            </Button>
+                            {
+                                <Button
+                                    color="red"
+                                    onClick={() => {
+                                        handleRemove(cart.find((product) => product.id === product.id));
+                                        setOpenModalConfirm(false);
+                                    }}
+                                >
+                                    Xóa
+                                </Button>
+                            }
                             <Button color="gray" onClick={() => setOpenModalConfirm(false)}>
                                 Hủy
                             </Button>
