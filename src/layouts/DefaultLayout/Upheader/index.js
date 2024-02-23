@@ -134,9 +134,12 @@ function Upheader() {
                                                 <h5 className="mb-6 flex justify-center items-center mt-6 text-gray-500">
                                                     Hoặc đăng nhập với ckdvietnam.com
                                                 </h5>
-                                                <button className="bg-green-500 hover:bg-green-500 text-white py-2 px-4 rounded-3xl mb-4 w-full">
-                                                    Đăng nhập
-                                                </button>
+                                                <a href="/sign-up">
+                                                    <button className="bg-green-500 hover:bg-green-500 text-white py-2 px-4 rounded-3xl mb-4 w-full">
+                                                        Đăng nhập
+                                                    </button>
+                                                </a>
+
                                                 {/* Bạn chưa có tài khoản? */}
                                                 <p className="text-center mt-4">
                                                     Bạn chưa có tài khoản?{' '}
@@ -150,10 +153,12 @@ function Upheader() {
                                 </Modal>
                             </div>
                             <div className="p-[0.25rem] text-center ">
-                                <div className="flex items-center ">
-                                    <AiOutlineShoppingCart className="main-color text-2xl border border-green-500 rounded-full p-1" />
-                                    <p className="text-sm main-color font-semibold ml-2">Giỏ hàng</p>
-                                </div>
+                                <a href="/shopping" className="flex items-center">
+                                    <div className="flex items-center ">
+                                        <AiOutlineShoppingCart className="main-color text-2xl border border-green-500 rounded-full p-1" />
+                                        <p className="text-sm main-color font-semibold ml-2">Giỏ hàng</p>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>

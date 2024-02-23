@@ -21,6 +21,7 @@ import ComingSoon from '../pages/ComingSoon';
 import Brand from '../pages/Brand';
 import DetailNews from '../pages/DetailNews';
 import DetailEvent from '../pages/DetailEvent';
+import SignUp from '../pages/SignUp';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/review', component: Review },
@@ -37,6 +38,10 @@ const publicRoutes = [
     {
         path: '/contact',
         component: Contact,
+    },
+    {
+        path: '/sign-up',
+        component: SignUp,
     },
     {
         path: '/sign-in',
