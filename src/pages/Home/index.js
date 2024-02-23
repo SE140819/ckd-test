@@ -658,7 +658,6 @@ import React from 'react';
 
      console.log('🚀 ~ file: index.js ~ line 370 ~ PromotionSlide ~ handleAddToCart', cart);
 
-     //  console.log('🚀 ~ file: index.js ~ line 370 ~ PromotionSlide ~ handleAddToCart', handleAddToCart);
      const options = {
          table: 'product',
          select: '*',

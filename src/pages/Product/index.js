@@ -31,6 +31,10 @@ function Product() {
             dispatch(loadCart(JSON.parse(savedCart)));
         }
     }, [dispatch]);
+ const cart = useSelector((state) => state.cart);
+ useEffect(() => {
+     localStorage.setItem('cart', JSON.stringify(cart));
+ }, [cart]);
     const options = {
         table: 'product',
         select: '*',

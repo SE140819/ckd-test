@@ -8,7 +8,7 @@ import { get } from '../../utils/httpRequest';
 import { formatNumber, getDiscount, path_upload } from '../../utils/ckdUtils';
 import { Link } from 'react-router-dom';
 import { SkeletonProducts } from '../../components/skeleton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, loadCart } from '../../actions';
 
 const Noimage =
@@ -29,6 +29,10 @@ function Promotion() {
             dispatch(loadCart(JSON.parse(savedCart)));
         }
     }, [dispatch]);
+    const cart = useSelector((state) => state.cart);
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
     const options = {
         table: 'product',
         select: '*',

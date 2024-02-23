@@ -11,6 +11,7 @@ import { removeFromCart, decreaseQuantity, updateQuantity } from '../../actions'
 import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
+
 const DEFAULT_PAYMENT_METHOD = 'TIỀN MẶT';
 
 const Noimage =

@@ -11,7 +11,11 @@ const Cart =
     function Media() {
         // 2 cục zalo và instagram
         
-         const cart = useSelector((state) => state.cart);
+        const cart = useSelector((state) => state.cart);
+
+        // cart getlocalstorage
+        // const cart2 = JSON.parse(localStorage.getItem('cart')) || [];
+
     return (
         <div className="media">
             <div className="zalo">
