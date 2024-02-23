@@ -1,17 +1,23 @@
 // trang 404
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './index.css';
 
 const NotFoundPage = () => {
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-            <div className="text-center">
-                <h1 className="display-1">404</h1>
-                <p className="h1">Page not found.</p>
-                <p className="h2 font-weight-normal mt-3 mb-4">The page you are looking for might have been removed.</p>
-                <Link to="/" className="btn btn-primary">Go to Home</Link>
+        <div id="notfound">
+        <div class="notfound">
+            <div class="notfound-404">
+                <h1>404</h1>
             </div>
+            <h2>Oops, The Page you are looking for can't be found!</h2>
+            {/* <form class="notfound-search">
+                <input type="text" placeholder="Search..." />
+                <button type="button">Search</button>
+            </form> */}
+            <a href="/"><span class="arrow"></span>Return To Homepage</a>
         </div>
+    </div>
     );
     }
 
