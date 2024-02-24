@@ -22,6 +22,9 @@ import Brand from '../pages/Brand';
 import DetailNews from '../pages/DetailNews';
 import DetailEvent from '../pages/DetailEvent';
 import SignUp from '../pages/SignUp';
+import Promise from '../pages/Promise';
+import IntroBrand from '../pages/IntroBrand';
+import Story from '../pages/Story';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/review', component: Review },
@@ -110,6 +113,18 @@ const publicRoutes = [
     {
         path: 'event/:id',
         component: DetailEvent,
+    },
+    {
+        path: '/promise',
+        component: Promise,
+    },
+    {
+        path: '/introduction-brand',
+        component: IntroBrand,
+    },
+    {
+        path: '/story',
+        component: Story,
     },
 ];
 

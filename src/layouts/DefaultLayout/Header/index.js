@@ -20,9 +20,9 @@ const navLinks = [
         title: 'Thương hiệu',
         subLinks: [
             { title: 'Brand', url: '/brand' },
-            { title: 'Câu chuyện thương hiệu', url: '/comingsoon' },
-            { title: 'Giới thiệu thương hiệu', url: '/comingsoon' },
-            { title: 'Lời hứa CKD', url: '/comingsoon' },
+            { title: 'Câu chuyện thương hiệu', url: '/story' },
+            { title: 'Giới thiệu thương hiệu', url: '/introduction-brand' },
+            { title: 'Lời hứa CKD', url: '/promise' },
         ],
     },
     { title: 'Khuyến mãi', url: '/promotion' },
