@@ -25,6 +25,7 @@ import SignUp from '../pages/SignUp';
 import Promise from '../pages/Promise';
 import IntroBrand from '../pages/IntroBrand';
 import Story from '../pages/Story';
+import ForgotPassword from '../pages/ForgotPW';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/review', component: Review },
@@ -125,6 +126,10 @@ const publicRoutes = [
     {
         path: '/story',
         component: Story,
+    },
+    {
+        path: '/forgot-password',
+        component: ForgotPassword,
     },
 ];
 

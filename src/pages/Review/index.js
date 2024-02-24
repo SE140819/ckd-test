@@ -36,6 +36,8 @@ function Review() {
         fetch();
     }, []);
 
+         console.log('🚀 ~ file: index.js ~ line 370 ~ PromotionSlide ~ handleAddToCart ~ reviewData', reviewData);
+
     const _url = path_upload().review;
     const [openModal, setOpenModal] = useState(false);
     const [visibleImages, setVisibleImages] = useState(8);
