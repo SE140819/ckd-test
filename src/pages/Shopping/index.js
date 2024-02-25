@@ -11,6 +11,8 @@ import { removeFromCart, decreaseQuantity, updateQuantity } from '../../actions'
 import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
+import { cartUiActions } from "../../store/shopping-cart/cartUiSlice";
+
 
 const DEFAULT_PAYMENT_METHOD = 'TIỀN MẶT';
 
@@ -48,7 +50,19 @@ function TemporaryPayment(cart) {
 }
 
 function Shopping({ product }) {
+
     const dispatch = useDispatch();
+    const cartProducts = useSelector((state) => state.cart.cartItems);
+    const totalAmount = useSelector((state) => state.cart.totalAmount);
+
+    const toggleCart = () => {
+        dispatch(cartUiActions.toggle());
+      };
+
+
+      console.log('cartProducts :>> ', cartProducts);
+      console.log('totalAmount :>> ', totalAmount);
+
     const [voucher, setVoucher] = useState('');
     const [selectedVoucher, setSelectedVoucher] = useState('');
     const [discount, setDiscount] = useState(0);

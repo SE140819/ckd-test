@@ -14,7 +14,7 @@ import rootReducer from './reducers';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-const store = createStore(rootReducer);
+import store from "./store/store";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>

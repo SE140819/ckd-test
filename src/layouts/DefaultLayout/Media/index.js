@@ -12,7 +12,9 @@ const Cart =
         // 2 cục zalo và instagram
         
         const cart = useSelector((state) => state.cart);
-
+        const totalQuantity = useSelector((state) => state.cart.totalQuantity);
+ 
+        console.log('totalQuantity', totalQuantity);
         // cart getlocalstorage
         // const cart2 = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -30,9 +32,11 @@ const Cart =
             </div>
             <div className="instagram">
                 {/* vòng tròn màu đỏ cho giỏ hàng */}
-                <div className="cart-fixed-circle" style={{ display: cart.length > 0 ? 'block' : 'none' }}>
+                <div className="cart-fixed-circle" style={{ display: totalQuantity> 0 ? 'block' : 'none' }}>
                     {/* chữ nằm giữa */}
-                    <div className="cart-fixed-circle__text">{cart.length}</div>
+                    <div className="cart-fixed-circle__text">
+                        {totalQuantity}
+                    </div>
                 </div>
                 <a className="cart-fixed text-decoration-none " href="/shopping" title="Giỏ hàng">
                     <img src={Cart} alt="cart" className="pb-[2px]" />
