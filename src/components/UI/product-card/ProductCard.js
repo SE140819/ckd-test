@@ -18,6 +18,7 @@ const ProductCard = (props) => {
     dispatch(cartActions.addItem({
       id: id,
       tenkhongdauvi: tenkhongdauvi,
+      tenvi: tenvi,
       photo: photo,
       link: link,
       gia: gia,

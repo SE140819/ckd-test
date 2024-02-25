@@ -7,113 +7,63 @@ import { Autoplay } from 'swiper/modules';
 import { products, promotions, vouchers, payment_method } from '../../data/shopping';
 import { useSelector } from 'react-redux';
 import { formatNumber, path_upload } from '../../utils/ckdUtils';
-import { removeFromCart, decreaseQuantity, updateQuantity } from '../../actions';
 import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
-import { cartUiActions } from "../../store/shopping-cart/cartUiSlice";
 
+import { Link } from 'react-router-dom';
+import { cartUiActions } from '../../store/shopping-cart/cartUiSlice';
+import { cartActions } from '../../store/shopping-cart/cartSlice';
+import {
+    CartItem,
+} from './CartItem';
 
-const DEFAULT_PAYMENT_METHOD = 'TIỀN MẶT';
+const DEFAULT_PAYMENT_METHOD = 'Phương thức thanh toán Tiền mặt';
 
 const Noimage =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
 
 const NofoundInCart =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2Fnotfound%2Fkh%C3%B4ng%20t%C3%ACm%20th%E1%BA%A5y%20s%E1%BA%A3n%20ph%E1%BA%A9m%20trong%20gi%E1%BB%8F%20h%C3%A0ng.png?alt=media&token=60a133f4-e278-4bb6-a282-72d246617a9a';
-function countProducts(cart) {
-    return cart.reduce((count, product) => {
-        count[product.id] = (count[product.id] || 0) + 1;
-        return count;
-    }, {});
-}
 
-// const cart = JSON.parse(localStorage.getItem('cart'));
 
-// console.log('cart :>> ', cart);
-// handleRemove
-function handleRemove(product) {
-    const cart = JSON.parse(localStorage.getItem('cart'));
-    const newCart = cart.filter((item) => item.id !== product.id);
-    localStorage.setItem('cart', JSON.stringify(newCart));
-    window.location.reload();
     
-}
+    const Shopping= () => {
+        const dispatch = useDispatch();
+        const [voucher, setVoucher] = useState('');
+        const [selectedVoucher, setSelectedVoucher] = useState('');
+        const [discount, setDiscount] = useState(0);
+        const [inputValue, setInputValue] = useState('');
 
-// handleDecrease
-
-function TemporaryPayment(cart) {
-    return cart.reduce((total, product) => {
-        //  ép thành kiểu dữ liệu number
-        return total + Number(product.giamoi);
-    }, 0);
-}
-
-function Shopping({ product }) {
-
-    const dispatch = useDispatch();
-    const cartProducts = useSelector((state) => state.cart.cartItems);
-    const totalAmount = useSelector((state) => state.cart.totalAmount);
-
-    const toggleCart = () => {
-        dispatch(cartUiActions.toggle());
-      };
+        const [openModal, setOpenModal] = useState(false);
+        const [openModalPromotions, setOpenModalPromotions] = useState(false);
+        const [openModalConfirm, setOpenModalConfirm] = useState(false);
+        const cartProducts = useSelector((state) => state.cart.cartItems);
+        const totalAmount = useSelector((state) => state.cart.totalAmount);
 
 
-      console.log('cartProducts :>> ', cartProducts);
-      console.log('totalAmount :>> ', totalAmount);
+        const handleVoucherSelect = (selectedVoucher) => {
+            setOpenModal(true);
+            setVoucher(selectedVoucher);
+        };
 
-    const [voucher, setVoucher] = useState('');
-    const [selectedVoucher, setSelectedVoucher] = useState('');
-    const [discount, setDiscount] = useState(0);
-    const [inputValue, setInputValue] = useState('');
-    const [cart, setCart] = useState([]);
-    const productCounts = countProducts(cart);
-    //  lưu productCounts vào localstorage
+        const handleVoucherChange = (e) => {
+            setSelectedVoucher(e.target.value);
+            setDiscount(vouchers.find((voucher) => voucher.name === e.target.value)?.value || 0);
+        };
 
-    const uniqueProducts = cart.reduce((unique, product) => {
-        return unique.some((item) => item.id === product.id) ? unique : [...unique, product];
-    }, []);
+        const handleInputChange = (event) => {
+            setInputValue(event.target.value);
+        };
 
-    const temporaryPayment = TemporaryPayment(cart);
-    console.log('TemporaryPayment :>> ', temporaryPayment);
-    useEffect(() => {
-        const cartData = JSON.parse(localStorage.getItem('cart'));
-        if (cartData) {
-            setCart(cartData);
-        }
-    }, []);
+         console.log('cartProducts', cartProducts);
 
-    const handleVoucherSelect = (selectedVoucher) => {
-        setOpenModal(true);
-        setVoucher(selectedVoucher);
-    };
-
-    const handleInputChange = (event) => {
-        setInputValue(event.target.value);
-    };
-
-    const handleVoucherChange = (e) => {
-        setSelectedVoucher(e.target.value);
-        setDiscount(vouchers.find((voucher) => voucher.name === e.target.value)?.value || 0);
-    };
-
-    const handleDecrease = () => {
-        dispatch(decreaseQuantity(product.id));
-    };
-
-    const handleQuantityChange = (newQuantity) => {
-        dispatch(updateQuantity(product.id, newQuantity));
-    };
-    const [openModal, setOpenModal] = useState(false);
-    const [openModalPromotions, setOpenModalPromotions] = useState(false);
-    const [openModalConfirm, setOpenModalConfirm] = useState(false);
-    const _url = path_upload().product;
-    console.log('cart :>> ', cart);
-    console.log('productCounts :>> ', productCounts);
-    return (
+        const toggleCart = () => {
+          dispatch(cartUiActions.toggle());
+        };
+        return (
         <>
-            <div className="container mx-auto p-5 mt-5 shadow-lg bg-white">
+              <div className="container mx-auto p-5 mt-5 shadow-lg bg-white">
                 <div className="px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
                     <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
                         <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
@@ -144,150 +94,26 @@ function Shopping({ product }) {
                                         </span>
                                     </Tooltip>
                                 </div>
-
-                                {uniqueProducts.length === 0 ? (
-                                    <div className="flex justify-center items-center w-full h-80">
-                                        <div className="flex flex-col justify-center items-center space-y-4">
-                                            <img src={NofoundInCart} width="200" height="200" alt="No Data Icon" />
-                                            <div className="text-2xl dark:text-white">Giỏ hàng trống</div>
-                                            <div className="text-sm dark:text-white">
-                                                Hãy chọn sản phẩm để thêm vào giỏ hàng
-                                            </div>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    uniqueProducts.map((product) => {
-                                        return (
-                                            <div
-                                                key={product.id}
-                                                className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full"
-                                            >
-                                                <div className="pb-4 md:pb-8 w-full md:w-40">
-                                                    <img
-                                                        className="w-full hidden md:block"
-                                                        src={product.photo ? `${_url}${product.photo}` : Noimage}
-                                                        alt={product.tenvi}
-                                                    />
-                                                    <img
-                                                        className="w-50 md:hidden"
-                                                        width={70}
-                                                        src={product.photo ? `${_url}${product.photo}` : Noimage}
-                                                        alt={product.tenvi}
-                                                    />
-                                                </div>
-                                                <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
-                                                    <div className="w-full flex flex-col justify-start items-start space-y-8">
-                                                        <h3 className="text-sm dark:text-white xl:text-sm font-semibold leading-6 text-gray-800">
-                                                            {product.tenvi}
-                                                        </h3>
-                                                    </div>
-                                                    <div className="flex justify-between space-x-8 items-start w-full">
-                                                        <div className="text-base dark:text-white xl:text-lg leading-6 text-gray-800">
-                                                            <div
-                                                                className="py-2 px-3 inline-block bg-white border border-gray-200 rounded-lg dark:bg-slate-900 dark:border-gray-700"
-                                                                data-hs-input-number=""
-                                                            >
-                                                                <div className="flex items-center gap-x-1.5">
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={handleDecrease}
-                                                                        className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                                                                        data-hs-input-number-decrement=""
-                                                                    >
-                                                                        <svg
-                                                                            className="flex-shrink-0 w-3.5 h-3.5"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            width={24}
-                                                                            height={24}
-                                                                            viewBox="0 0 24 24"
-                                                                            fill="none"
-                                                                            stroke="currentColor"
-                                                                            strokeWidth={2}
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                        >
-                                                                            <path d="M5 12h14" />
-                                                                        </svg>
-                                                                    </button>
-                                                                    <input
-                                                                        className="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
-                                                                        type="number"
-                                                                        value={productCounts[product.id] || 1}
-                                                                        onChange={(e) => {
-                                                                            if (e.target.value <= 0) {
-                                                                                e.target.value = 1;
-                                                                            }
-                                                                            handleQuantityChange(e.target.value);
-                                                                        }}
-                                                                    />
-                                                                    <button
-                                                                        type="button"
-                                                                        className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                                                                        onClick={() => handleRemove(product)}
-                                                                        data-hs-input-number-increment=""
-                                                                    >
-                                                                        <svg
-                                                                            className="flex-shrink-0 w-3.5 h-3.5"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            width={24}
-                                                                            height={24}
-                                                                            viewBox="0 0 24 24"
-                                                                            fill="none"
-                                                                            stroke="currentColor"
-                                                                            strokeWidth={2}
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                        >
-                                                                            <path d="M5 12h14" />
-                                                                            <path d="M12 5v14" />
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        {/* máy tính sẽ giá tiền mới và giá tiền cũ trên 1 dòng và trên điện thoại sẽ xuống hàng mới */}
-                                                        <div className="flex flex-col justify-start items-start space-y-2">
-                                                            <div className="text-sm dark:text-white xl:text-sm font-semibold leading-6 text-gray-800">
-                                                                {formatNumber(
-                                                                    product.giamoi * productCounts[product.id] || 1,
-                                                                )}
-                                                                đ
-                                                            </div>
-                                                            <div className="text-sm dark:text-white xl:text-sm font-semibold leading-6 text-gray-800 line-through">
-                                                                {formatNumber(
-                                                                    product.gia * productCounts[product.id] || 1,
-                                                                )}
-                                                                đ
-                                                            </div>
-                                                        </div>
-                                                        {/* button xoa */}
-
-                                                        <button
-                                                            className="hover:text-red-500"
-                                                            onClick={() => {
-                                                                setOpenModalConfirm(true);
-                                                            }}
-                                                        >
-                                                            <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                width="16"
-                                                                height="16"
-                                                                fill="currentColor"
-                                                                className="bi bi-trash"
-                                                                viewBox="0 0 16 16"
-                                                            >
-                                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                )}
-                            </div>
-                            <div className="flex flex-col justify-start items-start dark:bg-gray-800 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
+            {cartProducts.length === 0 ? (
+              <div className="flex justify-center items-center w-full h-80">
+              <div className="flex flex-col justify-center items-center space-y-4">
+                  <img src={NofoundInCart} width="200" height="200" alt="No Data Icon" />
+                  <div className="text-2xl dark:text-white">Giỏ hàng trống</div>
+                  <div className="text-sm dark:text-white">
+                      Hãy chọn sản phẩm để thêm vào giỏ hàng
+                  </div>
+              </div>
+          </div>
+            ) : (
+                cartProducts.map((item) => (
+                <CartItem
+                  key={item.id}
+                  i={item}
+                />
+                ))
+            )}
+          </div>
+          <div className="flex flex-col justify-start items-start dark:bg-gray-800 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
                                 <div className="mt-5">
                                     <div className="flex items-center">
                                         <button
@@ -322,9 +148,8 @@ function Shopping({ product }) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="">
+        </div>
+        <div className="">
                             <div className="col-span- mb-3">
                                 <fieldset className="flex flex-col gap-1">
                                     <div className="text-xl font-bold leading-tight tracking-tight text-red-500 md:text-sm dark:text-white">
@@ -334,9 +159,10 @@ function Shopping({ product }) {
                                         <div key={index} className="flex items-center gap-2">
                                             <Radio
                                                 id={payment.id}
-                                                name="countries"
+                                                name="payment"
                                                 value={payment.name}
-                                                defaultChecked={payment.name === DEFAULT_PAYMENT_METHOD}
+                                                // nếu không có giá trị thì mặc định là thanh toán tiền mặt
+                                                checked={DEFAULT_PAYMENT_METHOD === payment.name}
                                             />
                                             <img src={payment.img} alt={payment.name} width="30px" height="30px" />
                                             <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
@@ -435,11 +261,10 @@ function Shopping({ product }) {
                             </div>
                             {/* nút thanh toán */}
                         </div>
-                    </div>
-                </div>
-            </div>
-            {/* zindex = 5 */}
-            <div className="sticky bottom-0">
+        </div>
+        </div>
+        </div>
+        <div className="sticky bottom-0">
                 {/* shadow top */}
                 <div className="container mx-auto shadow-lg">
                     <div className="container bg-gray-50 border-gray-200 border-b">
@@ -473,13 +298,13 @@ function Shopping({ product }) {
                                     <div className="flex justify-between w-full">
                                         <p className="text-sm dark:text-white leading-4 text-gray-800">Tạm tính:</p>
                                         <p className="text-sm dark:text-gray-300 leading-4 text-gray-600">
-                                            {formatNumber(temporaryPayment)}đ
+                                            {formatNumber(totalAmount)}đ
                                         </p>
                                     </div>
                                     <div className="flex justify-between items-center w-full">
                                         <p className="text-sm dark:text-white leading-4 text-gray-800">Giảm giá:</p>
                                         <p className="text-sm dark:text-gray-300 leading-4 text-gray-600">
-                                            - {formatNumber((temporaryPayment * discount) / 100)}đ
+                                        - {formatNumber(totalAmount * discount / 100)}đ
                                         </p>
                                     </div>
 
@@ -504,12 +329,13 @@ function Shopping({ product }) {
                                     </p>
                                     <p className="text-sm dark:text-gray-300 font-semibold leading-4 text-gray-600">
                                         {formatNumber(
-                                            temporaryPayment -
-                                                (temporaryPayment * discount) / 100 +
-                                                (selectedVoucher === 'FreeShip' ? 0 : voucher.money || 30000),
-                                        )}
+                                            totalAmount -
+                                                totalAmount * discount / 100 +
+                                                (selectedVoucher === 'FreeShip' ? 0 : voucher.money ? voucher.money : 30000)
+                                        )}đ
                                     </p>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -603,34 +429,9 @@ function Shopping({ product }) {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <Modal show={openModalConfirm} size="md" onClose={() => setOpenModalConfirm(false)}>
-                <Modal.Header />
-                <Modal.Body>
-                    <div className="text-center">
-                        <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?
-                        </h3>
-                        <div className="flex justify-center gap-4">
-                            {
-                                <Button
-                                    color="red"
-                                    onClick={() => {
-                                        handleRemove(cart.find((product) => product.id === product.id));
-                                        setOpenModalConfirm(false);
-                                    }}
-                                >
-                                    Xóa
-                                </Button>
-                            }
-                            <Button color="gray" onClick={() => setOpenModalConfirm(false)}>
-                                Hủy
-                            </Button>
-                        </div>
-                    </div>
-                </Modal.Body>
-            </Modal>
         </>
-    );
-}
-export default Shopping;
+      
+        );
+      };
+      
+      export default Shopping;

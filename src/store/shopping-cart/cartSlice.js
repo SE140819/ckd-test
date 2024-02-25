@@ -47,6 +47,7 @@ const cartSlice = createSlice({
           tenkhongdauvi: newItem.tenkhongdauvi,
           photo: newItem.photo,
           link: newItem.link,
+          tenvi: newItem.tenvi,
           gia: newItem.gia,
           giamoi: newItem.giamoi,
           moi: newItem.moi,
@@ -66,13 +67,28 @@ const cartSlice = createSlice({
     // ========= remove item ========
 
     removeItem(state, action) {
+      const id = action.payload;
+      const existingItem = state.cartItems.find((item) => item.id === id);
+      state.totalQuantity--;
+      state.totalAmount -= existingItem.giamoi;
+      if (existingItem.quantity === 1) {
+        state.cartItems = state.cartItems.filter((item) => item.id !== id);
+      } else {
+        existingItem.quantity--;
+      }
+      setItemFunc(state.cartItems, state.totalAmount, state.totalQuantity);
       
     },
 
     //============ delete item ===========
 
     deleteItem(state, action) {
-  
+      const id = action.payload;
+      const existingItem = state.cartItems.find((item) => item.id === id);
+      state.totalQuantity -= existingItem.quantity;
+      state.totalAmount -= existingItem.giamoi * existingItem.quantity;
+      state.cartItems = state.cartItems.filter((item) => item.id !== id);
+      setItemFunc(state.cartItems, state.totalAmount, state.totalQuantity);
     },
   },
 });
