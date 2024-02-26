@@ -39,520 +39,521 @@ import React from 'react';
  } from '../../components/skeleton';
  import { useDispatch, useSelector } from 'react-redux';
  import { addToCart, loadCart } from '../../actions';
- const Noimagebanner =
-     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE-BANNER.png?alt=media&token=e121b01a-71dc-4f7f-bd51-6ad9243c3269';
+import ProductCard from '../../components/UI/product-card/ProductCard';
+const Noimagebanner =
+    'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE-BANNER.png?alt=media&token=e121b01a-71dc-4f7f-bd51-6ad9243c3269';
 
- const Noimage =
-     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
+const Noimage =
+    'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
 
- function Home() {
-     const [loading, setLoading] = useState(true);
+function Home() {
+    const [loading, setLoading] = useState(true);
 
-     useEffect(() => {
-         setTimeout(() => {
-             setLoading(false);
-         }, 200);
-     }, []);
-     return (
-         <>
-             {/* logic skeleton */}
-             {loading ? (
-                 <>
-                     <SkeletonBanner />
-                     <SkeletonCate />
-                     <SkeletonBanner />
-                     <SkeletonProduct />
-                     <SkeletonBanner />
-                     <SkeletonPromotion />
-                     <SkeletonVideo />
-                 </>
-             ) : (
-                 <section className=" data-te-lazy-load-init " data-te-lazy-load="true">
-                     <div id="banner" className="pt-5">
-                         <Banner />
-                     </div>
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 200);
+    }, []);
+    return (
+        <>
+            {/* logic skeleton */}
+            {loading ? (
+                <>
+                    <SkeletonBanner />
+                    <SkeletonCate />
+                    <SkeletonBanner />
+                    <SkeletonProduct />
+                    <SkeletonBanner />
+                    <SkeletonPromotion />
+                    <SkeletonVideo />
+                </>
+            ) : (
+                <section className=" data-te-lazy-load-init " data-te-lazy-load="true">
+                    <div id="banner" className="pt-5">
+                        <Banner />
+                    </div>
 
-                     <div id="slick_cate" className="main_fix pt-5">
-                         <Cate />
-                     </div>
+                    <div id="slick_cate" className="main_fix pt-5">
+                        <Cate />
+                    </div>
 
-                     <div id="banner2" className="pt-5">
-                         <Banner2 />
-                     </div>
+                    <div id="banner2" className="pt-5">
+                        <Banner2 />
+                    </div>
 
-                     <div id="product_slide" className="p-5 main_fix bg-white">
-                         <ProductSlide />
-                     </div>
+                    <div id="product_slide" className="p-5 main_fix bg-white">
+                        <ProductSlide />
+                    </div>
 
-                     <div id="banner2" className="pt-5">
-                         <Banner3 />
-                     </div>
-                     <div id="promotion_slide" className="p-5 main_fix pt-5 bg-white">
-                         <PromotionSlide />
-                     </div>
-                     <div className="main_fix pt-5 bg-white">
-                         <Review />
-                     </div>
-                     <div className="main_fix pt-5">
-                         <Video />
-                     </div>
-                     <div className="main_fix pt-5">
-                         <Brand />
-                     </div>
-                 </section>
-             )}
-         </>
-     );
- }
+                    <div id="banner2" className="pt-5">
+                        <Banner3 />
+                    </div>
+                    <div id="promotion_slide" className="p-5 main_fix pt-5 bg-white">
+                        <PromotionSlide />
+                    </div>
+                    <div className="main_fix pt-5 bg-white">
+                        <Review />
+                    </div>
+                    <div className="main_fix pt-5">
+                        <Video />
+                    </div>
+                    <div className="main_fix pt-5">
+                        <Brand />
+                    </div>
+                </section>
+            )}
+        </>
+    );
+}
 
- function Banner() {
-     const tag_mb = checkIsMobile();
+function Banner() {
+    const tag_mb = checkIsMobile();
 
-     const options = {
-         table: 'photo',
-         select: 'id,tenvi as ten,photo,link',
-         where: 'type="slidevi' + tag_mb + '" and hienthi >0',
-         order_by: 'stt,id desc',
-     };
+    const options = {
+        table: 'photo',
+        select: 'id,tenvi as ten,photo,link',
+        where: 'type="slidevi' + tag_mb + '" and hienthi >0',
+        order_by: 'stt,id desc',
+    };
 
-     const [banner, setBanner] = useState([]);
+    const [banner, setBanner] = useState([]);
 
-     useEffect(() => {
-         const fetch = async () => {
-             const _banner = await get('tab', { params: options });
-             setBanner(_banner);
-         };
+    useEffect(() => {
+        const fetch = async () => {
+            const _banner = await get('tab', { params: options });
+            setBanner(_banner);
+        };
 
-         fetch();
-     }, []);
+        fetch();
+    }, []);
 
-     return (
-         <Swiper
-             loop={true}
-             autoplay={{
-                 delay: 2000,
-             }}
-             modules={[Autoplay, Pagination, Navigation]}
-             onSwiper={(swiper) => console.log(swiper)}
-         >
-             {!!banner &&
-                 banner.map((i) => {
-                     const _url = path_upload().photo;
+    return (
+        <Swiper
+            loop={true}
+            autoplay={{
+                delay: 2000,
+            }}
+            modules={[Autoplay, Pagination, Navigation]}
+            onSwiper={(swiper) => console.log(swiper)}
+        >
+            {!!banner &&
+                banner.map((i) => {
+                    const _url = path_upload().photo;
 
-                     return (
-                         <SwiperSlide key={i.id}>
-                             <a className="bg-cover " href={i.link}>
-                                 <img
-                                     className="w-full object-cover h-auto"
-                                     src={i.photo ? _url + i.photo : Noimagebanner}
-                                     alt={i.ten}
-                                 />
-                             </a>
-                         </SwiperSlide>
-                     );
-                 })}
-         </Swiper>
-     );
- }
- function Cate() {
-     const options = {
-         table: 'product_list',
-         select: 'id,tenvi as ten,tenkhongdauvi as link,photo',
-         where: 'type="san-pham" and hienthi >0',
-         order_by: 'stt,id desc',
-     };
+                    return (
+                        <SwiperSlide key={i.id}>
+                            <a className="bg-cover " href={i.link}>
+                                <img
+                                    className="w-full object-cover h-auto"
+                                    src={i.photo ? _url + i.photo : Noimagebanner}
+                                    alt={i.ten}
+                                />
+                            </a>
+                        </SwiperSlide>
+                    );
+                })}
+        </Swiper>
+    );
+}
+function Cate() {
+    const options = {
+        table: 'product_list',
+        select: 'id,tenvi as ten,tenkhongdauvi as link,photo',
+        where: 'type="san-pham" and hienthi >0',
+        order_by: 'stt,id desc',
+    };
 
-     const [banner, setBanner] = useState([]);
+    const [banner, setBanner] = useState([]);
 
-     useEffect(() => {
-         const fetch = async () => {
-             const _banner = await get('tab', { params: options });
-             setBanner(_banner);
-         };
+    useEffect(() => {
+        const fetch = async () => {
+            const _banner = await get('tab', { params: options });
+            setBanner(_banner);
+        };
 
-         fetch();
-     }, []);
+        fetch();
+    }, []);
 
-     return (
-         <Swiper
-             autoplay={{
-                 delay: 2000,
-             }}
-             loop={true}
-             spaceBetween={10}
-             slidesPerView={2}
-             modules={[Autoplay, Pagination, Navigation]}
-             breakpoints={{
-                 300: {
-                     slidesPerView: 3,
-                     spaceBetween: 5,
-                 },
-                 450: {
-                     slidesPerView: 3,
-                     spaceBetween: 5,
-                 },
-                 600: {
-                     slidesPerView: 4,
-                     spaceBetween: 10,
-                 },
-                 900: {
-                     slidesPerView: 5,
-                     spaceBetween: 20,
-                 },
-             }}
-         >
-             {!!banner &&
-                 banner.map((i) => {
-                     const _url = path_upload().product;
+    return (
+        <Swiper
+            autoplay={{
+                delay: 2000,
+            }}
+            loop={true}
+            spaceBetween={10}
+            slidesPerView={2}
+            modules={[Autoplay, Pagination, Navigation]}
+            breakpoints={{
+                300: {
+                    slidesPerView: 3,
+                    spaceBetween: 5,
+                },
+                450: {
+                    slidesPerView: 3,
+                    spaceBetween: 5,
+                },
+                600: {
+                    slidesPerView: 4,
+                    spaceBetween: 10,
+                },
+                900: {
+                    slidesPerView: 5,
+                    spaceBetween: 20,
+                },
+            }}
+        >
+            {!!banner &&
+                banner.map((i) => {
+                    const _url = path_upload().product;
 
-                     return (
-                         <SwiperSlide key={i.id}>
-                             <div className="item_dm">
-                                 <p className="img_sp_home zoom_hinh border overflow-hidden">
-                                     <a href="/product" title={i.ten}>
-                                         <img
-                                             className="img-fluid border rounded-full transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                                             src={i.photo ? _url + i.photo : Noimage}
-                                             alt="CKD COS VIETNAM"
-                                         />
-                                     </a>
-                                 </p>
-                                 <h2 className="name_sp catchuoi2">
-                                     <a href="/product" title={i.ten}>
-                                         {i.ten}
-                                     </a>
-                                 </h2>
-                             </div>
-                         </SwiperSlide>
-                     );
-                 })}
-         </Swiper>
-     );
- }
+                    return (
+                        <SwiperSlide key={i.id}>
+                            <div className="item_dm">
+                                <p className="img_sp_home zoom_hinh border overflow-hidden">
+                                    <a href="/product" title={i.ten}>
+                                        <img
+                                            className="img-fluid border rounded-full transform hover:scale-105 transition-transform duration-300 ease-in-out"
+                                            src={i.photo ? _url + i.photo : Noimage}
+                                            alt="CKD COS VIETNAM"
+                                        />
+                                    </a>
+                                </p>
+                                <h2 className="name_sp catchuoi2">
+                                    <a href="/product" title={i.ten}>
+                                        {i.ten}
+                                    </a>
+                                </h2>
+                            </div>
+                        </SwiperSlide>
+                    );
+                })}
+        </Swiper>
+    );
+}
 
- function Banner2() {
-     const tag_mb = checkIsMobile();
-     const options = {
-         table: 'photo',
-         select: 'id,tenvi as ten,photo,link',
-         where: 'type="bannervi' + tag_mb + '" and hienthi >0',
-         order_by: 'stt,id desc',
-     };
+function Banner2() {
+    const tag_mb = checkIsMobile();
+    const options = {
+        table: 'photo',
+        select: 'id,tenvi as ten,photo,link',
+        where: 'type="bannervi' + tag_mb + '" and hienthi >0',
+        order_by: 'stt,id desc',
+    };
 
-     const [banner, setBanner] = useState([]);
+    const [banner, setBanner] = useState([]);
 
-     useEffect(() => {
-         const fetch = async () => {
-             const _banner = await get('tab', { params: options });
-             setBanner(_banner);
-         };
+    useEffect(() => {
+        const fetch = async () => {
+            const _banner = await get('tab', { params: options });
+            setBanner(_banner);
+        };
 
-         fetch();
-     }, []);
+        fetch();
+    }, []);
 
-     return (
-         <Swiper
-             loop={true}
-             autoplay={{
-                 delay: 2000,
-             }}
-             modules={[Autoplay, Pagination, Navigation]}
-             onSwiper={(swiper) => console.log(swiper)}
-         >
-             {!!banner &&
-                 banner.map((i) => {
-                     const _url = path_upload().photo;
+    return (
+        <Swiper
+            loop={true}
+            autoplay={{
+                delay: 2000,
+            }}
+            modules={[Autoplay, Pagination, Navigation]}
+            onSwiper={(swiper) => console.log(swiper)}
+        >
+            {!!banner &&
+                banner.map((i) => {
+                    const _url = path_upload().photo;
 
-                     return (
-                         <SwiperSlide key={i.id}>
-                             <a className="bg-cover " href={i.link}>
-                                 <img
-                                     className="w-full object-cover h-auto"
-                                     src={i.photo ? _url + i.photo : Noimagebanner}
-                                     alt={i.ten}
-                                 />
-                             </a>
-                         </SwiperSlide>
-                     );
-                 })}
-         </Swiper>
-     );
- }
+                    return (
+                        <SwiperSlide key={i.id}>
+                            <a className="bg-cover " href={i.link}>
+                                <img
+                                    className="w-full object-cover h-auto"
+                                    src={i.photo ? _url + i.photo : Noimagebanner}
+                                    alt={i.ten}
+                                />
+                            </a>
+                        </SwiperSlide>
+                    );
+                })}
+        </Swiper>
+    );
+}
 
- function ProductSlide() {
-     const dispatch = useDispatch();
-     const handleAddToCart = (product) => {
-         dispatch(addToCart(product));
-     };
+function ProductSlide() {
+    const dispatch = useDispatch();
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product));
+    };
 
-     useEffect(() => {
-         const savedCart = localStorage.getItem('cart');
-         if (savedCart) {
-             dispatch(loadCart(JSON.parse(savedCart)));
-         }
-     }, [dispatch]);
-     const options = {
-         table: 'product',
-         select: 'id,tenvi as ten,tenkhongdauvi as link,photo,gia,nhaplieu_daban,moi,khuyenmai,tenvi,giamoi,moi',
-         where: 'hienthi >0' + ' and type="san-pham" and noibat >0',
-     };
-     const option2 = {
-         table: 'product',
-         select: 'id,tenvi as ten,tenkhongdauvi as link,photo,gia,nhaplieu_daban,moi,khuyenmai,tenvi,giamoi,moi',
-         where: 'hienthi >0' + ' and type="san-pham" and moi >0',
-     };
+    useEffect(() => {
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+            dispatch(loadCart(JSON.parse(savedCart)));
+        }
+    }, [dispatch]);
+    const options = {
+        table: 'product',
+        select: 'id,tenvi as ten,tenkhongdauvi as link,photo,gia,nhaplieu_daban,moi,khuyenmai,tenvi,giamoi,moi',
+        where: 'hienthi >0' + ' and type="san-pham" and noibat >0',
+    };
+    const option2 = {
+        table: 'product',
+        select: 'id,tenvi as ten,tenkhongdauvi as link,photo,gia,nhaplieu_daban,moi,khuyenmai,tenvi,giamoi,moi',
+        where: 'hienthi >0' + ' and type="san-pham" and moi >0',
+    };
 
-     const [product, setProduct] = useState([]);
-     const [productNew, setProductNew] = useState([]);
-     useEffect(() => {
-         const fetch = async () => {
-             const _product = await get('tab', { params: options });
-             setProduct(_product);
-         };
+    const [product, setProduct] = useState([]);
+    const [productNew, setProductNew] = useState([]);
+    useEffect(() => {
+        const fetch = async () => {
+            const _product = await get('tab', { params: options });
+            setProduct(_product);
+        };
 
-         fetch();
-     }, []);
+        fetch();
+    }, []);
 
-     useEffect(() => {
-         const fetch = async () => {
-             const _product2 = await get('tab', { params: option2 });
-             setProductNew(_product2);
-         };
+    useEffect(() => {
+        const fetch = async () => {
+            const _product2 = await get('tab', { params: option2 });
+            setProductNew(_product2);
+        };
 
-         fetch();
-     }, []);
+        fetch();
+    }, []);
 
-     return (
-         <>
-             <Tabs style="pills" className=" justify-center mx-auto">
-                 <Tabs.Item active title={title.Tab1} className="flex justify-center active">
-                     <Swiper
-                         spaceBetween={20}
-                         freeMode={true}
-                         pagination={{
-                             clickable: true,
-                         }}
-                         autoplay={{
-                             delay: 5000,
-                         }}
-                         modules={[Autoplay]}
-                         breakpoints={{
-                             300: {
-                                 slidesPerView: 2,
-                                 spaceBetween: 2,
-                             },
-                             450: {
-                                 slidesPerView: 2,
-                                 spaceBetween: 5,
-                             },
-                             600: {
-                                 slidesPerView: 3,
-                                 spaceBetween: 10,
-                             },
-                             900: {
-                                 slidesPerView: 4,
-                                 spaceBetween: 20,
-                             },
-                         }}
-                         className="mySwiper"
-                     >
-                         {product.map((i, index) => (
-                             <SwiperSlide key={i.id}>
-                                 <div className="item container flex justify-center mb-5">
-                                     <div className="max-w-sm">
-                                         <div className="bg-white relative transition duration-500 rounded-lg">
-                                             <div className="item">
-                                                 <div className="img_sp zoom_hinh">
-                                                     <div className="image-container">
-                                                         <a href={`/product/${i.id}`} title={i.tenkhongdauvi}>
-                                                             <img
-                                                                 className="img-fluid img-lazy img-load object-cover"
-                                                                 src={
-                                                                     i.photo ? path_upload().product + i.photo : Noimage
-                                                                 }
-                                                                 alt={i.tenkhongdauvi}
-                                                                 title={i.tenkhongdauvi}
-                                                             />
+    return (
+        <>
+            <Tabs style="pills" className=" justify-center mx-auto">
+                <Tabs.Item active title={title.Tab1} className="flex justify-center active">
+                    <Swiper
+                        spaceBetween={20}
+                        freeMode={true}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        autoplay={{
+                            delay: 5000,
+                        }}
+                        modules={[Autoplay]}
+                        breakpoints={{
+                            300: {
+                                slidesPerView: 2,
+                                spaceBetween: 2,
+                            },
+                            450: {
+                                slidesPerView: 2,
+                                spaceBetween: 5,
+                            },
+                            600: {
+                                slidesPerView: 3,
+                                spaceBetween: 10,
+                            },
+                            900: {
+                                slidesPerView: 4,
+                                spaceBetween: 20,
+                            },
+                        }}
+                        className="mySwiper"
+                    >
+                        {product.map((i, index) => (
+                            <SwiperSlide key={i.id}>
+                                <div className="item container flex justify-center mb-5">
+                                    <div className="max-w-sm">
+                                        <div className="bg-white relative transition duration-500 rounded-lg">
+                                            <div className="item">
+                                                <div className="img_sp zoom_hinh">
+                                                    <div className="image-container">
+                                                        <a href={`/product/${i.id}`} title={i.tenkhongdauvi}>
+                                                            <img
+                                                                className="img-fluid img-lazy img-load object-cover"
+                                                                src={
+                                                                    i.photo ? path_upload().product + i.photo : Noimage
+                                                                }
+                                                                alt={i.tenkhongdauvi}
+                                                                title={i.tenkhongdauvi}
+                                                            />
 
-                                                             <button
-                                                                 className="cart-buy addcart transition"
-                                                                 data-id="157"
-                                                                 onClick={() => handleAddToCart(i)}
-                                                             ></button>
-                                                         </a>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                             <div className="rounded-lg bg-white">
-                                                 {/* reposive */}
-                                                 <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
-                                                     <a href={i.link} title={i.tenkhongdauvi}>
-                                                         <span className="line-clamp-2">{i.tenvi}</span>
-                                                     </a>
-                                                 </h1>
+                                                            <button
+                                                                className="cart-buy addcart transition"
+                                                                data-id="157"
+                                                                onClick={() => handleAddToCart(i)}
+                                                            ></button>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="rounded-lg bg-white">
+                                                {/* reposive */}
+                                                <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
+                                                    <a href={i.link} title={i.tenkhongdauvi}>
+                                                        <span className="line-clamp-2">{i.tenvi}</span>
+                                                    </a>
+                                                </h1>
 
-                                                 {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
-                                                 {i.giamoi > 0 ? (
-                                                     <p className="gia_sp">
-                                                         <span className="gia giamoi">
-                                                             {/* formatNumber */}
-                                                             {formatNumber(i.giamoi)} đ
-                                                         </span>
-                                                         <span className=" giacu">
-                                                             {/* formatNumber */}
-                                                             {formatNumber(i.gia)} đ
-                                                         </span>
-                                                     </p>
-                                                 ) : (
-                                                     <p className="gia_sp">
-                                                         <span className="gia giamoi">
-                                                             {/* formatNumber */}
-                                                             {formatNumber(i.gia)} đ
-                                                         </span>
-                                                     </p>
-                                                 )}
-                                                 <div className="flex justify-center">
-                                                     {i.moi > 0 && (
-                                                         <span className="border rounded p-1 border-green-500 text-green-500">
-                                                             New
-                                                         </span>
-                                                     )}
-                                                 </div>
-                                                 <div className="mt-2">
-                                                     <div className="text-gray-500 text-xs">
-                                                         {title.daban} {i.nhaplieu_daban}
-                                                     </div>
-                                                 </div>
-                                             </div>
+                                                {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
+                                                {i.giamoi > 0 ? (
+                                                    <p className="gia_sp">
+                                                        <span className="gia giamoi">
+                                                            {/* formatNumber */}
+                                                            {formatNumber(i.giamoi)} đ
+                                                        </span>
+                                                        <span className=" giacu">
+                                                            {/* formatNumber */}
+                                                            {formatNumber(i.gia)} đ
+                                                        </span>
+                                                    </p>
+                                                ) : (
+                                                    <p className="gia_sp">
+                                                        <span className="gia giamoi">
+                                                            {/* formatNumber */}
+                                                            {formatNumber(i.gia)} đ
+                                                        </span>
+                                                    </p>
+                                                )}
+                                                <div className="flex justify-center">
+                                                    {i.moi > 0 && (
+                                                        <span className="border rounded p-1 border-green-500 text-green-500">
+                                                            New
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <div className="mt-2">
+                                                    <div className="text-gray-500 text-xs">
+                                                        {title.daban} {i.nhaplieu_daban}
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                             {!!i.khuyenmai && i.khuyenmai > 0 && (
-                                                 <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                                     {getDiscount(i.gia, i.giamoi) + '%'}
-                                                 </div>
-                                             )}
+                                            {!!i.khuyenmai && i.khuyenmai > 0 && (
+                                                <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
+                                                    {getDiscount(i.gia, i.giamoi) + '%'}
+                                                </div>
+                                            )}
 
-                                             <button
-                                                 className="bg-green-600 hover:bg-pink-400 p-4 text-white hover:text-white font-bold py-2 px-4 rounded-full"
-                                                 onClick={() => handleAddToCart(i)}
-                                             >
-                                                 Thêm vào giỏ hàng
-                                             </button>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </SwiperSlide>
-                         ))}
-                     </Swiper>
-                     <p className="xemtatca">
-                         <a
-                             href="/product"
-                             className="bg-green-500 hover:bg-pink-400
+                                            <button
+                                                className="bg-green-600 hover:bg-pink-400 p-4 text-white hover:text-white font-bold py-2 px-4 rounded-full"
+                                                onClick={() => handleAddToCart(i)}
+                                            >
+                                                Thêm vào giỏ hàng
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                    <p className="xemtatca">
+                        <a
+                            href="/product"
+                            className="bg-green-500 hover:bg-pink-400
                      text-white hover:text-white
                       font-bold py-2 px-4 rounded-full"
-                         >
-                             {title.xemthem}
-                         </a>
-                     </p>
-                 </Tabs.Item>
-                 <Tabs.Item title="MỚI">
-                     <Swiper
-                         spaceBetween={20}
-                         freeMode={true}
-                         pagination={{
-                             clickable: true,
-                         }}
-                         autoplay={{
-                             delay: 5000,
-                         }}
-                         modules={[Autoplay]}
-                         breakpoints={{
-                             300: {
-                                 slidesPerView: 2,
-                                 spaceBetween: 2,
-                             },
-                             450: {
-                                 slidesPerView: 2,
-                                 spaceBetween: 5,
-                             },
-                             600: {
-                                 slidesPerView: 3,
-                                 spaceBetween: 10,
-                             },
-                             900: {
-                                 slidesPerView: 4,
-                                 spaceBetween: 20,
-                             },
-                         }}
-                         className="mySwiper"
-                     >
-                         {productNew.map((i, index) => (
-                             <SwiperSlide key={i.id}>
-                                 <div className="item container flex justify-center mb-5">
-                                     <div className="max-w-sm">
-                                         <div className="bg-white relative transition duration-500 rounded-lg">
-                                             <div className="item">
-                                                 <div className="img_sp zoom_hinh">
-                                                     <div className="image-container">
-                                                         <a href={`/product/${i.id}`} title={i.tenkhongdauvi}>
-                                                             <img
-                                                                 className="img-fluid img-lazy img-load object-cover"
-                                                                 src={
-                                                                     i.photo ? path_upload().product + i.photo : Noimage
-                                                                 }
-                                                                 alt={i.tenkhongdauvi}
-                                                                 title={i.tenkhongdauvi}
-                                                             />
+                        >
+                            {title.xemthem}
+                        </a>
+                    </p>
+                </Tabs.Item>
+                <Tabs.Item title="MỚI">
+                    <Swiper
+                        spaceBetween={20}
+                        freeMode={true}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        autoplay={{
+                            delay: 5000,
+                        }}
+                        modules={[Autoplay]}
+                        breakpoints={{
+                            300: {
+                                slidesPerView: 2,
+                                spaceBetween: 2,
+                            },
+                            450: {
+                                slidesPerView: 2,
+                                spaceBetween: 5,
+                            },
+                            600: {
+                                slidesPerView: 3,
+                                spaceBetween: 10,
+                            },
+                            900: {
+                                slidesPerView: 4,
+                                spaceBetween: 20,
+                            },
+                        }}
+                        className="mySwiper"
+                    >
+                        {productNew.map((i, index) => (
+                            <SwiperSlide key={i.id}>
+                                <div className="item container flex justify-center mb-5">
+                                    <div className="max-w-sm">
+                                        <div className="bg-white relative transition duration-500 rounded-lg">
+                                            <div className="item">
+                                                <div className="img_sp zoom_hinh">
+                                                    <div className="image-container">
+                                                        <a href={`/product/${i.id}`} title={i.tenkhongdauvi}>
+                                                            <img
+                                                                className="img-fluid img-lazy img-load object-cover"
+                                                                src={
+                                                                    i.photo ? path_upload().product + i.photo : Noimage
+                                                                }
+                                                                alt={i.tenkhongdauvi}
+                                                                title={i.tenkhongdauvi}
+                                                            />
 
-                                                             <button
-                                                                 className="cart-buy addcart transition"
-                                                                 data-id="157"
-                                                                 onClick={() => handleAddToCart(i)}
-                                                             ></button>
-                                                         </a>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                             <div className="rounded-lg bg-white">
-                                                 {/* reposive */}
-                                                 <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
-                                                     <a href={i.link} title={i.tenkhongdauvi}>
-                                                         <span className="line-clamp-2">{i.tenvi}</span>
-                                                     </a>
-                                                 </h1>
+                                                            <button
+                                                                className="cart-buy addcart transition"
+                                                                data-id="157"
+                                                                onClick={() => handleAddToCart(i)}
+                                                            ></button>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="rounded-lg bg-white">
+                                                {/* reposive */}
+                                                <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
+                                                    <a href={i.link} title={i.tenkhongdauvi}>
+                                                        <span className="line-clamp-2">{i.tenvi}</span>
+                                                    </a>
+                                                </h1>
 
-                                                 {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
-                                                 {i.giamoi > 0 ? (
-                                                     <p className="gia_sp">
-                                                         <span className="gia giamoi">
-                                                             {/* formatNumber */}
-                                                             {formatNumber(i.giamoi)} đ
-                                                         </span>
-                                                         <span className=" giacu">
-                                                             {/* formatNumber */}
-                                                             {formatNumber(i.gia)} đ
-                                                         </span>
-                                                     </p>
-                                                 ) : (
-                                                     <p className="gia_sp">
-                                                         <span className="gia giamoi">
-                                                             {/* formatNumber */}
-                                                             {formatNumber(i.gia)} đ
-                                                         </span>
-                                                     </p>
-                                                 )}
-                                                 <div className="flex justify-center">
-                                                     {i.moi > 0 && (
-                                                         <span className="border rounded p-1 border-green-500 text-green-500">
-                                                             New
-                                                         </span>
-                                                     )}
-                                                 </div>
-                                                 <div className="mt-2">
-                                                     <div className="text-gray-500 text-xs">
-                                                         {title.daban} {i.nhaplieu_daban}
-                                                     </div>
+                                                {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
+                                                {i.giamoi > 0 ? (
+                                                    <p className="gia_sp">
+                                                        <span className="gia giamoi">
+                                                            {/* formatNumber */}
+                                                            {formatNumber(i.giamoi)} đ
+                                                        </span>
+                                                        <span className=" giacu">
+                                                            {/* formatNumber */}
+                                                            {formatNumber(i.gia)} đ
+                                                        </span>
+                                                    </p>
+                                                ) : (
+                                                    <p className="gia_sp">
+                                                        <span className="gia giamoi">
+                                                            {/* formatNumber */}
+                                                            {formatNumber(i.gia)} đ
+                                                        </span>
+                                                    </p>
+                                                )}
+                                                <div className="flex justify-center">
+                                                    {i.moi > 0 && (
+                                                        <span className="border rounded p-1 border-green-500 text-green-500">
+                                                            New
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <div className="mt-2">
+                                                    <div className="text-gray-500 text-xs">
+                                                        {title.daban} {i.nhaplieu_daban}
+                                                    </div>
 
-                                                     {/* <Progress
+                                                    {/* <Progress
                                                         progress={50}
                                                         color="pink"
                                                         textLabel="50/100"
@@ -560,263 +561,207 @@ import React from 'react';
                                                         //    labelProgress
                                                         labelText
                                                     /> */}
-                                                 </div>
-                                             </div>
+                                                </div>
+                                            </div>
 
-                                             {!!i.khuyenmai && i.khuyenmai > 0 && (
-                                                 <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                                     {getDiscount(i.gia, i.giamoi) + '%'}
-                                                 </div>
-                                             )}
+                                            {!!i.khuyenmai && i.khuyenmai > 0 && (
+                                                <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
+                                                    {getDiscount(i.gia, i.giamoi) + '%'}
+                                                </div>
+                                            )}
 
-                                             <button
-                                                 className="bg-green-600 hover:bg-pink-400 p-4 text-white hover:text-white font-bold py-2 px-4 rounded-full"
-                                                 onClick={() => handleAddToCart(i)}
-                                             >
-                                                 Thêm vào giỏ hàng
-                                             </button>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </SwiperSlide>
-                         ))}
-                     </Swiper>
-                     <p className="xemtatca">
-                         <a
-                             href="/product"
-                             className="bg-green-500 hover:bg-pink-400
+                                            <button
+                                                className="bg-green-600 hover:bg-pink-400 p-4 text-white hover:text-white font-bold py-2 px-4 rounded-full"
+                                                onClick={() => handleAddToCart(i)}
+                                            >
+                                                Thêm vào giỏ hàng
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                    <p className="xemtatca">
+                        <a
+                            href="/product"
+                            className="bg-green-500 hover:bg-pink-400
                      text-white hover:text-white
                       font-bold py-2 px-4 rounded-full"
-                         >
-                             {title.xemthem}
-                         </a>
-                     </p>
-                 </Tabs.Item>
-             </Tabs>
-         </>
-     );
- }
+                        >
+                            {title.xemthem}
+                        </a>
+                    </p>
+                </Tabs.Item>
+            </Tabs>
+        </>
+    );
+}
 
- function Banner3() {
-     const tag_mb = checkIsMobile();
-     const options = {
-         table: 'photo',
-         select: 'id,tenvi as ten,photo,link',
-         where: 'type="banner2vi' + tag_mb + '" and hienthi >0',
-     };
+function Banner3() {
+    const tag_mb = checkIsMobile();
+    const options = {
+        table: 'photo',
+        select: 'id,tenvi as ten,photo,link',
+        where: 'type="banner2vi' + tag_mb + '" and hienthi >0',
+    };
 
-     const [banner, setBanner] = useState([]);
+    const [banner, setBanner] = useState([]);
 
-     useEffect(() => {
-         const fetch = async () => {
-             const _banner = await get('tab', { params: options });
-             setBanner(_banner);
-         };
+    useEffect(() => {
+        const fetch = async () => {
+            const _banner = await get('tab', { params: options });
+            setBanner(_banner);
+        };
 
-         fetch();
-     }, []);
+        fetch();
+    }, []);
 
-     return (
-         <Swiper
-             loop={true}
-             autoplay={{
-                 delay: 2000,
-             }}
-             modules={[Autoplay, Pagination, Navigation]}
-             onSwiper={(swiper) => console.log(swiper)}
-         >
-             {!!banner &&
-                 banner.map((i) => {
-                     const _url = path_upload().photo;
+    return (
+        <Swiper
+            loop={true}
+            autoplay={{
+                delay: 2000,
+            }}
+            modules={[Autoplay, Pagination, Navigation]}
+            onSwiper={(swiper) => console.log(swiper)}
+        >
+            {!!banner &&
+                banner.map((i) => {
+                    const _url = path_upload().photo;
 
-                     return (
-                         <SwiperSlide key={i.id}>
-                             <a className="bg-cover " href={i.link}>
-                                 <img
-                                     className="w-full object-cover h-auto"
-                                     src={i.photo ? _url + i.photo : Noimagebanner}
-                                     alt={i.ten}
-                                 />
-                             </a>
-                         </SwiperSlide>
-                     );
-                 })}
-         </Swiper>
-     );
- }
+                    return (
+                        <SwiperSlide key={i.id}>
+                            <a className="bg-cover " href={i.link}>
+                                <img
+                                    className="w-full object-cover h-auto"
+                                    src={i.photo ? _url + i.photo : Noimagebanner}
+                                    alt={i.ten}
+                                />
+                            </a>
+                        </SwiperSlide>
+                    );
+                })}
+        </Swiper>
+    );
+}
 
- function PromotionSlide() {
-     const dispatch = useDispatch();
-     const cart = useSelector((state) => state.cart);
-     useEffect(() => {
-         localStorage.setItem('cart', JSON.stringify(cart));
-     }, [cart]);
+function PromotionSlide() {
+    const options = {
+        table: 'product',
+        select: '*',
+        where: 'hienthi >0 AND khuyenmai >0',
+    };
+    const [product_list, setProductList] = useState([]);
 
-     const handleAddToCart = (product) => {
-         dispatch(addToCart(product));
-     };
+    useEffect(() => {
+        const fetch = async () => {
+            const _product = await get('tab', { params: options });
+            setProductList(_product || []);
+        };
 
-     console.log('🚀 ~ file: index.js ~ line 370 ~ PromotionSlide ~ handleAddToCart', cart);
+        fetch();
+    }, []);
 
-     const options = {
-         table: 'product',
-         select: '*',
-         // select: 'id,tenvi as ten,tenkhongdauvi as link,photo,gia,nhaplieu_daban,moi,khuyenmai,tenvi',
-         where: 'hienthi >0' + ' and type="san-pham" and khuyenmai >0',
-     };
+    const initialFilterState = {
+        id_thuonghieu: '', //done
+        id_cat: '', //done
+        id_dong: '', //done
+    };
 
-     const [product, setProduct] = useState([]);
-     useEffect(() => {
-         const fetch = async () => {
-             const _product = await get('tab', { params: options });
-             setProduct(_product);
-         };
+    const [filterState, setFilterState] = useState(initialFilterState);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [noProductFound, setNoProductFound] = useState(false);
 
-         fetch();
-     }, []);
-     return (
-         <React.Fragment>
-             <div className="title-main">
-                 <h1 className="h1_home">{title.sanphamkhuyenmai}</h1>
-             </div>
-             <Swiper
-                 spaceBetween={20}
-                 freeMode={true}
-                 pagination={{
-                     clickable: true,
-                 }}
-                 autoplay={{
-                     delay: 5000,
-                 }}
-                 modules={[Autoplay]}
-                 breakpoints={{
-                     300: {
-                         slidesPerView: 2,
-                         spaceBetween: 2,
-                     },
-                     450: {
-                         slidesPerView: 2,
-                         spaceBetween: 5,
-                     },
-                     600: {
-                         slidesPerView: 3,
-                         spaceBetween: 10,
-                     },
-                     900: {
-                         slidesPerView: 4,
-                         spaceBetween: 20,
-                     },
-                 }}
-                 className="mySwiper"
-             >
-                 {product.map((i, index) => (
-                     <SwiperSlide key={i.id}>
-                         <div className="item container flex justify-center mb-5">
-                             <div className="max-w-sm">
-                                 <div className="bg-white relative transition duration-500 rounded-lg">
-                                     <div className="item">
-                                         <div className="img_sp zoom_hinh">
-                                             <div className="image-container">
-                                                 <a href={`/product/${i.id}`} title={i.tenkhongdauvi}>
-                                                     <img
-                                                         className="img-fluid img-lazy img-load object-cover"
-                                                         src={i.photo ? path_upload().product + i.photo : Noimage}
-                                                         alt={i.tenkhongdauvi}
-                                                         title={i.tenkhongdauvi}
-                                                     />
+    const filterProducts = () => {
+        const newFilteredProducts = product_list.filter((product) => {
+            const isBrandMatch =
+                filterState.id_thuonghieu === '' || product.id_thuonghieu === filterState.id_thuonghieu;
+            const isCategoryMatch = filterState.id_cat === '' || product.id_cat === filterState.id_cat;
+            const isTypeMatch = filterState.id_dong === '' || product.id_dong === filterState.id_dong;
 
-                                                     <button
-                                                         className="cart-buy addcart transition"
-                                                         data-id="157"
-                                                         onClick={() => handleAddToCart(i)}
-                                                     ></button>
-                                                 </a>
-                                             </div>
-                                         </div>
-                                     </div>
-                                     <div className="rounded-lg bg-white">
-                                         {/* reposive */}
-                                         <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
-                                             <a href={i.link} title={i.tenkhongdauvi}>
-                                                 <span className="line-clamp-2">{i.tenvi}</span>
-                                             </a>
-                                         </h1>
+            return isBrandMatch && isCategoryMatch && isTypeMatch;
+        });
 
-                                         {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
-                                         {i.giamoi > 0 ? (
-                                             <p className="gia_sp">
-                                                 <span className="gia giamoi">
-                                                     {/* formatNumber */}
-                                                     {formatNumber(i.giamoi)} đ
-                                                 </span>
-                                                 <span className=" giacu">
-                                                     {/* formatNumber */}
-                                                     {formatNumber(i.gia)} đ
-                                                 </span>
-                                             </p>
-                                         ) : (
-                                             <p className="gia_sp">
-                                                 <span className="gia giamoi">
-                                                     {/* formatNumber */}
-                                                     {formatNumber(i.gia)} đ
-                                                 </span>
-                                             </p>
-                                         )}
-                                         <div className="flex justify-center">
-                                             {i.moi > 0 && (
-                                                 <span className="border rounded p-1 border-green-500 text-green-500">
-                                                     New
-                                                 </span>
-                                             )}
-                                         </div>
-                                         <div className="mt-2">
-                                             <div className="text-gray-500 text-xs">
-                                                 {title.daban} {i.nhaplieu_daban}
-                                             </div>
+        setFilteredProducts(newFilteredProducts);
+        setNoProductFound(newFilteredProducts.length === 0);
+    };
 
-                                             {/* <Progress
-                                                        progress={50}
-                                                        color="pink"
-                                                        textLabel="50/100"
-                                                        size="lg"
-                                                        //    labelProgress
-                                                        labelText
-                                                    /> */}
-                                         </div>
-                                     </div>
+    useEffect(() => {
+        filterProducts();
+    }, [product_list, filterState]);
 
-                                     {!!i.khuyenmai && i.khuyenmai > 0 && (
-                                         <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                             {getDiscount(i.gia, i.giamoi) + '%'}
-                                         </div>
-                                     )}
+    console.log('product_list', product_list);
 
-                                     <button
-                                         className="bg-green-600 hover:bg-pink-400 p-4 text-white hover:text-white font-bold py-2 px-4 rounded-full"
-                                         onClick={() => handleAddToCart(i)}
-                                     >
-                                         Thêm vào giỏ hàng
-                                     </button>
-                                 </div>
-                             </div>
-                         </div>
-                     </SwiperSlide>
-                 ))}
-             </Swiper>
+    return (
+        <React.Fragment>
+            <div className="title-main">
+                <h1 className="h1_home">{title.sanphamkhuyenmai}</h1>
+            </div>
+            <Swiper
+                spaceBetween={20}
+                freeMode={true}
+                pagination={{
+                    clickable: true,
+                }}
+                autoplay={{
+                    delay: 5000,
+                }}
+                modules={[Autoplay]}
+                breakpoints={{
+                    300: {
+                        slidesPerView: 2,
+                        spaceBetween: 2,
+                    },
+                    450: {
+                        slidesPerView: 2,
+                        spaceBetween: 5,
+                    },
+                    600: {
+                        slidesPerView: 3,
+                        spaceBetween: 10,
+                    },
+                    900: {
+                        slidesPerView: 4,
+                        spaceBetween: 20,
+                    },
+                }}
+                className="mySwiper"
+            >
+                {filteredProducts.map((i, index) => (
+                    <SwiperSlide key={i.id}>
+                        <ProductCard
+                            key={index}
+                            id={i.id}
+                            daban={i.daban}
+                            tenkhongdauvi={i.tenkhongdauvi}
+                            photo={i.photo}
+                            link={`/product/${i.id}`}
+                            tenvi={i.tenvi}
+                            giamoi={i.giamoi}
+                            gia={i.gia}
+                            id_thuonghieu={i.id_thuonghieu}
+                            id_cat={i.id_cat}
+                            id_dong={i.id_dong}
+                            khuyenmai={i.khuyenmai}
+                        />
+                    </SwiperSlide>
+                ))}
+            </Swiper>
 
-             <p className="xemtatca">
-                 <a
-                     href="/promotion"
-                     className="bg-green-500 hover:bg-pink-400
+            <p className="xemtatca">
+                <a
+                    href="/promotion"
+                    className="bg-green-500 hover:bg-pink-400
                      text-white hover:text-white
                       font-bold py-2 px-4 rounded-full"
-                 >
-                     {title.xemthem}
-                 </a>
-             </p>
-         </React.Fragment>
-     );
- }
+                >
+                    {title.xemthem}
+                </a>
+            </p>
+        </React.Fragment>
+    );
+}
 
  function Review() {
      const [openModal, setOpenModal] = useState(false);

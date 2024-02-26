@@ -10,9 +10,9 @@ import { Link } from 'react-router-dom';
 import { SkeletonProducts } from '../../components/skeleton';
  import { useDispatch, useSelector } from 'react-redux';
  import { addToCart, loadCart } from '../../actions';
- const Noimage =
-     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
-
+import ProductCard from '../../components/UI/product-card/ProductCard';
+const Noimage =
+    'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
 
 const NotFound =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2Fnotfound%2Fkh%C3%B4ng%20t%C3%ACm%20th%E1%BA%A5y%20s%E1%BA%A3n%20ph%E1%BA%A9m.png?alt=media&token=190b2a8f-1c1d-4dc7-a013-2ad61a3837ed';
@@ -31,10 +31,10 @@ function Product() {
             dispatch(loadCart(JSON.parse(savedCart)));
         }
     }, [dispatch]);
- const cart = useSelector((state) => state.cart);
- useEffect(() => {
-     localStorage.setItem('cart', JSON.stringify(cart));
- }, [cart]);
+    const cart = useSelector((state) => state.cart);
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
     const options = {
         table: 'product',
         select: '*',
@@ -193,7 +193,6 @@ function Product() {
                         {/* Hiển thị thông báo nếu không có sản phẩm */}
                         {noProductFound && (
                             <div className="flex justify-center items-center h-96">
-                                {/* <img src="./assets/images/not-found/no-product.jpg" alt="Không có sản phẩm" /> */}
                                 <h1 className="text-2xl font-bold">
                                     <img src={NotFound} width="250" height="250" alt="No Data Icon" />
                                     <span>Không có sản phẩm</span>
@@ -202,99 +201,23 @@ function Product() {
                         )}
                         <div className=" grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-5">
                             {filteredProducts.map((i, index) => (
-                                <div className="col-span-1" key={index}>
-                                    <div className="item container flex justify-center mb-5">
-                                        <div className="max-w-sm">
-                                            <div className="bg-white relative transition duration-500 rounded-lg">
-                                                <div className="item">
-                                                    <div className="img_sp zoom_hinh">
-                                                        <div className="image-container">
-                                                            <a href={`/product/${i.id}`} title={i.tenkhongdauvi}>
-                                                                <img
-                                                                    className="img-fluid img-lazy img-load object-cover"
-                                                                    src={
-                                                                        i.photo
-                                                                            ? path_upload().product + i.photo
-                                                                            : Noimage
-                                                                    }
-                                                                    alt={i.tenkhongdauvi}
-                                                                    title={i.tenkhongdauvi}
-                                                                />
-
-                                                                <button
-                                                                    className="cart-buy addcart transition"
-                                                                    data-id="157"
-                                                                    onClick={() => handleAddToCart(i)}
-                                                                ></button>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="rounded-lg bg-white">
-                                                    <button
-                                                        className="bg-green-600 hover:bg-pink-400 p-4 text-white hover:text-white font-bold py-2 px-4 rounded-full"
-                                                        onClick={() => handleAddToCart(i)}
-                                                    >
-                                                        Thêm vào giỏ hàng
-                                                    </button>
-                                                    <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
-                                                        <a href={i.link} title={i.tenkhongdauvi}>
-                                                            <span className="line-clamp-2">{i.tenvi}</span>
-                                                        </a>
-                                                    </h1>
-
-                                                    {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
-                                                    {i.giamoi > 0 ? (
-                                                        <p className="gia_sp">
-                                                            <span className="gia giamoi">
-                                                                {/* formatNumber */}
-                                                                {formatNumber(i.giamoi)} đ
-                                                            </span>
-                                                            <span className=" giacu">
-                                                                {/* formatNumber */}
-                                                                {formatNumber(i.gia)} đ
-                                                            </span>
-                                                        </p>
-                                                    ) : (
-                                                        <p className="gia_sp">
-                                                            <span className="gia giamoi">
-                                                                {/* formatNumber */}
-                                                                {formatNumber(i.gia)} đ
-                                                            </span>
-                                                        </p>
-                                                    )}
-                                                    <div className="flex justify-center">
-                                                        {i.moi > 0 && (
-                                                            <span className="border rounded p-1 border-green-500 text-green-500">
-                                                                New
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <div className="mt-2">
-                                                        <div className="text-gray-500 text-xs">
-                                                            {title.daban} {i.nhaplieu_daban}
-                                                        </div>
-
-                                                        {/* <Progress
-                                                        progress={50}
-                                                        color="pink"
-                                                        textLabel="50/100"
-                                                        size="lg"
-                                                        //    labelProgress
-                                                        labelText
-                                                    /> */}
-                                                    </div>
-                                                </div>
-
-                                                {!!i.khuyenmai && i.khuyenmai > 0 && (
-                                                    <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                                        {getDiscount(i.gia, i.giamoi) + '%'}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <>
+                                    <ProductCard
+                                        key={index}
+                                        id={i.id}
+                                        daban={i.daban}
+                                        tenkhongdauvi={i.tenkhongdauvi}
+                                        photo={i.photo}
+                                        link={`/product/${i.id}`}
+                                        tenvi={i.tenvi}
+                                        giamoi={i.giamoi}
+                                        gia={i.gia}
+                                        id_thuonghieu={i.id_thuonghieu}
+                                        id_cat={i.id_cat}
+                                        id_dong={i.id_dong}
+                                        khuyenmai={i.khuyenmai}
+                                    />
+                                </>
                             ))}
                         </div>
 
