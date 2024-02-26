@@ -23,6 +23,9 @@ import RatingComponent from '../../components/intro/ratingComponent';
 import ProductCard from '../../components/UI/product-card/ProductCard';
 import {Helmet} from "react-helmet";
 
+import { useDispatch } from "react-redux";
+import { cartActions } from "../../store/shopping-cart/cartSlice";
+
 const colors = {
     orange: '#FFBA5A',
     grey: '#a9a9a9',
@@ -30,7 +33,34 @@ const colors = {
 const Noimage =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
 
-function DetailProduct() {
+const DetailProduct = () => {
+        
+    const dispatch = useDispatch();
+
+
+    const addToCart = () => {
+        dispatch(cartActions.addItem(
+            {
+                id: productId ? productId.id : '',
+                tenkhongdauvi: productId ? productId.tenkhongdauvi : '',
+                tenvi: productId ? productId.tenvi : '',
+                photo: productId ? productId.photo : '',
+                link: `/product/${productId ? productId.id : ''}`,
+                // gia: productId ? productId.gia : '',
+                // giamoi: productId ? productId.giamoi : '',
+               // gia và gia moi ép kiểu về số
+gia: productId ? Number(productId.gia) : '',
+giamoi: productId ? Number(productId.giamoi) : '',
+                moi: productId ? productId.moi : '',
+                khuyenmai: productId ? productId.khuyenmai : '',
+                nhaplieu_daban: productId ? productId.daban : '',
+            }
+        ));
+        // chuyênr hướng đến trang giỏ hàng
+        window.location.href = '/shopping';
+    };
+
+
     const optionmore = {
         table: 'product',
         select: '*',
@@ -398,7 +428,7 @@ function DetailProduct() {
                                     </thead>
                                 </table>
                             </div>
-                            <div className="flex flex-row items-center gap-12">
+                            {/* <div className="flex flex-row items-center gap-12">
                                 <div className="flex flex-row items-center">
                                     <button
                                         className="bg-gray-200 py-2 px-5 rounded-lg text-gray-800 text-3xl"
@@ -414,13 +444,29 @@ function DetailProduct() {
                                         +
                                     </button>
                                 </div>
-                                {/* radio thêm túi giấy */}
                                 <div className="flex flex-row items-center gap-4">
                                     <input type="radio" name="bag" id="bag" />
                                     <label htmlFor="bag">Thêm túi giấy</label>
                                 </div>
+                            </div> */}
+ <div className=" container grid grid-cols-6 gap-4">
+                                <div className="col-start-1"></div>
+                                <div className="col-end-5 md:col-end-6">
+                                    <div className="flex space-x-4">
+                                        <Button
+                                         className="flex items-center justify-center gap-2 border-2 bg-white border-green-500 hover:bg-green-10"
+                                            onClick={() => addToCart(
+                                                productId ? productId.id : ''
+                                            )}
+                                         >
+                                            <HiShoppingCart className="mr-2 h-8 w-8 text-green-500" />
+                                        </Button>
+                                        <Button>
+                                            <span className="text-white font-bold">Zalo</span>
+                                        </Button>
+                                    </div>
+                                </div>
                             </div>
-
                             <div className="  fixed-vouchers-box">
                                 <div className="  fixed-vouchers-heading">
                                     <h3 className="  fixed-vouchers-title">Ưu Đãi Voucher Tháng 02</h3>
@@ -511,19 +557,7 @@ function DetailProduct() {
                                     </span>
                                 </p>
                             </div>
-                            <div className=" container grid grid-cols-6 gap-4">
-                                <div className="col-start-1"></div>
-                                <div className="col-end-5 md:col-end-6">
-                                    <div className="flex space-x-4">
-                                        <Button className="flex items-center justify-center gap-2 border-2 bg-white border-green-500 hover:bg-green-10">
-                                            <HiShoppingCart className="mr-2 h-8 w-8 text-green-500" />
-                                        </Button>
-                                        <Button>
-                                            <span className="text-white font-bold">Zalo</span>
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
+                           
                         </div>
                     </div>
                     <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 shadow-md dark:bg-gray-800 p-4 mt-5 rounded-lg">
