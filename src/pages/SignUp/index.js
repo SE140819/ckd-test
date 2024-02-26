@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 // Toast notification
@@ -22,6 +22,7 @@ function SignUp() {
             backgroundColor: 'bg-green-100',
         });
     };
+
     return (
         <>
             <Formik
@@ -125,6 +126,26 @@ function SignUp() {
                                         <button
                                             type="submit"
                                             className="w-full flex justify-center bg-green-900 border border-transparent rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                                            onSubmit={(values, { setSubmitting }) => {
+                                                setTimeout(() => {
+                                                    const user = accounts.find(
+                                                        (account) =>
+                                                            account.email === values.email &&
+                                                            account.password === values.password,
+                                                    );
+                                                    if (user) {
+                                                        console.log('Đăng nhập thành công!');
+                                                        // Lưu tài khoản và mật khẩu vào localStorage
+                                                        localStorage.setItem('email', values.email);
+                                                        localStorage.setItem('password', values.password);
+                                                        navigate('/');
+                                                        // chuyển hướng đến trang home
+                                                    } else {
+                                                        console.error('Email hoặc mật khẩu không đúng!');
+                                                    }
+                                                    setSubmitting(false);
+                                                }, 400);
+                                            }}
                                         >
                                             Đăng nhập
                                         </button>
