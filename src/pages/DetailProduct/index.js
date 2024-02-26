@@ -462,12 +462,9 @@ function DetailProduct() {
                         </div>
                     </div>
 
-                    <div dangerouslySetInnerHTML={{ __html: decodedString }}></div>
-
-                    {/* EditorTextParser căn giữa */}
-                    {/* <div className="container mx-auto">
-                        <EditorTextParser data={data} />
-                    </div> */}
+                    <div className="container mx-auto flex justify-center items-center sm:flex-col md:flex-row lg:flex-row">
+                        <div dangerouslySetInnerHTML={{ __html: decodedString }}></div>
+                    </div>
                 </>
             )}
         </>
