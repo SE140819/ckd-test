@@ -28,7 +28,13 @@ const navLinks = [
     { title: 'Khuyến mãi', url: '/promotion' },
     { title: 'Sản phẩm', url: '/product' },
     { title: 'Sự kiện', url: '/event' },
-    { title: 'Tin tức', url: '/news' },
+    {
+        title: 'Tin tức',
+        subLinks: [
+            { title: 'Cẩm nang', url: '/news' },
+            { title: 'Tin tức nội bộ', url: '/comingsoon' },
+        ],
+    },
     { title: 'Liên hệ', url: '/contact' },
 ];
 
