@@ -121,24 +121,24 @@ export const vouchers = [
 ];
 
 export const payment_method = [
-        {
-            id: 1,
-            img: 'https://ckdvietnam.com/assets/images/momo.png',
-            name: ' Phương thức thanh toán Momo',
-        },
-        {
-            id: 2,
-            img: 'https://firebasestorage.googleapis.com/v0/b/rn-uber-eats-clone-yt-edc9d.appspot.com/o/zaloPay.webp?alt=media&token=78c6b661-9bbe-43f6-a567-c59b9532d037',
-            name: ' Phương thức thanh toán ZaloPay',
-        },
-        {
-            id: 3,
-            img: 'https://firebasestorage.googleapis.com/v0/b/rn-uber-eats-clone-yt-edc9d.appspot.com/o/chuyenkhoan.png?alt=media&token=734e268d-ef98-43c4-a676-8d62f6bc5f7c',
-            name: ' Phương thức thanh toán Chuyển khoản',
-        },
-        {
-            id: 4,
-            img: 'https://firebasestorage.googleapis.com/v0/b/rn-uber-eats-clone-yt-edc9d.appspot.com/o/tienmat.png?alt=media&token=6dd445b5-58c9-42c4-8c21-72e0f649eab7',
-            name: ' Phương thức thanh toán Tiền mặt',
-        },
+    {
+        id: 1,
+        img: 'https://ckdvietnam.com/assets/images/momo.png',
+        name: ' Phương thức thanh toán Momo',
+    },
+    {
+        id: 2,
+        img: 'https://firebasestorage.googleapis.com/v0/b/rn-uber-eats-clone-yt-edc9d.appspot.com/o/zaloPay.webp?alt=media&token=78c6b661-9bbe-43f6-a567-c59b9532d037',
+        name: ' Phương thức thanh toán ZaloPay',
+    },
+    // {
+    //     id: 3,
+    //     img: 'https://firebasestorage.googleapis.com/v0/b/rn-uber-eats-clone-yt-edc9d.appspot.com/o/chuyenkhoan.png?alt=media&token=734e268d-ef98-43c4-a676-8d62f6bc5f7c',
+    //     name: ' Phương thức thanh toán Chuyển khoản',
+    // },
+    {
+        id: 4,
+        img: 'https://firebasestorage.googleapis.com/v0/b/rn-uber-eats-clone-yt-edc9d.appspot.com/o/tienmat.png?alt=media&token=6dd445b5-58c9-42c4-8c21-72e0f649eab7',
+        name: ' Phương thức thanh toán Tiền mặt',
+    },
 ];
