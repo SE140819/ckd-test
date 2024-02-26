@@ -294,34 +294,81 @@ function ProductSlide() {
     }, [dispatch]);
     const options = {
         table: 'product',
-        select: 'id,tenvi as ten,tenkhongdauvi as link,photo,gia,nhaplieu_daban,moi,khuyenmai,tenvi,giamoi,moi',
+        select: '*',
         where: 'hienthi >0' + ' and type="san-pham" and noibat >0',
     };
-    const option2 = {
+    const option2s = {
         table: 'product',
-        select: 'id,tenvi as ten,tenkhongdauvi as link,photo,gia,nhaplieu_daban,moi,khuyenmai,tenvi,giamoi,moi',
+        select: '*',
         where: 'hienthi >0' + ' and type="san-pham" and moi >0',
     };
 
-    const [product, setProduct] = useState([]);
-    const [productNew, setProductNew] = useState([]);
+    const [product_list, setProductList] = useState([]);
+    const [product_list2, setProductList2] = useState([]);
     useEffect(() => {
         const fetch = async () => {
             const _product = await get('tab', { params: options });
-            setProduct(_product);
+            setProductList(_product || []);
         };
 
         fetch();
     }, []);
-
     useEffect(() => {
         const fetch = async () => {
-            const _product2 = await get('tab', { params: option2 });
-            setProductNew(_product2);
+            const _product2 = await get('tab', { params: option2s });
+            setProductList2(_product2 || []);
         };
 
         fetch();
     }, []);
+
+    const initialFilterState = {
+        id_thuonghieu: '', //done
+        id_cat: '', //done
+        id_dong: '', //done
+    };
+
+    const [filterState, setFilterState] = useState(initialFilterState);
+    const [filterState2, setFilterState2] = useState(initialFilterState);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [filteredProduct2s, setFilteredProduct2s] = useState([]);
+    const [noProductFound, setNoProductFound] = useState(false);
+
+    const filterProducts = () => {
+        const newFilteredProducts = product_list.filter((product) => {
+            const isBrandMatch =
+                filterState.id_thuonghieu === '' || product.id_thuonghieu === filterState.id_thuonghieu;
+            const isCategoryMatch = filterState.id_cat === '' || product.id_cat === filterState.id_cat;
+            const isTypeMatch = filterState.id_dong === '' || product.id_dong === filterState.id_dong;
+
+            return isBrandMatch && isCategoryMatch && isTypeMatch;
+        });
+
+        setFilteredProducts(newFilteredProducts);
+        setNoProductFound(newFilteredProducts.length === 0);
+    };
+    const filterProduct2s = () => {
+        const newFilteredProduct2s = product_list2.filter((product) => {
+            const isBrandMatch =
+                filterState.id_thuonghieu === '' || product.id_thuonghieu === filterState.id_thuonghieu;
+            const isCategoryMatch = filterState.id_cat === '' || product.id_cat === filterState.id_cat;
+            const isTypeMatch = filterState.id_dong === '' || product.id_dong === filterState.id_dong;
+
+            return isBrandMatch && isCategoryMatch && isTypeMatch;
+        });
+
+        setFilteredProduct2s(newFilteredProduct2s);
+        setNoProductFound(newFilteredProduct2s.length === 0);
+    };
+
+    useEffect(() => {
+        filterProducts();
+    }, [product_list, filterState]);
+
+    useEffect(() => {
+        filterProduct2s();
+    }, [product_list, filterState]);
+    console.log('product_list1111111', product_list);
 
     return (
         <>
@@ -357,90 +404,23 @@ function ProductSlide() {
                         }}
                         className="mySwiper"
                     >
-                        {product.map((i, index) => (
+                        {filteredProducts.map((i, index) => (
                             <SwiperSlide key={i.id}>
-                                <div className="item container flex justify-center mb-5">
-                                    <div className="max-w-sm">
-                                        <div className="bg-white relative transition duration-500 rounded-lg">
-                                            <div className="item">
-                                                <div className="img_sp zoom_hinh">
-                                                    <div className="image-container">
-                                                        <a href={`/product/${i.id}`} title={i.tenkhongdauvi}>
-                                                            <img
-                                                                className="img-fluid img-lazy img-load object-cover"
-                                                                src={
-                                                                    i.photo ? path_upload().product + i.photo : Noimage
-                                                                }
-                                                                alt={i.tenkhongdauvi}
-                                                                title={i.tenkhongdauvi}
-                                                            />
-
-                                                            <button
-                                                                className="cart-buy addcart transition"
-                                                                data-id="157"
-                                                                onClick={() => handleAddToCart(i)}
-                                                            ></button>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="rounded-lg bg-white">
-                                                {/* reposive */}
-                                                <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
-                                                    <a href={i.link} title={i.tenkhongdauvi}>
-                                                        <span className="line-clamp-2">{i.tenvi}</span>
-                                                    </a>
-                                                </h1>
-
-                                                {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
-                                                {i.giamoi > 0 ? (
-                                                    <p className="gia_sp">
-                                                        <span className="gia giamoi">
-                                                            {/* formatNumber */}
-                                                            {formatNumber(i.giamoi)} đ
-                                                        </span>
-                                                        <span className=" giacu">
-                                                            {/* formatNumber */}
-                                                            {formatNumber(i.gia)} đ
-                                                        </span>
-                                                    </p>
-                                                ) : (
-                                                    <p className="gia_sp">
-                                                        <span className="gia giamoi">
-                                                            {/* formatNumber */}
-                                                            {formatNumber(i.gia)} đ
-                                                        </span>
-                                                    </p>
-                                                )}
-                                                <div className="flex justify-center">
-                                                    {i.moi > 0 && (
-                                                        <span className="border rounded p-1 border-green-500 text-green-500">
-                                                            New
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                <div className="mt-2">
-                                                    <div className="text-gray-500 text-xs">
-                                                        {title.daban} {i.nhaplieu_daban}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {!!i.khuyenmai && i.khuyenmai > 0 && (
-                                                <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                                    {getDiscount(i.gia, i.giamoi) + '%'}
-                                                </div>
-                                            )}
-
-                                            <button
-                                                className="bg-green-600 hover:bg-pink-400 p-4 text-white hover:text-white font-bold py-2 px-4 rounded-full"
-                                                onClick={() => handleAddToCart(i)}
-                                            >
-                                                Thêm vào giỏ hàng
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <ProductCard
+                                    key={index}
+                                    id={i.id}
+                                    daban={i.daban}
+                                    tenkhongdauvi={i.tenkhongdauvi}
+                                    photo={i.photo}
+                                    link={`/product/${i.id}`}
+                                    tenvi={i.tenvi}
+                                    giamoi={i.giamoi}
+                                    gia={i.gia}
+                                    id_thuonghieu={i.id_thuonghieu}
+                                    id_cat={i.id_cat}
+                                    id_dong={i.id_dong}
+                                    khuyenmai={i.khuyenmai}
+                                />
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -486,99 +466,23 @@ function ProductSlide() {
                         }}
                         className="mySwiper"
                     >
-                        {productNew.map((i, index) => (
+                        {filteredProduct2s.map((i, index) => (
                             <SwiperSlide key={i.id}>
-                                <div className="item container flex justify-center mb-5">
-                                    <div className="max-w-sm">
-                                        <div className="bg-white relative transition duration-500 rounded-lg">
-                                            <div className="item">
-                                                <div className="img_sp zoom_hinh">
-                                                    <div className="image-container">
-                                                        <a href={`/product/${i.id}`} title={i.tenkhongdauvi}>
-                                                            <img
-                                                                className="img-fluid img-lazy img-load object-cover"
-                                                                src={
-                                                                    i.photo ? path_upload().product + i.photo : Noimage
-                                                                }
-                                                                alt={i.tenkhongdauvi}
-                                                                title={i.tenkhongdauvi}
-                                                            />
-
-                                                            <button
-                                                                className="cart-buy addcart transition"
-                                                                data-id="157"
-                                                                onClick={() => handleAddToCart(i)}
-                                                            ></button>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="rounded-lg bg-white">
-                                                {/* reposive */}
-                                                <h1 className="text-gray-700  mb-3 hover:text-gray-900 hover:cursor-pointer sm: text-xs md: text-xs lg: text-xs xl: text-xs 2xl: text-xs line-clamp-2">
-                                                    <a href={i.link} title={i.tenkhongdauvi}>
-                                                        <span className="line-clamp-2">{i.tenvi}</span>
-                                                    </a>
-                                                </h1>
-
-                                                {/* nếu có giamoi>0 thì giá sẽ chuyển qua màu xanh có đường gạch ngang còn lại hiện giá gốc */}
-                                                {i.giamoi > 0 ? (
-                                                    <p className="gia_sp">
-                                                        <span className="gia giamoi">
-                                                            {/* formatNumber */}
-                                                            {formatNumber(i.giamoi)} đ
-                                                        </span>
-                                                        <span className=" giacu">
-                                                            {/* formatNumber */}
-                                                            {formatNumber(i.gia)} đ
-                                                        </span>
-                                                    </p>
-                                                ) : (
-                                                    <p className="gia_sp">
-                                                        <span className="gia giamoi">
-                                                            {/* formatNumber */}
-                                                            {formatNumber(i.gia)} đ
-                                                        </span>
-                                                    </p>
-                                                )}
-                                                <div className="flex justify-center">
-                                                    {i.moi > 0 && (
-                                                        <span className="border rounded p-1 border-green-500 text-green-500">
-                                                            New
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                <div className="mt-2">
-                                                    <div className="text-gray-500 text-xs">
-                                                        {title.daban} {i.nhaplieu_daban}
-                                                    </div>
-
-                                                    {/* <Progress
-                                                        progress={50}
-                                                        color="pink"
-                                                        textLabel="50/100"
-                                                        size="lg"
-                                                        //    labelProgress
-                                                        labelText
-                                                    /> */}
-                                                </div>
-                                            </div>
-
-                                            {!!i.khuyenmai && i.khuyenmai > 0 && (
-                                                <div className="absolute top-0 left-0 mt-4 ml-4 bg-green-500 text-white rounded-full px-2 py-1 text-xs font-bold">
-                                                    {getDiscount(i.gia, i.giamoi) + '%'}
-                                                </div>
-                                            )}
-
-                                            <button
-                                                className="bg-green-600 hover:bg-pink-400 p-4 text-white hover:text-white font-bold py-2 px-4 rounded-full"
-                                                onClick={() => handleAddToCart(i)}
-                                            >
-                                                Thêm vào giỏ hàng
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <ProductCard
+                                    key={index}
+                                    id={i.id}
+                                    daban={i.daban}
+                                    tenkhongdauvi={i.tenkhongdauvi}
+                                    photo={i.photo}
+                                    link={`/product/${i.id}`}
+                                    tenvi={i.tenvi}
+                                    giamoi={i.giamoi}
+                                    gia={i.gia}
+                                    id_thuonghieu={i.id_thuonghieu}
+                                    id_cat={i.id_cat}
+                                    id_dong={i.id_dong}
+                                    khuyenmai={i.khuyenmai}
+                                />
                             </SwiperSlide>
                         ))}
                     </Swiper>
@@ -691,8 +595,7 @@ function PromotionSlide() {
         filterProducts();
     }, [product_list, filterState]);
 
-    console.log('product_list', product_list);
-
+    console.log('khuyen mai', product_list);
     return (
         <React.Fragment>
             <div className="title-main">
