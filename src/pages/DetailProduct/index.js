@@ -21,6 +21,7 @@ import { SkeletonDetail } from '../../components/skeleton';
 import { FaStar } from 'react-icons/fa';
 import RatingComponent from '../../components/intro/ratingComponent';
 import ProductCard from '../../components/UI/product-card/ProductCard';
+import {Helmet} from "react-helmet";
 
 const colors = {
     orange: '#FFBA5A',
@@ -268,6 +269,24 @@ function DetailProduct() {
     console.log('product', encodedHtmlDetail);
     return (
         <>
+            <Helmet>
+                <title>{productId ? productId.tenvi : ''}</title>
+                <meta name="description" content={productId ? productId.motavi : ''} />
+                <meta name="keywords" content={productId ? productId.tenvi : ''} />
+                <meta property="og:title" content={productId ? productId.tenvi : ''} />
+                <meta property="og:description" content={productId ? productId.motavi : ''} />
+                <meta property="og:image" content={productId ? _url + productId.photo : Noimage} />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="CKD Việt Nam" />
+                <meta property="og:locale" content="vi_VN" />
+                <meta property="og:locale:alternate" content="en_US" />
+                <meta property="og:locale:alternate" content="fr_FR" />
+                <meta property="og:locale:alternate" content="es_ES" />
+                <meta property="og:image:alt" content={productId ? productId.tenvi : ''} />
+                <meta property="og:image:width" content="1000"/>
+                <meta property="og:image:height" content="1000"/>
+            </Helmet>
             {loading ? (
                 <SkeletonDetail />
             ) : (

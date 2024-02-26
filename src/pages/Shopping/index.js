@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'flowbite-react';
+import { Button } from 'flowbite-react';
 
-import { Label, Radio, Modal } from 'flowbite-react';
-import { Button, Tooltip } from 'flowbite-react';
+import { Table, Tooltip, Label, Radio, Modal } from 'flowbite-react';
+
 import { Autoplay } from 'swiper/modules';
 import { products, promotions, vouchers, payment_method } from '../../data/shopping';
 import { useSelector } from 'react-redux';
