@@ -98,7 +98,7 @@ function Brand() {
                 </div>
             </section>
 
-            <section className="bg-white dark:bg-gray-900">
+            {/* <section className="bg-white dark:bg-gray-900">
                 <div className="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
                     <h2 className="mb-8 lg:mb-16 text-3xl font-extrabold tracking-tight leading-tight text-center text-gray-900 dark:text-white md:text-4xl">
                         You’ll be in good company
@@ -444,7 +444,7 @@ function Brand() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
             {/* <section className="bg-white dark:bg-gray-900">
           <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
             <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
