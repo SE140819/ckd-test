@@ -29,7 +29,7 @@ const navLinks = [
     { title: 'Sản phẩm', url: '/product' },
     { title: 'Sự kiện', url: '/event' },
     { title: 'Tin tức', url: '/news' },
-    { title: 'Liện hệ', url: '/contact' },
+    { title: 'Liên hệ', url: '/contact' },
 ];
 
 const Noimage =
