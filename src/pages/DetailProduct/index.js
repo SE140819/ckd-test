@@ -18,20 +18,105 @@ import { get } from '../../utils/httpRequest';
 
 import { checkIsMobile, path_upload, formatNumber, getDiscount } from '../../utils/ckdUtils';
 import { SkeletonDetail } from '../../components/skeleton';
+import { FaStar } from 'react-icons/fa';
+import RatingComponent from '../../components/intro/ratingComponent';
+import ProductCard from '../../components/UI/product-card/ProductCard';
 
+const colors = {
+    orange: '#FFBA5A',
+    grey: '#a9a9a9',
+};
 const Noimage =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
 
 function DetailProduct() {
+    const optionmore = {
+        table: 'product',
+        select: '*',
+        where: 'hienthi >0 AND khuyenmai >0',
+    };
+    const [product_list, setProductList] = useState([]);
+
+    useEffect(() => {
+        const fetch = async () => {
+            const _product = await get('tab', { params: optionmore });
+            setProductList(_product || []);
+        };
+
+        fetch();
+    }, []);
+
+    const initialFilterState = {
+        id_thuonghieu: '', //done
+        id_cat: '', //done
+        id_dong: '', //done
+    };
+
+    const [filterState, setFilterState] = useState(initialFilterState);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [noProductFound, setNoProductFound] = useState(false);
+
+    const filterProducts = () => {
+        const newFilteredProducts = product_list.filter((product) => {
+            const isBrandMatch =
+                filterState.id_thuonghieu === '' || product.id_thuonghieu === filterState.id_thuonghieu;
+            const isCategoryMatch = filterState.id_cat === '' || product.id_cat === filterState.id_cat;
+            const isTypeMatch = filterState.id_dong === '' || product.id_dong === filterState.id_dong;
+
+            return isBrandMatch && isCategoryMatch && isTypeMatch;
+        });
+
+        setFilteredProducts(newFilteredProducts);
+        setNoProductFound(newFilteredProducts.length === 0);
+    };
+
+    useEffect(() => {
+        filterProducts();
+    }, [product_list, filterState]);
+
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedItemId, setSelectedItemId] = useState(null);
+
+    const handleItemClick = (id) => {
+        setSelectedItemId(id);
+        setOpenModal(true);
+    };
+
+    const option3s = {
+        table: 'news',
+        select: '*',
+        where: 'hienthi >0' + ' and type="review"',
+    };
+
+    const [reviewData, setReviewData] = useState([]);
+    useEffect(() => {
+        const fetch = async () => {
+            const _review = await get('tab', { params: option3s });
+            setReviewData(_review);
+        };
+
+        fetch();
+    }, []);
+
+    const _url_review = path_upload().review;
+    const [currentValue, setCurrentValue] = useState(0);
+    const [hoverValue, setHoverValue] = useState(undefined);
+    const stars = Array(5).fill(0);
+
+    const handleClick = (value) => {
+        setCurrentValue(value);
+    };
+
+    const handleMouseOver = (newHoverValue) => {
+        setHoverValue(newHoverValue);
+    };
+
+    const handleMouseLeave = () => {
+        setHoverValue(undefined);
+    };
+
     const [loading, setLoading] = useState(true);
-    const [images, setImages] = useState({
-        img1: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
-        img2: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-gau-bong-1-4800.webp',
-        img3: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
-        img4: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
-        img5: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
-        img6: 'https://ckdvietnam.com/upload/product/anyconvcomanyconvcomanyconvcomthumb-bao-li-xi-1616.webp',
-    });
+    const [images, setImages] = useState({});
 
     const imageKeys = Object.keys(images);
     const [activeImageKey, setActiveImageKey] = useState(imageKeys[0]);
@@ -118,7 +203,6 @@ function DetailProduct() {
         where: 'product.id_list == gallery.id_photo',
     };
 
-
     const [imgDetail, setImgDetail] = useState([]);
     const [product, setProduct] = useState([]);
 
@@ -172,12 +256,16 @@ function DetailProduct() {
         }, 200);
     }, []);
 
-
     const encodedHtmlContent = productId ? productId.noidungvi : '';
     const parser = new DOMParser();
     const decodedString = parser.parseFromString(encodedHtmlContent, 'text/html').documentElement.textContent;
+
+    const encodedHtmlDetail = productId ? productId.noidungthanhphanvi : '';
+
+    const decodedString2 = parser.parseFromString(encodedHtmlDetail, 'text/html').documentElement.textContent;
     const _url = path_upload().product;
 
+    console.log('product', encodedHtmlDetail);
     return (
         <>
             {loading ? (
@@ -462,8 +550,135 @@ function DetailProduct() {
                         </div>
                     </div>
 
-                    <div className="container mx-auto flex justify-center items-center sm:flex-col md:flex-row lg:flex-row">
-                        <div dangerouslySetInnerHTML={{ __html: decodedString }}></div>
+                    <div>
+                        <h1 className="text-2xl font-bold text-center main-color">Giới thiệu sản phẩm</h1>
+                        <div className="container mx-auto flex justify-center items-center sm:flex-col md:flex-row lg:flex-row">
+                            <div dangerouslySetInnerHTML={{ __html: decodedString }}></div>
+                        </div>
+                    </div>
+                    {/* noidungthanhphanvi */}
+                    <div>
+                        <h1 className="text-2xl font-bold text-center main-color">Đánh giá</h1>
+                        {/* tạo form đánh giá */}
+                        <div className="container mx-auto flex justify-center items-center sm:flex-col md:flex-row lg:flex-row">
+                            <div className="flex flex-col align-center">
+                                <div className="flex flex-direction-row">
+                                    {stars.map((_, index) => {
+                                        return (
+                                            <FaStar
+                                                key={index}
+                                                size={24}
+                                                onClick={() => handleClick(index + 1)}
+                                                onMouseOver={() => handleMouseOver(index + 1)}
+                                                onMouseLeave={handleMouseLeave}
+                                                color={
+                                                    (hoverValue || currentValue) > index ? colors.orange : colors.grey
+                                                }
+                                                style={{
+                                                    marginRight: 10,
+                                                    cursor: 'pointer',
+                                                }}
+                                            />
+                                        );
+                                    })}
+                                </div>
+                                <textarea
+                                    placeholder="Nhập đánh giá của bạn"
+                                    style={{
+                                        border: '1px solid #a9a9a9',
+                                        borderRadius: 5,
+                                        padding: 10,
+                                        margin: '20px 0',
+                                        minHeight: 100,
+                                        width: 500,
+                                    }}
+                                />
+
+                                <button
+                                    style={{
+                                        backgroundColor: 'var(--color-main)',
+                                        color: 'white',
+                                        padding: '10px 20px',
+                                        borderRadius: 5,
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    Đánh giá
+                                </button>
+                            </div>
+                        </div>
+                        <div className="container mx-auto pt-5 p-5 main_fix flex justify-center items-center">
+                            <a href="/sign-in">
+                                <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center">
+                                    Vui lòng đăng nhập để xem đánh giá
+                                </button>
+                            </a>
+                        </div>
+                        <div className="container mx-auto pt-5 p-5 main_fix">
+                            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-4 gap-7 xl:gap-10">
+                                {reviewData.slice(0, 8).map((item, index) => (
+                                    <div className="card rounded overflow-hidden relative" key={index}>
+                                        <div
+                                            className="aspect-w-16 aspect-h-9 img_post cursor-pointer"
+                                            onClick={() => handleItemClick(item.id)}
+                                        >
+                                            <img
+                                                className="object-cover brightness-100 group-hover:brightness-50 w-full fixed-photo"
+                                                src={item.photo ? _url_review + item.photo : Noimage}
+                                                alt={item.tenvi}
+                                            />
+                                        </div>
+                                        <div className="group relative">
+                                            <div className=" text-white glass absolute bottom-[30px] m-4 p-4 translate-y-[80%] group-hover:translate-y-[0%] transition-transform duration-300">
+                                                {/* Rating */}
+                                                <div className="absolute top-0 right-0 p-2">
+                                                    <Rating></Rating>
+                                                </div>
+                                                <div className="grid gap-1 ">
+                                                    <RatingComponent rating={JSON.parse(item.options2).sosao} />
+                                                    <p className="text-white text-sm sm:text-xs md:text-xs lg:text-xs xl:text-xs 2xl:text-xs line-clamp-3">
+                                                        {item.customer}
+                                                    </p>
+                                                    <div className="flex items-center mb-4">
+                                                        <div>
+                                                            <p className="text-white text-sm sm:text-xs md:text-xs lg:text-xs xl:text-xs 2xl:text-xs line-clamp-3">
+                                                                {item.motavi}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* button vui lòng đăng nhập để xem đánh giá */}
+
+                    <div className="container mx-auto pt-5 p-5 main_fix">
+                        <h1 className="text-2xl font-bold text-center main-color">Sản phẩm cùng loại</h1>
+                        <div className=" grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-5">
+                            {filteredProducts.map((i, index) => (
+                                <ProductCard
+                                    key={index}
+                                    id={i.id}
+                                    daban={i.daban}
+                                    tenkhongdauvi={i.tenkhongdauvi}
+                                    photo={i.photo}
+                                    link={`/product/${i.id}`}
+                                    tenvi={i.tenvi}
+                                    giamoi={i.giamoi}
+                                    gia={i.gia}
+                                    id_thuonghieu={i.id_thuonghieu}
+                                    id_cat={i.id_cat}
+                                    id_dong={i.id_dong}
+                                    khuyenmai={i.khuyenmai}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </>
             )}

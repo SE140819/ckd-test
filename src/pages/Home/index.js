@@ -595,7 +595,7 @@ function PromotionSlide() {
         filterProducts();
     }, [product_list, filterState]);
 
-    console.log('khuyen mai', product_list);
+
     return (
         <React.Fragment>
             <div className="title-main">
