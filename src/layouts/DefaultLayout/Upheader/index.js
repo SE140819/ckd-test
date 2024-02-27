@@ -157,18 +157,40 @@ function Upheader() {
                                                         <div className="col-span-3 flex justify-center items-center">
                                                             <a href="/account" title="Tài khoản">
                                                                 <div className="font-semibold w-30 text-sm text-gray-900 text-center">
-                                                                   Thông tin tài khoản
+                                                                    Thông tin tài khoản
                                                                 </div>
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {/* đăng xuất */}
+
                                                 <div className="py-2 px-3">
                                                     <div className="grid grid-cols-4 pt-2 pb-2 mb-2 hover:bg-slate-100 flex justify-center items-center">
                                                         <div className="col-span-1 flex justify-center items-center">
                                                             <a href="/" title="Tài khoản">
                                                                 <FaRegUser
+                                                                    width={40}
+                                                                    className="main-color text-2xl border border-green-500 rounded-full p-1"
+                                                                />
+                                                            </a>
+                                                        </div>
+                                                        <div className="col-span-3 flex justify-center items-center">
+                                                            {/* đăng xuất */}
+                                                            <a href="/history" title="Tài khoản">
+                                                                <div className="font-semibold w-30 text-sm text-gray-900 text-center">
+                                                                    Lịch sử đơn hàng
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {/* đăng xuất */}
+                                                <div className="py-2 px-3">
+                                                    <div className="grid grid-cols-4 pt-2 pb-2 mb-2 hover:bg-slate-100 flex justify-center items-center">
+                                                        <div className="col-span-1 flex justify-center items-center">
+                                                            <a href="/" title="Tài khoản">
+                                                                <FaSignOutAlt
                                                                     width={40}
                                                                     className="main-color text-2xl border border-green-500 rounded-full p-1"
                                                                 />
