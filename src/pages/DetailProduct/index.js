@@ -34,13 +34,17 @@ const Noimage =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
 
 const DetailProduct = () => {
-        
+    const [text, setText] = useState('');
+
+    const handleChange = (event) => {
+        setText(event.target.value);
+    };
+
     const dispatch = useDispatch();
 
-
     const addToCart = () => {
-        dispatch(cartActions.addItem(
-            {
+        dispatch(
+            cartActions.addItem({
                 id: productId ? productId.id : '',
                 tenkhongdauvi: productId ? productId.tenkhongdauvi : '',
                 tenvi: productId ? productId.tenvi : '',
@@ -48,18 +52,17 @@ const DetailProduct = () => {
                 link: `/product/${productId ? productId.id : ''}`,
                 // gia: productId ? productId.gia : '',
                 // giamoi: productId ? productId.giamoi : '',
-               // gia và gia moi ép kiểu về số
-gia: productId ? Number(productId.gia) : '',
-giamoi: productId ? Number(productId.giamoi) : '',
+                // gia và gia moi ép kiểu về số
+                gia: productId ? Number(productId.gia) : '',
+                giamoi: productId ? Number(productId.giamoi) : '',
                 moi: productId ? productId.moi : '',
                 khuyenmai: productId ? productId.khuyenmai : '',
                 nhaplieu_daban: productId ? productId.daban : '',
-            }
-        ));
+            }),
+        );
         // chuyênr hướng đến trang giỏ hàng
         window.location.href = '/shopping';
     };
-
 
     const optionmore = {
         table: 'product',
@@ -314,8 +317,8 @@ giamoi: productId ? Number(productId.giamoi) : '',
                 <meta property="og:locale:alternate" content="fr_FR" />
                 <meta property="og:locale:alternate" content="es_ES" />
                 <meta property="og:image:alt" content={productId ? productId.tenvi : ''} />
-                <meta property="og:image:width" content="1000"/>
-                <meta property="og:image:height" content="1000"/>
+                <meta property="og:image:width" content="1000" />
+                <meta property="og:image:height" content="1000" />
             </Helmet>
             {loading ? (
                 <SkeletonDetail />
@@ -449,16 +452,14 @@ giamoi: productId ? Number(productId.giamoi) : '',
                                     <label htmlFor="bag">Thêm túi giấy</label>
                                 </div>
                             </div> */}
- <div className=" container grid grid-cols-6 gap-4">
+                            <div className=" container grid grid-cols-6 gap-4">
                                 <div className="col-start-1"></div>
                                 <div className="col-end-5 md:col-end-6">
                                     <div className="flex space-x-4">
                                         <Button
-                                         className="flex items-center justify-center gap-2 border-2 bg-white border-green-500 hover:bg-green-10"
-                                            onClick={() => addToCart(
-                                                productId ? productId.id : ''
-                                            )}
-                                         >
+                                            className="flex items-center justify-center gap-2 border-2 bg-white border-green-500 hover:bg-green-10"
+                                            onClick={() => addToCart(productId ? productId.id : '')}
+                                        >
                                             <HiShoppingCart className="mr-2 h-8 w-8 text-green-500" />
                                         </Button>
                                         <Button>
@@ -557,7 +558,6 @@ giamoi: productId ? Number(productId.giamoi) : '',
                                     </span>
                                 </p>
                             </div>
-                           
                         </div>
                     </div>
                     <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 shadow-md dark:bg-gray-800 p-4 mt-5 rounded-lg">
@@ -635,17 +635,23 @@ giamoi: productId ? Number(productId.giamoi) : '',
                                         );
                                     })}
                                 </div>
-                                <textarea
-                                    placeholder="Nhập đánh giá của bạn"
-                                    style={{
-                                        border: '1px solid #a9a9a9',
-                                        borderRadius: 5,
-                                        padding: 10,
-                                        margin: '20px 0',
-                                        minHeight: 100,
-                                        width: 500,
-                                    }}
-                                />
+                                <div>
+                                    <textarea
+                                        value={text}
+                                        onChange={handleChange}
+                                        maxLength="2000"
+                                        placeholder="Nhập đánh giá của bạn"
+                                        style={{
+                                            border: '1px solid #a9a9a9',
+                                            borderRadius: 5,
+                                            padding: 10,
+                                            margin: '20px 0',
+                                            minHeight: 100,
+                                            width: 500,
+                                        }}
+                                    />
+                                    <p className="text-gray-500 text-sm flex justify-end">{text.length} / 200</p>
+                                </div>
 
                                 <button
                                     style={{
