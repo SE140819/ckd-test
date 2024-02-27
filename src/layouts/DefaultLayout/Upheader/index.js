@@ -135,7 +135,7 @@ function Upheader() {
                                 </HeadlessTippy>
                             </div>
                             <div className="p-[0.25rem] text-center">
-                                {nameGG || value ? (
+                                {nameGG || nameFB ? (
                                     <HeadlessTippy
                                         // dùng HeadlessTippy để khi click vào tên người dùng thì hiện ra thông tin người dùng và nút đăng nhập
                                         interactive
@@ -223,7 +223,7 @@ function Upheader() {
                                                 className="main-color text-2xl border border-green-500 rounded-full p-1"
                                             />
                                             <p className="text-sm main-color ml-2 font-semibold">
-                                                {nameGG.slice(0, nameGG.indexOf('@')) || value.displayName}
+                                                {nameGG.slice(0, nameGG.indexOf('@')) || nameFB}
                                             </p>
                                         </button>
                                     </HeadlessTippy>
