@@ -660,18 +660,21 @@ const DetailProduct = () => {
                                         <p className="text-gray-500 text-sm flex justify-end">{text.length} / 200</p>
                                     </div>
 
-                                    <button
-                                        style={{
-                                            backgroundColor: 'var(--color-main)',
-                                            color: 'white',
-                                            padding: '10px 20px',
-                                            borderRadius: 5,
-                                            border: 'none',
-                                            cursor: 'pointer',
-                                        }}
-                                    >
-                                        Đánh giá
-                                    </button>
+                                    {text.length > 0 ? (
+                                        <button
+                                            className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                            onClick={() => {
+                                                alert('Đánh giá của bạn đã được gửi');
+                                                setText('');
+                                            }}
+                                        >
+                                            Gửi đánh giá
+                                        </button>
+                                    ) : (
+                                        <button className="bg-gray-500 text-white font-bold py-2 px-4 rounded" disabled>
+                                            Gửi đánh giá
+                                        </button>
+                                    )}
                                 </div>
                             </div>
 
