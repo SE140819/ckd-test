@@ -8,6 +8,9 @@ import { Table } from 'flowbite-react';
 import { title } from '../../data/title';
 import { history } from '../../data/history';
 
+
+const notfoundTransaction =
+    'https://firebasestorage.googleapis.com/v0/b/ckd--project.appspot.com/o/notfound%2FFolder.jpg?alt=media&token=7c113f16-4ba1-4a77-842c-dcd8bb1cc53c';
 function History() {
     return (
         <>
@@ -22,7 +25,10 @@ function History() {
             </div>
             <div className="container mx-auto my-12">
                 {history.length === 0 ? (
-                    <p className="text-center">Không có đơn hàng nào.</p>
+                    <div className="text-center">
+                        <img src={notfoundTransaction} alt="notfound" className="w-1/3 mx-auto" />
+                        <h1 className="text-2xl font-bold mt-5">Không có lịch sử mua hàng</h1>
+                    </div>
                 ) : (
                     <div className="overflow-x-auto">
                         <Table>

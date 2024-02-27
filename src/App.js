@@ -33,8 +33,7 @@ function App() {
                 })}
                 <Route path="*" element={<NotFoundPage />} /> {/* Trang 404 */}
             </Routes>
-            {/* nếu đã ở đầu trang thì hiện nút scroll to top */}
-            {window.scrollY > 100 ? <ScrollOnTop /> : null}
+          
             <Media />
         </Router>
     );
