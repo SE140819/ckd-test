@@ -7,47 +7,54 @@ import { HiCheck, HiExclamation, HiEye, HiEyeOff } from 'react-icons/hi';
 import { accounts } from '../../data/account';
 
 import { useNavigate } from 'react-router-dom';
+import firebase from '../../config';
 
 function SignUp() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const submit = async (e) => {
+        e.preventDefault();
+        try {
+            const user = await firebase.auth().signInWithEmailAndPassword(email, password);
+            // luu thong tin user vao local storage
+            localStorage.setItem('user', JSON.stringify(email));
+            alert('Đăng nhập thành công!');
+            navigate('/');
+        } catch (error) {
+            alert('Email hoặc mật khẩu không đúng!');
+        }
+    };
+
     const navigate = useNavigate();
 
     const [users, setUsers] = useState([]);
     const [showPassword, setShowPassword] = useState(false);
-    // handle Click
-    const handleClick = () => {
-        Toast({
-            content: 'Đăng ký tài khoản thành công',
-            icon: HiCheck,
-            iconColor: 'text-green-500',
-            backgroundColor: 'bg-green-100',
-        });
-    };
 
     return (
         <>
             <Formik
                 initialValues={{ email: '', password: '' }}
-                validationSchema={Yup.object({
-                    email: Yup.string().email('Email không hợp lệ').required('Bắt buộc nhập email'),
-                    password: Yup.string()
-                        .min(8, 'Mật khẩu phải có ít nhất 8 ký tự')
-                        .required('Bắt buộc nhập mật khẩu'),
-                })}
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        const user = accounts.find(
-                            (account) => account.email === values.email && account.password === values.password,
-                        );
-                        if (user) {
-                            console.log('Đăng nhập thành công!');
-                            navigate('/');
-                            // chuyển hướng đến trang home
-                        } else {
-                            console.error('Email hoặc mật khẩu không đúng!');
-                        }
-                        setSubmitting(false);
-                    }, 400);
-                }}
+                // validationSchema={Yup.object({
+                //     email: Yup.string().email('Email không hợp lệ').required('Bắt buộc nhập email'),
+                //     password: Yup.string()
+                //         .min(8, 'Mật khẩu phải có ít nhất 8 ký tự')
+                //         .required('Bắt buộc nhập mật khẩu'),
+                // })}
+                // onSubmit={(values, { setSubmitting }) => {
+                //     setTimeout(() => {
+                //         const user = accounts.find(
+                //             (account) => account.email === values.email && account.password === values.password,
+                //         );
+                //         if (user) {
+                //             console.log('Đăng nhập thành công!');
+
+                //             // chuyển hướng đến trang home
+                //         } else {
+                //             console.error('Email hoặc mật khẩu không đúng!');
+                //         }
+                //         setSubmitting(false);
+                //     }, 400);
+                // }}
             >
                 <div className="bg-gray-50 dark:bg-gray-900">
                     <div className="flex flex-col items-center justify-center px-6 py-8">
@@ -67,6 +74,8 @@ function SignUp() {
                                         <Field
                                             type="email"
                                             name="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
                                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
                                         />
 
@@ -82,6 +91,8 @@ function SignUp() {
                                         <Field
                                             type={showPassword ? 'text' : 'password'}
                                             name="password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
                                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
                                             required=""
                                         />
@@ -126,26 +137,7 @@ function SignUp() {
                                         <button
                                             type="submit"
                                             className="w-full flex justify-center bg-green-900 border border-transparent rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-                                            onSubmit={(values, { setSubmitting }) => {
-                                                setTimeout(() => {
-                                                    const user = accounts.find(
-                                                        (account) =>
-                                                            account.email === values.email &&
-                                                            account.password === values.password,
-                                                    );
-                                                    if (user) {
-                                                        console.log('Đăng nhập thành công!');
-                                                        // Lưu tài khoản và mật khẩu vào localStorage
-                                                        localStorage.setItem('email', values.email);
-                                                        localStorage.setItem('password', values.password);
-                                                        navigate('/');
-                                                        // chuyển hướng đến trang home
-                                                    } else {
-                                                        console.error('Email hoặc mật khẩu không đúng!');
-                                                    }
-                                                    setSubmitting(false);
-                                                }, 400);
-                                            }}
+                                            onClick={submit}
                                         >
                                             Đăng nhập
                                         </button>

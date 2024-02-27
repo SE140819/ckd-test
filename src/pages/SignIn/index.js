@@ -8,21 +8,30 @@ import { accounts } from '../../data/account';
 
 import { useNavigate } from 'react-router-dom';
 
+import { auth } from '../../config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
 function SignIn() {
     const navigate = useNavigate();
 
-    const [users, setUsers] = useState([]);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handeSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const user = await createUserWithEmailAndPassword(auth, email, password);
+            // luu thong tin user vao local storage
+            alert('Đăng ký thành công!');
+            navigate('/');
+        } catch (error) {
+            alert('Email đã tồn tại!');
+        }
+    };
+
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    // handle Click
-    const handleClick = () => {
-        Toast({
-            content: 'Đăng ký tài khoản thành công',
-            icon: HiCheck,
-            iconColor: 'text-green-500',
-            backgroundColor: 'bg-green-100',
-        });
-    };
+
     return (
         <>
             <Formik
@@ -68,6 +77,8 @@ function SignIn() {
                                         <Field
                                             type="email"
                                             name="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
                                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
                                         />
 
@@ -83,23 +94,25 @@ function SignIn() {
                                         <Field
                                             type={showPassword ? 'text' : 'password'}
                                             name="password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
                                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
-                                            required=""
                                         />
-                                        <div
-                                            className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                                        <button
+                                            type="button"
                                             onClick={() => setShowPassword(!showPassword)}
+                                            className="absolute inset-y-0 right-0 flex items-center pr-3"
                                         >
                                             {showPassword ? (
-                                                <HiEyeOff className="w-5 h-5 text-gray-400" />
+                                                <HiEyeOff className="h-5 w-5" />
                                             ) : (
-                                                <HiEye className="w-5 h-5 text-gray-400" />
+                                                <HiEye className="h-5 w-5" />
                                             )}
-                                        </div>
+                                        </button>
+                                        <ErrorMessage name="password" component="div" className="text-red-500" />
                                     </div>
-                                    <ErrorMessage name="password" component="div" className="text-red-500" />
                                     <label
-                                        htmlFor="password"
+                                        htmlFor="confirmPassword"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
                                         Nhập lại mật khẩu:
@@ -109,23 +122,25 @@ function SignIn() {
                                             type={showConfirmPassword ? 'text' : 'password'}
                                             name="confirmPassword"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
-                                            required=""
                                         />
-                                        <div
-                                            className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                                        <button
+                                            type="button"
                                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                            className="absolute inset-y-0 right-0 flex items-center pr-3"
                                         >
                                             {showConfirmPassword ? (
-                                                <HiEyeOff className="w-5 h-5 text-gray-400" />
+                                                <HiEyeOff className="h-5 w-5" />
                                             ) : (
-                                                <HiEye className="w-5 h-5 text-gray-400" />
+                                                <HiEye className="h-5 w-5" />
                                             )}
-                                        </div>
+                                        </button>
                                     </div>
+
                                     <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />
 
                                     <div>
                                         <button
+                                            onClick={handeSubmit}
                                             type="submit"
                                             className="w-full flex justify-center bg-green-900 border border-transparent rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                                         >

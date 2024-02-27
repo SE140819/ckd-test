@@ -2,6 +2,10 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 import { getAnalytics } from 'firebase/analytics';
 
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/database';
+
 const firebaseConfig = {
     apiKey: 'AIzaSyAj9Iv3Vm5L-NSumWSPtX1vClePz2k_R8s',
     authDomain: 'ckd--project.firebaseapp.com',
@@ -13,8 +17,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 
+export default app;
 //gôgle auth
 const auth = getAuth();
 const provider = new GoogleAuthProvider();

@@ -47,6 +47,9 @@ function Upheader() {
 
     const nameGG = localStorage.getItem('email');
     const nameFB = localStorage.getItem('facebook');
+    const nameLocal = localStorage.getItem('user');
+
+    console.log('nameLocal', nameLocal);
     const handleLanguageSelect = (language) => {
         setSelectedLanguage(language);
     };
@@ -135,7 +138,7 @@ function Upheader() {
                                 </HeadlessTippy>
                             </div>
                             <div className="p-[0.25rem] text-center">
-                                {nameGG || nameFB ? (
+                                {nameGG || nameFB || nameLocal ? (
                                     <HeadlessTippy
                                         // dùng HeadlessTippy để khi click vào tên người dùng thì hiện ra thông tin người dùng và nút đăng nhập
                                         interactive
@@ -204,6 +207,8 @@ function Upheader() {
                                                                 title="Tài khoản"
                                                                 onClick={() => {
                                                                     localStorage.removeItem('email');
+                                                                    localStorage.removeItem('facebook');
+                                                                    localStorage.removeItem('user');
                                                                     window.location.href = '/';
                                                                 }}
                                                             >
@@ -223,7 +228,10 @@ function Upheader() {
                                                 className="main-color text-2xl border border-green-500 rounded-full p-1"
                                             />
                                             <p className="text-sm main-color ml-2 font-semibold">
-                                                {nameGG.slice(0, nameGG.indexOf('@')) || nameFB}
+                                                {/* nameLocal bỏ dấu "tuan123@gmail@com" thành tuan123 bỏ cả dấu ngoặc kép */}
+                                                {nameGG?.slice(0, nameGG.indexOf('@')) ||
+                                                    nameFB ||
+                                                    nameLocal?.slice(1, nameLocal.indexOf('@'))}
                                             </p>
                                         </button>
                                     </HeadlessTippy>
