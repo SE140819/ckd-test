@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'flowbite-react';
-import { FaRegUser } from 'react-icons/fa6';
+import { FaRegUser, FaRegFileLines } from 'react-icons/fa6';
 // icon logout
 import { FaSignOutAlt } from 'react-icons/fa';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
@@ -46,6 +46,7 @@ function Upheader() {
     const [selectedLanguage, setSelectedLanguage] = useState(flags[0]);
 
     const nameGG = localStorage.getItem('email');
+    const nameFB = localStorage.getItem('facebook');
     const handleLanguageSelect = (language) => {
         setSelectedLanguage(language);
     };
@@ -134,7 +135,7 @@ function Upheader() {
                                 </HeadlessTippy>
                             </div>
                             <div className="p-[0.25rem] text-center">
-                                {nameGG ? (
+                                {nameGG || nameFB ? (
                                     <HeadlessTippy
                                         // dùng HeadlessTippy để khi click vào tên người dùng thì hiện ra thông tin người dùng và nút đăng nhập
                                         interactive
@@ -168,7 +169,7 @@ function Upheader() {
                                                     <div className="grid grid-cols-4 pt-2 pb-2 mb-2 hover:bg-slate-100 flex justify-center items-center">
                                                         <div className="col-span-1 flex justify-center items-center">
                                                             <a href="/" title="Tài khoản">
-                                                                <FaRegUser
+                                                                <FaRegFileLines
                                                                     width={40}
                                                                     className="main-color text-2xl border border-green-500 rounded-full p-1"
                                                                 />
@@ -222,7 +223,7 @@ function Upheader() {
                                                 className="main-color text-2xl border border-green-500 rounded-full p-1"
                                             />
                                             <p className="text-sm main-color ml-2 font-semibold">
-                                                {nameGG.slice(0, nameGG.indexOf('@'))}
+                                                {nameGG.slice(0, nameGG.indexOf('@')) || nameFB}
                                             </p>
                                         </button>
                                     </HeadlessTippy>
