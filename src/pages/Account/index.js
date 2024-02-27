@@ -14,6 +14,8 @@ function Account() {
         });
     };
 
+    const nameGG = localStorage.getItem('email');
+
     return (
         <div className="main_fix pt-5">
             <div className="container mx-auto my-12">
@@ -40,7 +42,7 @@ function Account() {
                     <div className="mb-2 block">
                         <Label htmlFor="account" value="Tài khoản" />
                     </div>
-                    <TextInput id="account" placeholder="Nhập tài khoản" required shadow />
+                    <TextInput id="account" placeholder="Nhập tài khoản" required shadow value={nameGG ? nameGG : ''} />
                 </div>
                 <div>
                     <div className="mb-2 block">
@@ -93,13 +95,13 @@ function Account() {
                 </div>
                 <div>
                     <div className="mb-2 block">
-                        <Label htmlFor="phone" value="Phone" />
+                        <Label htmlFor="phone" value="Số điện thoại" />
                     </div>
                     <TextInput id="phone" type="phone" placeholder="" required />
                 </div>
                 <div>
                     <div className="mb-2 block">
-                        <Label htmlFor="Address" value="Address" />
+                        <Label htmlFor="Address" value="Địa chỉ" />
                     </div>
                     <TextInput id="Address" type="" placeholder="" required />
                 </div>

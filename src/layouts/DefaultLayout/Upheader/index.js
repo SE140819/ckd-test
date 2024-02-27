@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'flowbite-react';
 import { FaRegUser } from 'react-icons/fa6';
+// icon logout
+import { FaSignOutAlt } from 'react-icons/fa';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -43,6 +45,7 @@ function Upheader() {
 
     const [selectedLanguage, setSelectedLanguage] = useState(flags[0]);
 
+    const nameGG = localStorage.getItem('email');
     const handleLanguageSelect = (language) => {
         setSelectedLanguage(language);
     };
@@ -131,15 +134,87 @@ function Upheader() {
                                 </HeadlessTippy>
                             </div>
                             <div className="p-[0.25rem] text-center">
-                                <button className="flex items-center" onClick={() => setOpenModal(true)}>
-                                    <>
-                                        <FaRegUser
-                                            width={40}
-                                            className="main-color text-2xl border border-green-500 rounded-full p-1"
-                                        />
-                                        <p className="text-sm main-color ml-2 font-semibold">Tài khoản</p>
-                                    </>
-                                </button>
+                                {nameGG ? (
+                                    <HeadlessTippy
+                                        // dùng HeadlessTippy để khi click vào tên người dùng thì hiện ra thông tin người dùng và nút đăng nhập
+                                        interactive
+                                        render={(attrs) => (
+                                            <div
+                                                {...attrs}
+                                                className="py-2 px-3 h-50 w-30 border border-gray-300 rounded-md shadow-lg bg-white overflow-y-auto"
+                                                onMouseDown={(e) => e.preventDefault()}
+                                            >
+                                                <div className="py-2 px-3">
+                                                    <div className="grid grid-cols-4 pt-2 pb-2 mb-2 hover:bg-slate-100 flex justify-center items-center">
+                                                        <div className="col-span-1 flex justify-center items-center">
+                                                            <a href="/" title="Tài khoản">
+                                                                <FaRegUser
+                                                                    width={40}
+                                                                    className="main-color text-2xl border border-green-500 rounded-full p-1"
+                                                                />
+                                                            </a>
+                                                        </div>
+                                                        <div className="col-span-3 flex justify-center items-center">
+                                                            <a href="/account" title="Tài khoản">
+                                                                <div className="font-semibold w-30 text-sm text-gray-900 text-center">
+                                                                   Thông tin tài khoản
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {/* đăng xuất */}
+                                                <div className="py-2 px-3">
+                                                    <div className="grid grid-cols-4 pt-2 pb-2 mb-2 hover:bg-slate-100 flex justify-center items-center">
+                                                        <div className="col-span-1 flex justify-center items-center">
+                                                            <a href="/" title="Tài khoản">
+                                                                <FaRegUser
+                                                                    width={40}
+                                                                    className="main-color text-2xl border border-green-500 rounded-full p-1"
+                                                                />
+                                                            </a>
+                                                        </div>
+                                                        <div className="col-span-3 flex justify-center items-center">
+                                                            {/* đăng xuất */}
+                                                            <a
+                                                                href="/"
+                                                                title="Tài khoản"
+                                                                onClick={() => {
+                                                                    localStorage.removeItem('email');
+                                                                    window.location.href = '/';
+                                                                }}
+                                                            >
+                                                                <div className="font-semibold w-30 text-sm text-gray-900 text-center">
+                                                                    Đăng xuất
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    >
+                                        <button className="flex items-center">
+                                            <FaRegUser
+                                                width={40}
+                                                className="main-color text-2xl border border-green-500 rounded-full p-1"
+                                            />
+                                            <p className="text-sm main-color ml-2 font-semibold">
+                                                {nameGG.slice(0, nameGG.indexOf('@'))}
+                                            </p>
+                                        </button>
+                                    </HeadlessTippy>
+                                ) : (
+                                    <button className="flex items-center" onClick={() => setOpenModal(true)}>
+                                        <>
+                                            <FaRegUser
+                                                width={40}
+                                                className="main-color text-2xl border border-green-500 rounded-full p-1"
+                                            />
+                                            <p className="text-sm main-color ml-2 font-semibold">Tài khoản</p>
+                                        </>
+                                    </button>
+                                )}
                                 <Modal show={openModal} onClose={() => setOpenModal(false)}>
                                     <Modal.Header></Modal.Header>
 
