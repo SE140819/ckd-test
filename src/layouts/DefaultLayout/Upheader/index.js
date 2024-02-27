@@ -30,8 +30,8 @@ function Upheader() {
     const handleFacebookLogin = () => {
         signInWithPopup(auth, provider2)
             .then((data) => {
-                setValue(data.user);
-                localStorage.setItem('facebook', data.user);
+                setValue(data.user.displayName);
+                localStorage.setItem('facebook', data.user.displayName);
 
                 window.location.href = '/';
             })
@@ -267,9 +267,6 @@ function Upheader() {
                                                         Đăng nhập bằng Facebook
                                                     </button>
                                                 )}
-
-                                                {/* Nút Login bằng Google */}
-                                                {/* đăng nhập bằng google và sau khi đăng nhập thành công thì nhảy về trang home và thông báo đăng nhập thành công */}
                                                 {value ? (
                                                     <></>
                                                 ) : (
