@@ -1,7 +1,19 @@
 import { Breadcrumb, Button, Checkbox, Label, Radio, TextInput, Datepicker } from 'flowbite-react';
 import { HiMail, HiHome } from 'react-icons/hi';
 import { title } from '../../data/title';
+
+import React, { useEffect, useState } from 'react';
+import { auth, provider } from '../../config';
+import { signInWithPopup } from 'firebase/auth';
 function Account() {
+    const [value, setValue] = useState('');
+    const handleClick = () => {
+        signInWithPopup(auth, provider).then((data) => {
+            setValue(data.user.email);
+            localStorage.setItem('email', data.user.email);
+        });
+    };
+
     return (
         <div className="main_fix pt-5">
             <div className="container mx-auto my-12">

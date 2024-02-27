@@ -21,6 +21,7 @@
     "dompurify": "^3.0.9",
     "dotenv": "^16.3.2",
     "editorjs-html": "^3.4.3",
+    "firebase": "^10.8.0",
     "flowbite": "^2.2.1",
     "flowbite-react": "^0.7.2",
     "font-awesome": "^4.7.0",

@@ -1,31 +1,40 @@
-
-import React, { useState } from 'react';    
-
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'flowbite-react';
 import { FaRegUser } from 'react-icons/fa6';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 import HeadlessTippy from '@tippyjs/react/headless';
 
-import {flags} from '../../../data/flag';
+import { flags } from '../../../data/flag';
+
+import { auth, provider } from '../../../config';
+import { signInWithPopup } from 'firebase/auth';
 
 function Upheader() {
-   
+    const [value, setValue] = useState('');
+    const handleClick = () => {
+        signInWithPopup(auth, provider).then((data) => {
+            setValue(data.user.email);
+            localStorage.setItem('email', data.user.email);
+        });
+    };
 
     const [showResult, setShowResult] = useState(false);
 
+    const [selectedLanguage, setSelectedLanguage] = useState(flags[0]);
 
-     const [selectedLanguage, setSelectedLanguage] = useState(flags[0]);
+    const handleLanguageSelect = (language) => {
+        setSelectedLanguage(language);
+    };
+    const mystyle = {
+        opacity: 0.5,
+        filter: 'alpha(opacity=50)',
+        'pointer-events': 'none',
+        cursor: 'default',
+    };
 
-     const handleLanguageSelect = (language) => {
-         setSelectedLanguage(language);
-     };
-	const mystyle = {
-		opacity: 0.5, filter: "alpha(opacity=50)", "pointer-events": "none", cursor: "default"
-	}
-	
-	 const [openModal, setOpenModal] = useState(false);
-	return (
+    const [openModal, setOpenModal] = useState(false);
+    return (
         <>
             <div className="container mx-auto">
                 <div className="flex justify-end">
@@ -127,7 +136,10 @@ function Upheader() {
                                                 </button>
 
                                                 {/* Nút Login bằng Google */}
-                                                <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded w-full">
+                                                <button
+                                                    className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded w-full"
+                                                    onClick={handleClick}
+                                                >
                                                     Đăng nhập bằng Google
                                                 </button>
 
@@ -169,5 +181,3 @@ function Upheader() {
 }
 
 export default Upheader;
-
-

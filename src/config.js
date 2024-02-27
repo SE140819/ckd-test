@@ -1,0 +1,20 @@
+import { initializeApp } from "firebase/app";
+import {getAuth,GoogleAuthProvider} from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAj9Iv3Vm5L-NSumWSPtX1vClePz2k_R8s",
+  authDomain: "ckd--project.firebaseapp.com",
+  projectId: "ckd--project",
+  storageBucket: "ckd--project.appspot.com",
+  messagingSenderId: "892997290405",
+  appId: "1:892997290405:web:4606cdb5db0ba868b4c04c",
+  measurementId: "G-VMQKDQ2QJM",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+export {auth,provider};
