@@ -52,7 +52,7 @@ function SignIn() {
                         if (user) {
                             console.error('Email đã tồn tại!');
                         } else {
-                            console.log('Đăng ký tài khoản thành công!');
+                            alert('Đăng ký thành công!');
                             navigate('/sign-up');
                             // chuyển hướng đến trang home
                         }
@@ -71,7 +71,7 @@ function SignIn() {
                                         htmlFor="email"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
-                                        Tên tài khoản:
+                                        Nhập email:
                                     </label>
                                     <div className="relative">
                                         <Field

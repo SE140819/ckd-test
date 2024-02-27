@@ -68,7 +68,7 @@ function SignUp() {
                                         htmlFor="email"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
-                                        Tên tài khoản:
+                                        Tên email:
                                     </label>
                                     <div className="relative">
                                         <Field
