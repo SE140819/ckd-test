@@ -2,25 +2,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';
-
+const NOTF =
+    'https://firebasestorage.googleapis.com/v0/b/ckd--project.appspot.com/o/404.jpg?alt=media&token=edeb8fb3-7c95-425f-a702-c9e2015bf525';
 const NotFoundPage = () => {
     return (
         <div id="notfound">
             <div className="notfound">
-                <div className="notfound-404">
-                    <h1>404</h1>
-                </div>
-                <h2>Oops, The Page you are looking for can't be found!</h2>
-                {/* <form className="notfound-search">
-                <input type="text" placeholder="Search..." />
-                <button type="button">Search</button>
-            </form> */}
-                <a href="/">
-                    <span className="arrow"></span>Return To Homepage
-                </a>
+                <img src={NOTF} alt="404" />
+                <Link to="/">Go Home</Link>
             </div>
         </div>
     );
-    }
+};
 
 export default NotFoundPage;

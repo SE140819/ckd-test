@@ -29,34 +29,30 @@ const NofoundInCart =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2Fnotfound%2Fkh%C3%B4ng%20t%C3%ACm%20th%E1%BA%A5y%20s%E1%BA%A3n%20ph%E1%BA%A9m%20trong%20gi%E1%BB%8F%20h%C3%A0ng.png?alt=media&token=60a133f4-e278-4bb6-a282-72d246617a9a';
 
 const Shopping = () => {
-    const userToPost = {
-        name: 'Nguyễn Văn A',
-        phone: '0123-456-789',
+    // user
+    const [address, setAddress] = useState({ province: '', district: '', ward: '' });
+    const [user, setUser] = useState({
+        name: '',
+        phone: '',
         email: '',
-        address: '',
+        province: '',
+        district: '',
+        ward: '',
         request: '',
+    });
+    const userToPost = {
+        name: user.name,
+        phone: user.phone,
+        email: user.email,
+        address: {
+            province: address.province,
+            district: address.district,
+            ward: address.ward,
+        },
+        request: user.request,
     };
 
-    const handlePayment = () => {
-        const data = {
-            user: userToPost,
-            cart: cartProducts,
-            total: totalAmount,
-            payment: DEFAULT_PAYMENT_METHOD,
-        };
-        axios
-            .post('YOUR_API_URL', { data })
-            .then((response) => {
-                console.log(response);
-            })
-            .then(() => {
-                dispatch(cartActions.clear());
-            })
-            .catch((error) => {
-                //  Hiện lên POPUP thông báo lỗi
-                alert('Đã có lỗi xảy ra, vui lòng thử lại sau');
-            });
-    };
+    const [payment, setPayment] = useState(DEFAULT_PAYMENT_METHOD);
 
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
@@ -108,6 +104,20 @@ const Shopping = () => {
     const cartProducts = useSelector((state) => state.cart.cartItems);
     const totalAmount = useSelector((state) => state.cart.totalAmount);
 
+    const [total, setTotal] = useState(0);
+
+    // Cập nhật trạng thái khi người dùng chọn một phương thức thanh toán
+    const handlePaymentChange = (event) => {
+        setPayment(event.target.value);
+    };
+    useEffect(() => {
+        setTotal(
+            totalAmount -
+                (totalAmount * discount) / 100 +
+                (selectedVoucher === 'FreeShip' ? 0 : voucher.money ? voucher.money : 30000),
+        );
+    }, [totalAmount, discount, selectedVoucher, voucher]);
+
     const handleVoucherSelect = (selectedVoucher) => {
         setOpenModal(true);
         setVoucher(selectedVoucher);
@@ -124,9 +134,52 @@ const Shopping = () => {
 
     console.log('cartProducts', cartProducts);
 
-    const toggleCart = () => {
-        dispatch(cartUiActions.toggle());
+    // Giả sử bạn đã khởi tạo state cho address như sau:
+
+    // Hàm xử lý sự kiện thay đổi
+    const handleAddressChange = (type, value) => {
+        let newAddress = { ...address };
+
+        if (type === 'province') {
+            setSelectedProvince(value);
+            newAddress.province = provinces.find((province) => province.province_id === value).province_name;
+        } else if (type === 'district') {
+            setSelectedDistrict(value);
+            newAddress.district = districts.find((district) => district.district_id === value).district_name;
+        } else if (type === 'ward') {
+            setSelectedWard(value);
+            newAddress.ward = wards.find((ward) => ward.ward_id === value).ward_name;
+        }
+
+        setAddress(newAddress);
     };
+
+    const getdata = async (e) => {
+        {
+            const data = {
+                user: userToPost,
+                cart: cartProducts,
+                total: total,
+                payment: payment,
+            };
+            e.preventDefault();
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            };
+            const res = await fetch('https://ckd--project-default-rtdb.firebaseio.com/Order.json', options);
+            if (res.status === 200) {
+                alert('Đã được lưu dữ liệu trên firebase');
+            } else {
+                alert('Lỗi');
+            }
+        }
+    };
+
+    console.log('address', address);
     return (
         <>
             <div className="container mx-auto p-5 mt-5 shadow-lg bg-white">
@@ -226,7 +279,7 @@ const Shopping = () => {
                                                     id={payment.id}
                                                     name="payment"
                                                     value={payment.name}
-                                                    // nếu không có giá trị thì mặc định là thanh toán tiền mặt
+                                                    onChange={handlePaymentChange} // Thêm sự kiện onChange
                                                     defaultChecked={
                                                         DEFAULT_PAYMENT_METHOD === payment.name ? true : false
                                                     }
@@ -275,7 +328,8 @@ const Shopping = () => {
                                                         id="first_name"
                                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                         placeholder="Nguyễn Văn A"
-                                                        required=""
+                                                        onChange={(e) => setUser({ ...user, name: e.target.value })}
+                                                        required
                                                     />
                                                 </div>
                                                 <div className="mb-6">
@@ -291,7 +345,8 @@ const Shopping = () => {
                                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                         placeholder="0123-456-789"
                                                         pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                                                        required=""
+                                                        onChange={(e) => setUser({ ...user, phone: e.target.value })}
+                                                        required
                                                     />
                                                 </div>
 
@@ -307,7 +362,8 @@ const Shopping = () => {
                                                         id="email"
                                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                         placeholder="nguyenvana@gmail.com"
-                                                        required=""
+                                                        onChange={(e) => setUser({ ...user, email: e.target.value })}
+                                                        required
                                                     />
                                                 </div>
                                                 <div className="mb-6">
@@ -324,7 +380,9 @@ const Shopping = () => {
                                                             selectedProvince ? selectedProvince : 'Chọn tỉnh/thành phố'
                                                         }
                                                         defaultValue="Chọn tỉnh/thành phố"
-                                                        onChange={(e) => setSelectedProvince(e.target.value)}
+                                                        onChange={(e) =>
+                                                            handleAddressChange('province', e.target.value)
+                                                        }
                                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     >
                                                         {provinces.map((province) => (
@@ -345,7 +403,9 @@ const Shopping = () => {
                                                     <select
                                                         id="district"
                                                         value={selectedDistrict}
-                                                        onChange={(e) => setSelectedDistrict(e.target.value)}
+                                                        onChange={(e) =>
+                                                            handleAddressChange('district', e.target.value)
+                                                        }
                                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     >
                                                         {districts.map((district) => (
@@ -366,7 +426,7 @@ const Shopping = () => {
                                                     <select
                                                         id="ward"
                                                         value={selectedWard}
-                                                        onChange={(e) => setSelectedWard(e.target.value)}
+                                                        onChange={(e) => handleAddressChange('ward', e.target.value)}
                                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     >
                                                         {wards.map((ward) => (
@@ -387,6 +447,7 @@ const Shopping = () => {
                                                     <textarea
                                                         type="text"
                                                         id="request"
+                                                        onChange={(e) => setUser({ ...user, request: e.target.value })}
                                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                         placeholder=""
                                                     />
@@ -483,7 +544,8 @@ const Shopping = () => {
                             </div>
                         </div>
                         <button
-                            onClick={handlePayment}
+                            // onClick={handlePayment}
+                            onClick={getdata}
                             className="hover:bg-bluepink dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 py-5 w-full bg-bluepink text-base font-medium leading-4 text-white"
                         >
                             Thanh toán
