@@ -8,16 +8,9 @@ import { products, promotions, vouchers, payment_method } from '../../data/shopp
 import { useSelector } from 'react-redux';
 import { formatNumber, path_upload } from '../../utils/ckdUtils';
 import { useDispatch } from 'react-redux';
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
-
-import { Link } from 'react-router-dom';
-import { cartUiActions } from '../../store/shopping-cart/cartUiSlice';
-import { cartActions } from '../../store/shopping-cart/cartSlice';
-import {
-    CartItem,
-} from './CartItem';
 import { Formik, Field, Form } from 'formik';
+import { CartItem } from './CartItem';
 import axios from 'axios';
 
 const DEFAULT_PAYMENT_METHOD = 'Phương thức thanh toán Tiền mặt';
@@ -101,6 +94,9 @@ const Shopping = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalPromotions, setOpenModalPromotions] = useState(false);
     const [openModalPay, setOpenModalPay] = useState(false);
+    const [openWarning, setOpenWarning] = useState(false);
+    const [openModalSuccess, setOpenModalSuccess] = useState(false);
+    const [openError, setOpenError] = useState(false);
     const cartProducts = useSelector((state) => state.cart.cartItems);
     const totalAmount = useSelector((state) => state.cart.totalAmount);
 
@@ -132,8 +128,6 @@ const Shopping = () => {
         setInputValue(event.target.value);
     };
 
-    console.log('cartProducts', cartProducts);
-
     // Giả sử bạn đã khởi tạo state cho address như sau:
 
     // Hàm xử lý sự kiện thay đổi
@@ -155,31 +149,35 @@ const Shopping = () => {
     };
 
     const getdata = async (e) => {
-        {
-            const data = {
-                user: userToPost,
-                cart: cartProducts,
-                total: total,
-                payment: payment,
-            };
-            e.preventDefault();
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            };
-            const res = await fetch('https://ckd--project-default-rtdb.firebaseio.com/Order.json', options);
-            if (res.status === 200) {
-                alert('Đã được lưu dữ liệu trên firebase');
-            } else {
-                alert('Lỗi');
+        for (let key in userToPost) {
+            if (!userToPost[key]) {
+                setOpenWarning(true);
+                return;
             }
+        }
+
+        const data = {
+            user: userToPost,
+            cart: cartProducts,
+            total: total,
+            payment: payment,
+        };
+        e.preventDefault();
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        const res = await fetch('https://ckd--project-default-rtdb.firebaseio.com/Order.json', options);
+        if (res.status === 200) {
+            setOpenModalSuccess(true);
+        } else {
+            setOpenError(true);
         }
     };
 
-    console.log('address', address);
     return (
         <>
             <div className="container mx-auto p-5 mt-5 shadow-lg bg-white">
@@ -315,144 +313,164 @@ const Shopping = () => {
                                             Thông tin người nhận:
                                         </div>
                                         <div className="grid p-3 border rounded-md">
-                                            <form>
-                                                <div className="mb-6">
-                                                    <label
-                                                        htmlFor="first_name"
-                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                    >
-                                                        Họ và tên
-                                                    </label>
-                                                    <input
-                                                        type="text"
-                                                        id="first_name"
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        placeholder="Nguyễn Văn A"
-                                                        onChange={(e) => setUser({ ...user, name: e.target.value })}
-                                                        required
-                                                    />
-                                                </div>
-                                                <div className="mb-6">
-                                                    <label
-                                                        htmlFor="phone"
-                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                    >
-                                                        Số điện thoại
-                                                    </label>
-                                                    <input
-                                                        type="tel"
-                                                        id="phone"
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        placeholder="0123-456-789"
-                                                        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                                                        onChange={(e) => setUser({ ...user, phone: e.target.value })}
-                                                        required
-                                                    />
-                                                </div>
+                                            <Formik
+                                                initialValues={{
+                                                    name: '',
+                                                    phone: '',
+                                                    email: '',
+                                                    address: '',
+                                                    request: '',
+                                                }}
+                                            >
+                                                <Form>
+                                                    <div className="mb-6">
+                                                        <label
+                                                            htmlFor="first_name"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Họ và tên
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            id="first_name"
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                            placeholder="Nguyễn Văn A"
+                                                            onChange={(e) => setUser({ ...user, name: e.target.value })}
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className="mb-6">
+                                                        <label
+                                                            htmlFor="phone"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Số điện thoại
+                                                        </label>
+                                                        <input
+                                                            type="tel"
+                                                            id="phone"
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                            placeholder="0123-456-789"
+                                                            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                                                            onChange={(e) =>
+                                                                setUser({ ...user, phone: e.target.value })
+                                                            }
+                                                            required
+                                                        />
+                                                    </div>
 
-                                                <div className="mb-6">
-                                                    <label
-                                                        htmlFor="email"
-                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                    >
-                                                        Email
-                                                    </label>
-                                                    <input
-                                                        type="email"
-                                                        id="email"
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        placeholder="nguyenvana@gmail.com"
-                                                        onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                                        required
-                                                    />
-                                                </div>
-                                                <div className="mb-6">
-                                                    <label
-                                                        htmlFor="address"
-                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                    >
-                                                        Địa chỉ:
-                                                    </label>
-                                                    <select
-                                                        id="address"
-                                                        //    đầu tiên  là ghi nội dụng chọn tỉnh/thành phố
-                                                        value={
-                                                            selectedProvince ? selectedProvince : 'Chọn tỉnh/thành phố'
-                                                        }
-                                                        defaultValue="Chọn tỉnh/thành phố"
-                                                        onChange={(e) =>
-                                                            handleAddressChange('province', e.target.value)
-                                                        }
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    >
-                                                        {provinces.map((province) => (
-                                                            <option
-                                                                key={province.province_id}
-                                                                value={province.province_id}
-                                                            >
-                                                                {province.province_name}
-                                                            </option>
-                                                        ))}
-                                                    </select>
-                                                    <label
-                                                        htmlFor="district"
-                                                        className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                    >
-                                                        Quận/Huyện:
-                                                    </label>
-                                                    <select
-                                                        id="district"
-                                                        value={selectedDistrict}
-                                                        onChange={(e) =>
-                                                            handleAddressChange('district', e.target.value)
-                                                        }
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    >
-                                                        {districts.map((district) => (
-                                                            <option
-                                                                key={district.district_id}
-                                                                value={district.district_id}
-                                                            >
-                                                                {district.district_name}
-                                                            </option>
-                                                        ))}
-                                                    </select>
-                                                    <label
-                                                        htmlFor="ward"
-                                                        className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                    >
-                                                        Xã/Phường:
-                                                    </label>
-                                                    <select
-                                                        id="ward"
-                                                        value={selectedWard}
-                                                        onChange={(e) => handleAddressChange('ward', e.target.value)}
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    >
-                                                        {wards.map((ward) => (
-                                                            <option key={ward.ward_id} value={ward.ward_id}>
-                                                                {ward.ward_name}
-                                                            </option>
-                                                        ))}
-                                                    </select>
-                                                </div>
+                                                    <div className="mb-6">
+                                                        <label
+                                                            htmlFor="email"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Email
+                                                        </label>
+                                                        <input
+                                                            type="email"
+                                                            id="email"
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                            placeholder="nguyenvana@gmail.com"
+                                                            onChange={(e) =>
+                                                                setUser({ ...user, email: e.target.value })
+                                                            }
+                                                            required
+                                                        />
+                                                    </div>
+                                                    <div className="mb-6">
+                                                        <label
+                                                            htmlFor="address"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Địa chỉ:
+                                                        </label>
+                                                        <select
+                                                            id="address"
+                                                            //    đầu tiên  là ghi nội dụng chọn tỉnh/thành phố
+                                                            value={
+                                                                selectedProvince
+                                                                    ? selectedProvince
+                                                                    : 'Chọn tỉnh/thành phố'
+                                                            }
+                                                            defaultValue="Chọn tỉnh/thành phố"
+                                                            onChange={(e) =>
+                                                                handleAddressChange('province', e.target.value)
+                                                            }
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        >
+                                                            {provinces.map((province) => (
+                                                                <option
+                                                                    key={province.province_id}
+                                                                    value={province.province_id}
+                                                                >
+                                                                    {province.province_name}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+                                                        <label
+                                                            htmlFor="district"
+                                                            className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Quận/Huyện:
+                                                        </label>
+                                                        <select
+                                                            id="district"
+                                                            value={selectedDistrict}
+                                                            onChange={(e) =>
+                                                                handleAddressChange('district', e.target.value)
+                                                            }
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        >
+                                                            {districts.map((district) => (
+                                                                <option
+                                                                    key={district.district_id}
+                                                                    value={district.district_id}
+                                                                >
+                                                                    {district.district_name}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+                                                        <label
+                                                            htmlFor="ward"
+                                                            className="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Xã/Phường:
+                                                        </label>
+                                                        <select
+                                                            id="ward"
+                                                            value={selectedWard}
+                                                            onChange={(e) =>
+                                                                handleAddressChange('ward', e.target.value)
+                                                            }
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        >
+                                                            {wards.map((ward) => (
+                                                                <option key={ward.ward_id} value={ward.ward_id}>
+                                                                    {ward.ward_name}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
 
-                                                <div className="mb-6">
-                                                    <label
-                                                        htmlFor="request"
-                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                    >
-                                                        Yêu cầu khác
-                                                    </label>
-                                                    <textarea
-                                                        type="text"
-                                                        id="request"
-                                                        onChange={(e) => setUser({ ...user, request: e.target.value })}
-                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        placeholder=""
-                                                    />
-                                                </div>
-                                            </form>
+                                                    <div className="mb-6">
+                                                        <label
+                                                            htmlFor="request"
+                                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >
+                                                            Yêu cầu khác
+                                                        </label>
+                                                        <textarea
+                                                            type="text"
+                                                            id="request"
+                                                            onChange={(e) =>
+                                                                setUser({ ...user, request: e.target.value })
+                                                            }
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                            placeholder=""
+                                                        />
+                                                    </div>
+                                                </Form>
+                                            </Formik>
                                         </div>
                                     </div>
                                 </div>
@@ -696,6 +714,54 @@ const Shopping = () => {
                             alt="CKD VIỆT NAM"
                             src="https://ckdvietnam.com/upload/elfinder/GI%E1%BB%9AI%20THI%E1%BB%86U/thanhtoanchuyenkhoan.webp"
                         ></img>
+                    </div>
+                </Modal.Body>
+            </Modal>
+            <Modal show={openWarning} onClose={() => setOpenWarning(false)}>
+                <Modal.Header>Thông báo</Modal.Header>
+                <Modal.Body>
+                    <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
+                        Vui lòng điền đầy đủ thông tin của người nhận
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <button
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => setOpenWarning(false)}
+                    >
+                        Đóng
+                    </button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={openModalSuccess} onClose={() => setOpenModalSuccess(false)}>
+                <Modal.Header>Thông báo</Modal.Header>
+                <Modal.Body>
+                    {/*  thông báo căn giữa */}
+                    <div className="flex flex-col gap-2 justify-center items-center">
+                        <img
+                            alt="CKD VIỆT NAM"
+                            src="https://firebasestorage.googleapis.com/v0/b/ckd--project.appspot.com/o/icon%2Fcheck.png?alt=media&token=75d00a57-4929-46e3-b44e-e154fa7d8ea8"
+                            width="100px"
+                        ></img>
+                        <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
+                            Đặt hàng thành công
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+            <Modal show={openError} onClose={() => setOpenError(false)}>
+                <Modal.Header>Thông báo</Modal.Header>
+                <Modal.Body>
+                    {/*  thông báo căn giữa */}
+                    <div className="flex flex-col gap-2 justify-center items-center">
+                        <img
+                            alt="CKD VIỆT NAM"
+                            src="https://firebasestorage.googleapis.com/v0/b/ckd--project.appspot.com/o/icon%2Fmark.png?alt=media&token=e23beb7a-5066-4181-8f52-f09551a0bf88"
+                            width="100px"
+                        ></img>
+                        <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
+                            Đặt hàng thất bại
+                        </div>
                     </div>
                 </Modal.Body>
             </Modal>

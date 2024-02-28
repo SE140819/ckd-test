@@ -302,8 +302,6 @@ const DetailProduct = () => {
 
     const decodedString2 = parser.parseFromString(encodedHtmlDetail, 'text/html').documentElement.textContent;
     const _url = path_upload().product;
-
-    console.log('product', encodedHtmlDetail);
     return (
         <>
             <Helmet>

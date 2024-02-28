@@ -78,7 +78,7 @@ function Product() {
         id_cat: '', //done
         id_dong: '', //done
     };
-    console.log('categorty', categorty);
+
     const [filterState, setFilterState] = useState(initialFilterState);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [noProductFound, setNoProductFound] = useState(false);
@@ -95,7 +95,7 @@ function Product() {
 
             return isBrandMatch && isCategoryMatch && isTypeMatch /*  && isBetterMatch && isSoldMatch */;
         });
-        console.log('newFilteredProducts', newFilteredProducts);
+
         setFilteredProducts(newFilteredProducts);
         setNoProductFound(newFilteredProducts.length === 0);
     };
@@ -105,10 +105,6 @@ function Product() {
     }, [product_list, filterState]);
 
     const _url = path_upload().product;
-
-    console.log('product_list', product_list);
-    console.log('filterProducts', filteredProducts);
-    console.log('filterState', filterState);
     return (
         <>
             {/* dùng grid  4 sản phẩm 1 hàng */}

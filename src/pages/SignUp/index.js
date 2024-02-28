@@ -32,30 +32,7 @@ function SignUp() {
 
     return (
         <>
-            <Formik
-                initialValues={{ email: '', password: '' }}
-                // validationSchema={Yup.object({
-                //     email: Yup.string().email('Email không hợp lệ').required('Bắt buộc nhập email'),
-                //     password: Yup.string()
-                //         .min(8, 'Mật khẩu phải có ít nhất 8 ký tự')
-                //         .required('Bắt buộc nhập mật khẩu'),
-                // })}
-                // onSubmit={(values, { setSubmitting }) => {
-                //     setTimeout(() => {
-                //         const user = accounts.find(
-                //             (account) => account.email === values.email && account.password === values.password,
-                //         );
-                //         if (user) {
-                //             console.log('Đăng nhập thành công!');
-
-                //             // chuyển hướng đến trang home
-                //         } else {
-                //             console.error('Email hoặc mật khẩu không đúng!');
-                //         }
-                //         setSubmitting(false);
-                //     }, 400);
-                // }}
-            >
+            <Formik initialValues={{ email: '', password: '' }}>
                 <div className="bg-gray-50 dark:bg-gray-900">
                     <div className="flex flex-col items-center justify-center px-6 py-8">
                         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">

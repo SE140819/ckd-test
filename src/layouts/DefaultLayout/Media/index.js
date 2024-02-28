@@ -13,10 +13,6 @@ const Cart =
         
         const cart = useSelector((state) => state.cart);
         const totalQuantity = useSelector((state) => state.cart.totalQuantity);
- 
-        console.log('totalQuantity', totalQuantity);
-        // cart getlocalstorage
-        // const cart2 = JSON.parse(localStorage.getItem('cart')) || [];
 
     return (
         <div className="media">

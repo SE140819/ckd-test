@@ -50,7 +50,6 @@ function Event() {
     // Change page
     const onPageChange = (pageNumber) => setCurrentPage(pageNumber);
 
-    console.log('event', event);
     const _url = path_upload().review;
     return (
         <>

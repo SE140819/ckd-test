@@ -92,8 +92,6 @@ function Header() {
 
     const handleChange = (e) => {
         const searchValue = e.target.value;
-        console.log('New search value:', searchValue);
-
         if (!searchValue.startsWith(' ')) {
             setSearchValue(searchValue);
             setShowResult(true);

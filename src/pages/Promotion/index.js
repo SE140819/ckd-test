@@ -64,9 +64,6 @@ function Promotion() {
     useEffect(() => {
         filterProducts();
     }, [product_list, filterState]);
-
-    console.log('product_list', product_list);
-
     return (
         <>
             <div className="container mx-auto pt-5 p-5 main_fix">

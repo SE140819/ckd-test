@@ -368,7 +368,6 @@ function ProductSlide() {
     useEffect(() => {
         filterProduct2s();
     }, [product_list, filterState]);
-    console.log('product_list1111111', product_list);
 
     return (
         <>
@@ -864,7 +863,6 @@ function Brand() {
           fetch();
       }, []);
 
-      console.log('🚀 ~ file: index.js ~ line 444 ~ Review ~ reviewData', banner);
       return (
           <>
               <div className="title-main">

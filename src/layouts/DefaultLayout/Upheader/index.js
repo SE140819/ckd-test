@@ -49,7 +49,6 @@ function Upheader() {
     const nameFB = localStorage.getItem('facebook');
     const nameLocal = localStorage.getItem('user');
 
-    console.log('nameLocal', nameLocal);
     const handleLanguageSelect = (language) => {
         setSelectedLanguage(language);
     };
