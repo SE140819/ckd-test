@@ -30,67 +30,71 @@ const initialState = {
 };
 
 const cartSlice = createSlice({
-  name: "cart",
-  initialState,
+    name: 'cart',
+    initialState,
 
-  
-  reducers: {
-    // =========== add item ============
-    addItem(state, action) {
-      const newItem = action.payload;
-      const existingItem = state.cartItems.find((item) => item.id === newItem.id);
-      state.totalQuantity++;
-      state.totalAmount += newItem.giamoi;
-      if (!existingItem) {
-        state.cartItems.push({
-          id: newItem.id,
-          tenkhongdauvi: newItem.tenkhongdauvi,
-          photo: newItem.photo,
-          link: newItem.link,
-          tenvi: newItem.tenvi,
-          gia: newItem.gia,
-          giamoi: newItem.giamoi,
-          moi: newItem.moi,
-          khuyenmai: newItem.khuyenmai,
-          nhaplieu_daban: newItem.nhaplieu_daban,
-          quantity: 1,
-        });
-      } else {
-        existingItem.quantity++;
-      }
-      setItemFunc(state.cartItems, state.totalAmount, state.totalQuantity);
-      // dùng Toast để hiển thị thông báo
+    reducers: {
+        // =========== add item ============
+        addItem(state, action) {
+            const newItem = action.payload;
+            const existingItem = state.cartItems.find((item) => item.id === newItem.id);
+            state.totalQuantity++;
+            state.totalAmount += newItem.giamoi;
+            if (!existingItem) {
+                state.cartItems.push({
+                    id: newItem.id,
+                    tenkhongdauvi: newItem.tenkhongdauvi,
+                    photo: newItem.photo,
+                    link: newItem.link,
+                    tenvi: newItem.tenvi,
+                    gia: newItem.gia,
+                    giamoi: newItem.giamoi,
+                    moi: newItem.moi,
+                    khuyenmai: newItem.khuyenmai,
+                    nhaplieu_daban: newItem.nhaplieu_daban,
+                    quantity: 1,
+                });
+            } else {
+                existingItem.quantity++;
+            }
+            setItemFunc(state.cartItems, state.totalAmount, state.totalQuantity);
+            // dùng Toast để hiển thị thông báo
+        },
+
+        // ========= remove item ========
+
+        removeItem(state, action) {
+            const id = action.payload;
+            const existingItem = state.cartItems.find((item) => item.id === id);
+            state.totalQuantity--;
+            state.totalAmount -= existingItem.giamoi;
+            if (existingItem.quantity === 1) {
+                state.cartItems = state.cartItems.filter((item) => item.id !== id);
+            } else {
+                existingItem.quantity--;
+            }
+            setItemFunc(state.cartItems, state.totalAmount, state.totalQuantity);
+        },
+
+        //============ delete item ===========
+
+        deleteItem(state, action) {
+            const id = action.payload;
+            const existingItem = state.cartItems.find((item) => item.id === id);
+            state.totalQuantity -= existingItem.quantity;
+            state.totalAmount -= existingItem.giamoi * existingItem.quantity;
+            state.cartItems = state.cartItems.filter((item) => item.id !== id);
+            setItemFunc(state.cartItems, state.totalAmount, state.totalQuantity);
+        },
+
+        // ========= clear cart ==========
+        clearCart(state) {
+            state.cartItems = [];
+            state.totalQuantity = 0;
+            state.totalAmount = 0;
+            setItemFunc(state.cartItems, state.totalAmount, state.totalQuantity);
+        },
     },
-
-   
-
-    // ========= remove item ========
-
-    removeItem(state, action) {
-      const id = action.payload;
-      const existingItem = state.cartItems.find((item) => item.id === id);
-      state.totalQuantity--;
-      state.totalAmount -= existingItem.giamoi;
-      if (existingItem.quantity === 1) {
-        state.cartItems = state.cartItems.filter((item) => item.id !== id);
-      } else {
-        existingItem.quantity--;
-      }
-      setItemFunc(state.cartItems, state.totalAmount, state.totalQuantity);
-      
-    },
-
-    //============ delete item ===========
-
-    deleteItem(state, action) {
-      const id = action.payload;
-      const existingItem = state.cartItems.find((item) => item.id === id);
-      state.totalQuantity -= existingItem.quantity;
-      state.totalAmount -= existingItem.giamoi * existingItem.quantity;
-      state.cartItems = state.cartItems.filter((item) => item.id !== id);
-      setItemFunc(state.cartItems, state.totalAmount, state.totalQuantity);
-    },
-  },
 });
 
 export const cartActions = cartSlice.actions;

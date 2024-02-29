@@ -12,6 +12,9 @@ import { useDispatch } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { CartItem } from './CartItem';
 import axios from 'axios';
+import { act } from 'react-dom/test-utils';
+
+import { cartActions } from '../../store/shopping-cart/cartSlice';
 
 const DEFAULT_PAYMENT_METHOD = 'Phương thức thanh toán Tiền mặt';
 
@@ -42,7 +45,7 @@ const Shopping = () => {
             district: address.district,
             ward: address.ward,
         },
-        request: user.request,
+        request: user.request || 'không có',
     };
 
     const [payment, setPayment] = useState(DEFAULT_PAYMENT_METHOD);
@@ -173,11 +176,19 @@ const Shopping = () => {
         const res = await fetch('https://ckd--project-default-rtdb.firebaseio.com/Order.json', options);
         if (res.status === 200) {
             setOpenModalSuccess(true);
+            dispatch(cartActions.clearCart());
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 3000);
+
+            console.log('cartProducts', cartProducts);
         } else {
             setOpenError(true);
         }
     };
+    const carttest = useSelector((state) => state.cart.cartItems);
 
+    console.log('cart local', carttest);
     return (
         <>
             <div className="container mx-auto p-5 mt-5 shadow-lg bg-white">
@@ -319,7 +330,7 @@ const Shopping = () => {
                                                     phone: '',
                                                     email: '',
                                                     address: '',
-                                                    request: '',
+                                                    // request: '',
                                                 }}
                                             >
                                                 <Form>
@@ -463,7 +474,10 @@ const Shopping = () => {
                                                             type="text"
                                                             id="request"
                                                             onChange={(e) =>
-                                                                setUser({ ...user, request: e.target.value })
+                                                                setUser({
+                                                                    ...user,
+                                                                    request: e.target.value || 'không có',
+                                                                })
                                                             }
                                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                             placeholder=""

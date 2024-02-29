@@ -5,6 +5,8 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const UPDATE_QUANTITY = 'UPDATE_QUANTITY';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 
+
+export const CLEAR_CART = 'CLEAR_CART';
 export function addToCart(product) {
     return {
         type: ADD_TO_CART,
@@ -38,3 +40,9 @@ export function decreaseQuantity(id) {
         payload: id,
     };
 }
+
+export const clearCart = () => {
+    return {
+        type: CLEAR_CART,
+    };
+};

@@ -1,9 +1,5 @@
 // reducers.js
-import { ADD_TO_CART } from '../actions';
-import { LOAD_CART } from '../actions';
-import { REMOVE_FROM_CART } from '../actions';
-import { DECREASE_QUANTITY } from '../actions';
-import { UPDATE_QUANTITY } from '../actions';
+import { ADD_TO_CART, LOAD_CART, REMOVE_FROM_CART, DECREASE_QUANTITY, UPDATE_QUANTITY, CLEAR_CART } from '../actions';
 
 const initialState = {
     cart: [],
@@ -36,6 +32,11 @@ function rootReducer(state = initialState, action) {
                     ? { ...product, quantity: product.quantity > 1 ? product.quantity - 1 : 1 }
                     : product,
             );
+        case CLEAR_CART:
+            return {
+                ...state,
+                cart: [],
+            };
         default:
             return state;
     }
