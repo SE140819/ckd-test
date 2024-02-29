@@ -47,6 +47,12 @@ function Product() {
         where: 'type="san-pham" and hienthi >0',
         order_by: 'stt,id desc',
     };
+
+    const options3 = {
+        table: 'news',
+        select: '*',
+        where: 'type="thuong-hieu" AND hienthi > 0',
+    };
     const [product_list, setProductList] = useState([]);
 
     useEffect(() => {
@@ -73,6 +79,33 @@ function Product() {
 
         fetch();
     }, []);
+
+    const [brand, setBrand] = useState([]);
+    useEffect(() => {
+        const fetch = async () => {
+            const _brand = await get('tab', { params: options3 });
+            setBrand(_brand || []);
+        };
+
+        fetch();
+    }, []);
+
+    const option3s = {
+        table: 'news',
+        select: '*',
+        where: 'type="dong" AND hienthi > 0',
+    };
+
+    const [dong, setDong] = useState([]);
+    useEffect(() => {
+        const fetch = async () => {
+            const _dong = await get('tab', { params: option3s });
+            setDong(_dong || []);
+        };
+
+        fetch();
+    }, []);
+
     const initialFilterState = {
         id_thuonghieu: '', //done
         id_cat: '', //done
@@ -85,15 +118,13 @@ function Product() {
 
     const filterProducts = () => {
         const newFilteredProducts = product_list.filter((product) => {
-            // const isPriceMatch = filterState.price === 0 || product.price <= filterState.price;
             const isBrandMatch =
                 filterState.id_thuonghieu === '' || product.id_thuonghieu === filterState.id_thuonghieu;
             const isCategoryMatch = filterState.id_cat === '' || product.id_cat === filterState.id_cat;
-            // const isBetterMatch = filterState.better === '' || product.better === filterState.better;
-            // const isSoldMatch = filterState.sold === 0 || product.sold >= filterState.sold;
+
             const isTypeMatch = filterState.id_dong === '' || product.id_dong === filterState.id_dong;
 
-            return isBrandMatch && isCategoryMatch && isTypeMatch /*  && isBetterMatch && isSoldMatch */;
+            return isBrandMatch && isCategoryMatch && isTypeMatch;
         });
 
         setFilteredProducts(newFilteredProducts);
@@ -104,6 +135,7 @@ function Product() {
         filterProducts();
     }, [product_list, filterState]);
 
+    console.log('product_list', product_list);
     const _url = path_upload().product;
     return (
         <>
@@ -140,8 +172,11 @@ function Product() {
                                             className="w-full px-4 py-2 border rounded-lg"
                                         >
                                             <option value="">Tất cả</option>
-                                            <option value="65">CKD</option>
-                                            <option value="66">Lacto</option>
+                                            {brand.map((item, index) => (
+                                                <option key={index} value={item.id}>
+                                                    {item.tenvi}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
@@ -176,7 +211,7 @@ function Product() {
                                             className="w-full px-4 py-2 border rounded-lg"
                                         >
                                             <option value="">Tất cả</option>
-                                            {type.map((item, index) => (
+                                            {dong.map((item, index) => (
                                                 <option key={index} value={item.id}>
                                                     {item.name}
                                                 </option>
