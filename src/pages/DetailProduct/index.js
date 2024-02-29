@@ -47,6 +47,7 @@ const DetailProduct = () => {
     const dispatch = useDispatch();
 
     const addToCart = () => {
+        
         dispatch(
             cartActions.addItem({
                 id: productId ? productId.id : '',
