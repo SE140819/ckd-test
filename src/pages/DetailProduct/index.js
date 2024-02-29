@@ -413,10 +413,22 @@ const DetailProduct = () => {
                                             <td className="font-semibold">Đã bán:</td>
                                             <td>{productId ? productId.daban : ''}</td>
                                         </tr>
-                                        <tr>
-                                            <td className="font-semibold">Khối lượng:</td>
-                                            <td>{productId ? productId.thetich : ''}</td>
-                                        </tr>
+
+                                        {productId ? (
+                                            productId.thetich ? (
+                                                <tr>
+                                                    <td className="font-semibold">Thể tích:</td>
+                                                    <td>{productId ? productId.thetich : ''} ml</td>
+                                                </tr>
+                                            ) : (
+                                                <tr>
+                                                    <td className="font-semibold">Khối lượng:</td>
+                                                    <td>{productId ? productId.khoiluong : ''} g</td>
+                                                </tr>
+                                            )
+                                        ) : (
+                                            ''
+                                        )}
                                         <tr>
                                             <td className="font-semibold">Giá:</td>
                                             <td>
