@@ -80,8 +80,10 @@ function Upheader() {
                                                 {flags.map((flag, index) => (
                                                     <div
                                                         key={index}
-                                                        className="grid grid-cols-4 pt-2 pb-2 mb-2 hover:bg-slate-100 flex justify-center items-center"
-                                                        onClick={() => handleLanguageSelect(flag)}
+                                                        className={`grid grid-cols-4 pt-2 pb-2 mb-2 hover:bg-slate-100 flex justify-center items-center ${
+                                                            flag.status === 0 ? 'opacity-50 pointer-events-none' : ''
+                                                        }`}
+                                                        onClick={() => flag.status !== 0 && handleLanguageSelect(flag)}
                                                     >
                                                         <div className="col-span-1 flex justify-center items-center">
                                                             <a href="/" title={flag.name}>

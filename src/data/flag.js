@@ -10,7 +10,7 @@ export const flags = [
         name: '한국어',
         image: 'https://tse1.mm.bing.net/th?id=OIP.c5Qxxkfc2dSH8ozo6g5BIAHaE8&pid=Api&rs=1&c=1&qlt=95&w=165&h=110',
         code: 'kr',
-        status: 1,
+        status: 0,
     },
     {
         name: 'English',

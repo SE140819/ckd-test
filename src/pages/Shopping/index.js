@@ -234,11 +234,11 @@ const Shopping = () => {
                                                 className=" text-sm pr-1 font-bold leading-tight tracking-tight text-blue-500 md: dark:text-white"
                                                 onClick={() => setOpenModalPromotions(true)}
                                             >
-                                                Quà tặng kèm theo hiện có (
+                                                {/* Quà tặng kèm theo hiện có (
                                                 <span className="text-red-500">
                                                     {promotions.filter((promotion) => promotion.price === 0).length}
                                                 </span>
-                                                )
+                                                ) */}
                                             </button>
 
                                             <Tooltip content="Quà tặng kèm theo khi mua sản phẩm" placement="bottom">
