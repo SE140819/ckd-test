@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const httpRequest = axios.create({
-    baseURL: "https://admin.ckdvietnam.com/api/",
+    baseURL: 'https://ckdvietnam.com/erp/api/',
 });
 
 export const get = async (path, options = {}) => {
