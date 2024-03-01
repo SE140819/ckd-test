@@ -27,7 +27,7 @@ import IntroBrand from '../pages/IntroBrand';
 import Story from '../pages/Story';
 import ForgotPassword from '../pages/ForgotPW';
 import InternalNews from '../pages/Internal';
-import FIVEREZOFIVE from '../pages/500';
+// import FIVEREZOFIVE from '../pages/500';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/review', component: Review },
@@ -137,10 +137,10 @@ const publicRoutes = [
         path: '/forgot-password',
         component: ForgotPassword,
     },
-    {
-        path: '/500',
-        component: FIVEREZOFIVE,
-    },
+    // {
+    //     path: '/500',
+    //     component: FIVEREZOFIVE,
+    // },
 ];
 
 const privateRoutes = [
