@@ -25,7 +25,9 @@ const NofoundInCart =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2Fnotfound%2Fkh%C3%B4ng%20t%C3%ACm%20th%E1%BA%A5y%20s%E1%BA%A3n%20ph%E1%BA%A9m%20trong%20gi%E1%BB%8F%20h%C3%A0ng.png?alt=media&token=60a133f4-e278-4bb6-a282-72d246617a9a';
 
 const Shopping = () => {
-    // user
+    const nameLocal = localStorage.getItem('user');
+
+    console.log('nameLocal', nameLocal);
     const [address, setAddress] = useState({ province: '', district: '', ward: '' });
     const [user, setUser] = useState({
         name: '',
@@ -637,27 +639,39 @@ const Shopping = () => {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <fieldset className="flex flex-col gap-4">
-                        {vouchers.map((voucher, index) => (
-                            <div key={index} className="flex items-center gap-2">
-                                <Radio
-                                    id={voucher.id}
-                                    name="voucher"
-                                    value={voucher.name}
-                                    checked={selectedVoucher === voucher.name}
-                                    onChange={handleVoucherChange}
-                                />
-                                <div className="flex flex-col">
-                                    <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                        {voucher.name}
-                                    </div>
-                                    <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                        {voucher.description}
+                    {nameLocal !== null ? (
+                        <fieldset className="flex flex-col gap-4">
+                            {vouchers.map((voucher, index) => (
+                                <div key={index} className="flex items-center gap-2">
+                                    <Radio
+                                        id={voucher.id}
+                                        name="voucher"
+                                        value={voucher.name}
+                                        checked={selectedVoucher === voucher.name}
+                                        onChange={handleVoucherChange}
+                                    />
+                                    <div className="flex flex-col">
+                                        <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
+                                            {voucher.name}
+                                        </div>
+                                        <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
+                                            {voucher.description}
+                                        </div>
                                     </div>
                                 </div>
+                            ))}
+                        </fieldset>
+                    ) : (
+                        <div className="flex justify-center items-center w-full h-80">
+                            <div className="flex flex-col justify-center items-center space-y-4">
+                                <img src={NofoundInCart} width="200" height="200" alt="No Data Icon" />
+                                <div className="text-2xl dark:text-white">Hiện tại không có voucher</div>
+                                <div className="text-sm dark:text-white">
+                                    Hãy đăng kí thàng viên để nhận được voucher 10% nhé!
+                                </div>
                             </div>
-                        ))}
-                    </fieldset>
+                        </div>
+                    )}
                 </Modal.Body>
 
                 <Modal.Footer>
