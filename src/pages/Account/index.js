@@ -15,6 +15,10 @@ function Account() {
     };
 
     const nameGG = localStorage.getItem('email');
+    const nameFB = localStorage.getItem('facebook');
+    const nameLocal = localStorage.getItem('user');
+
+
 
     return (
         <div className="main_fix pt-5">
@@ -48,28 +52,28 @@ function Account() {
                         disabled
                         required
                         shadow
-                        value={nameGG ? nameGG : ''}
+                        value={nameGG || nameFB || nameLocal?.slice(1,nameLocal.length-1)}
                     />
                 </div>
-                <div>
+                {/* <div>
                     <div className="mb-2 block">
                         <Label htmlFor="password2" value="Mật khẩu cũ" />
                     </div>
                     <TextInput id="password2" type="password" required shadow />
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                     <div className="mb-2 block">
                         <Label htmlFor="password2" value="Mật khẩu mới" />
                     </div>
                     <TextInput id="password2" type="password" required shadow />
-                </div>
+                </div> */}
 
-                <div>
+                {/* <div>
                     <div className="mb-2 block">
                         <Label htmlFor="repeat-password" value="Nhập lại mật khẩu mới" />
                     </div>
                     <TextInput id="repeat-password" type="password" required shadow />
-                </div>
+                </div> */}
                 {/* Giới tính radio */}
                 <div className="mb-2 block">
                     <div>
