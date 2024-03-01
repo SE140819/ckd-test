@@ -1,19 +1,20 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 import { getAnalytics } from 'firebase/analytics';
+import { getFirestore } from 'firebase/firestore';
 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/database';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyAj9Iv3Vm5L-NSumWSPtX1vClePz2k_R8s',
-    authDomain: 'ckd--project.firebaseapp.com',
-    projectId: 'ckd--project',
-    storageBucket: 'ckd--project.appspot.com',
-    messagingSenderId: '892997290405',
-    appId: '1:892997290405:web:4606cdb5db0ba868b4c04c',
-    measurementId: 'G-VMQKDQ2QJM',
+    apiKey: 'AIzaSyAFGCRKvFi4Cc1hvoCuclWDpJDaRzdOJD0',
+    authDomain: 'ckd-web.firebaseapp.com',
+    projectId: 'ckd-web',
+    storageBucket: 'ckd-web.appspot.com',
+    messagingSenderId: '116756204489',
+    appId: '1:116756204489:web:ec2a1d1489b00bf0097618',
+    measurementId: 'G-XJGE87TZ8F',
 };
 
 // Initialize Firebase
@@ -29,3 +30,4 @@ const provider = new GoogleAuthProvider();
 const provider2 = new FacebookAuthProvider();
 
 export { auth, provider, provider2 };
+export const database = getFirestore(app);

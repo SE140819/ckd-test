@@ -42,7 +42,14 @@ function Account() {
                     <div className="mb-2 block">
                         <Label htmlFor="account" value="Tài khoản" />
                     </div>
-                    <TextInput id="account" placeholder="Nhập tài khoản" required shadow value={nameGG ? nameGG : ''} />
+                    <TextInput
+                        id="account"
+                        placeholder="Nhập tài khoản"
+                        disabled
+                        required
+                        shadow
+                        value={nameGG ? nameGG : ''}
+                    />
                 </div>
                 <div>
                     <div className="mb-2 block">
