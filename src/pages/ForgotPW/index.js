@@ -12,7 +12,7 @@ function ForgotPassword() {
         try {
             await sendPasswordResetEmail(auth, email);
             alert('Đã gửi yêu cầu đổi mật khẩu!');
-            history('/sign-up');
+            history('/sign-in');
         } catch (error) {
             alert('Email không tồn tại!');
         }

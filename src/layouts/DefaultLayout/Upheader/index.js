@@ -282,7 +282,7 @@ function Upheader() {
                                                 <h5 className="mb-6 flex justify-center items-center mt-6 text-gray-500">
                                                     Hoặc đăng nhập với ckdvietnam.com
                                                 </h5>
-                                                <a href="/sign-up">
+                                                <a href="/sign-in">
                                                     <button className="bg-green-500 hover:bg-green-500 text-white py-2 px-4 rounded-3xl mb-4 w-full">
                                                         Đăng nhập
                                                     </button>
@@ -291,7 +291,7 @@ function Upheader() {
                                                 {/* Bạn chưa có tài khoản? */}
                                                 <p className="text-center mt-4">
                                                     Bạn chưa có tài khoản?{' '}
-                                                    <a href="/sign-in" className="text-green-500 hover:text-green-600">
+                                                    <a href="/sign-up" className="text-green-500 hover:text-green-600">
                                                         Đăng ký ngay
                                                     </a>
                                                 </p>
