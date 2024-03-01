@@ -213,7 +213,7 @@ function Product() {
                                             <option value="">Tất cả</option>
                                             {dong.map((item, index) => (
                                                 <option key={index} value={item.id}>
-                                                    {item.name}
+                                                    {item.ten}
                                                 </option>
                                             ))}
                                         </select>
