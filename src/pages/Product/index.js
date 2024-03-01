@@ -106,6 +106,8 @@ function Product() {
         fetch();
     }, []);
 
+    // console.log('theo dòng', dong);
+
     const initialFilterState = {
         id_thuonghieu: '', //done
         id_cat: '', //done
@@ -213,7 +215,7 @@ function Product() {
                                             <option value="">Tất cả</option>
                                             {dong.map((item, index) => (
                                                 <option key={index} value={item.id}>
-                                                    {item.ten}
+                                                    {item.tenvi}
                                                 </option>
                                             ))}
                                         </select>
