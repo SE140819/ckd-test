@@ -521,7 +521,7 @@ const DetailProduct = () => {
                                 </p>
                             </div>
 
-                            <div className="fixed-vouchers-footer">
+                            {/* <div className="fixed-vouchers-footer">
                                 <div className="fixed-vouchers-footer-heading">
                                     <h3 className="fixed-vouchers-footer-title">Các mã giảm giá có thể sử dụng:</h3>
                                 </div>
@@ -554,7 +554,7 @@ const DetailProduct = () => {
                                         ))}
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="quick_ship">
                                 <div className="d-flex flex-wrap center align-items-center">
                                     <img
