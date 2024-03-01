@@ -90,27 +90,27 @@ export const promotions = [
 ];
 
 export const vouchers = [
-    {
-        id: 1,
-        type: 'percent',
-        name: 'Giảm 30%',
-        value: 30,
-        img: 'https://ckdvietnam.com/assets/images/momo.png',
-    },
-    {
-        id: 2,
-        type: 'percent',
-        name: 'Giảm 20%',
-        value: 20,
-        img: 'https://ckdvietnam.com/assets/images/momo.png',
-    },
-    {
-        id: 3,
-        type: 'percent',
-        name: 'Giảm 10%',
-        value: 10,
-        img: 'https://ckdvietnam.com/assets/images/momo.png',
-    },
+    // {
+    //     id: 1,
+    //     type: 'percent',
+    //     name: 'Giảm 30%',
+    //     value: 30,
+    //     img: 'https://ckdvietnam.com/assets/images/momo.png',
+    // },
+    // {
+    //     id: 2,
+    //     type: 'percent',
+    //     name: 'Giảm 20%',
+    //     value: 20,
+    //     img: 'https://ckdvietnam.com/assets/images/momo.png',
+    // },
+    // {
+    //     id: 3,
+    //     type: 'percent',
+    //     name: 'Giảm 10%',
+    //     value: 10,
+    //     img: 'https://ckdvietnam.com/assets/images/momo.png',
+    // },
     {
         id: 4,
         type: 'tt',

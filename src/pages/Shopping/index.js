@@ -16,10 +16,6 @@ import { act } from 'react-dom/test-utils';
 
 import { cartActions } from '../../store/shopping-cart/cartSlice';
 
-import { database } from '../../config';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
-import { get } from 'react-scroll/modules/mixins/scroller';
-
 const DEFAULT_PAYMENT_METHOD = 'Phương thức thanh toán Tiền mặt';
 
 const Noimage =
@@ -29,26 +25,7 @@ const NofoundInCart =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2Fnotfound%2Fkh%C3%B4ng%20t%C3%ACm%20th%E1%BA%A5y%20s%E1%BA%A3n%20ph%E1%BA%A9m%20trong%20gi%E1%BB%8F%20h%C3%A0ng.png?alt=media&token=60a133f4-e278-4bb6-a282-72d246617a9a';
 
 const Shopping = () => {
-    // post data database
-    const value = collection(database, 'Order/');
-    const [val, setVal] = useState([]);
-
-    useEffect(() => {
-        const getData = async () => {
-            const dbVal = await getDocs(value);
-            setVal(dbVal.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-        };
-        getData();
-    }, []);
-
-    const handleCreate = async () => {
-        await addDoc(value, {
-            name: 'Tokyo',
-            country: 'Japan',
-        });
-    };
-    const nameGG = localStorage.getItem('email');
-
+    // user
     const [address, setAddress] = useState({ province: '', district: '', ward: '' });
     const [user, setUser] = useState({
         name: '',
@@ -60,7 +37,6 @@ const Shopping = () => {
         request: '',
     });
     const userToPost = {
-        id: nameGG,
         name: user.name,
         phone: user.phone,
         email: user.email,
@@ -188,7 +164,6 @@ const Shopping = () => {
             cart: cartProducts,
             total: total,
             payment: payment,
-            status: 0,
         };
         e.preventDefault();
         const options = {
@@ -198,7 +173,7 @@ const Shopping = () => {
             },
             body: JSON.stringify(data),
         };
-        const res = await fetch(`https://ckd--project-default-rtdb.firebaseio.com/Order.json`, options);
+        const res = await fetch('https://ckd--project-default-rtdb.firebaseio.com/Order.json', options);
         if (res.status === 200) {
             setOpenModalSuccess(true);
             dispatch(cartActions.clearCart());
@@ -216,17 +191,6 @@ const Shopping = () => {
     console.log('cart local', carttest);
     return (
         <>
-            <div>
-                <button onClick={handleCreate}>Create</button>
-            </div>
-            <div>
-                {val.map((item) => (
-                    <div key={item.id}>
-                        <p>{item.name}</p>
-                        <p>{item.country}</p>
-                    </div>
-                ))}
-            </div>
             <div className="container mx-auto p-5 mt-5 shadow-lg bg-white">
                 <div className="px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
                     <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
@@ -818,5 +782,5 @@ const Shopping = () => {
         </>
     );
 };
-      
-      export default Shopping;
+
+export default Shopping;
