@@ -704,7 +704,7 @@ const DetailProduct = () => {
                                                 />
                                             </div>
                                             <div className="group relative">
-                                                <div className=" text-white glass absolute bottom-[30px] m-4 p-4 translate-y-[80%] group-hover:translate-y-[0%] transition-transform duration-300">
+                                                <div className=" text-white glass absolute bottom-[30px] m-4 p-4 translate-y-[80%] group-hover:translate-y-[5%] transition-transform duration-700">
                                                     {/* Rating */}
                                                     <div className="absolute top-0 right-0 p-2">
                                                         <Rating></Rating>
