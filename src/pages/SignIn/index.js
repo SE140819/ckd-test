@@ -30,6 +30,13 @@ function SignIn() {
     const [users, setUsers] = useState([]);
     const [showPassword, setShowPassword] = useState(false);
 
+    const schema = Yup.object().shape({
+        email: Yup.string().email('Email không hợp lệ').required('Vui lòng nhập email'),
+        password: Yup.string().required('Vui lòng nhập mật khẩu'),
+    });
+
+    
+
     return (
         <>
             <Formik initialValues={{ email: '', password: '' }}>

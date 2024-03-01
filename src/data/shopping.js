@@ -104,20 +104,20 @@ export const vouchers = [
     //     value: 20,
     //     img: 'https://ckdvietnam.com/assets/images/momo.png',
     // },
-    {
-        id: 3,
-        type: 'percent',
-        name: 'Giảm 10% Mã giảm giá cho đăng kí thành viên',
-        value: 10,
-        img: 'https://ckdvietnam.com/assets/images/momo.png',
-    },
     // {
-    //     id: 4,
-    //     type: 'tt',
-    //     money: 300000,
-    //     name: 'FreeShip',
+    //     id: 3,
+    //     type: 'percent',
+    //     name: 'Giảm 10% Mã giảm giá cho đăng kí thành viên',
+    //     value: 10,
     //     img: 'https://ckdvietnam.com/assets/images/momo.png',
     // },
+    {
+        id: 4,
+        type: 'tt',
+        money: 300000,
+        name: 'FreeShip',
+        img: 'https://ckdvietnam.com/assets/images/momo.png',
+    },
 ];
 
 export const payment_method = [

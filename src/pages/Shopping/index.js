@@ -243,35 +243,22 @@ const Shopping = () => {
                                 <div className="mt-5">
                                     {cartProducts.length > 0 && (
                                         <div className="flex items-center">
-                                            <button
-                                                className=" text-sm pr-1 font-bold leading-tight tracking-tight text-blue-500 md: dark:text-white"
-                                                onClick={() => setOpenModalPromotions(true)}
+                                            <div className="flex items-center">
+                                                <div className="text-sm pr-1 font-bold leading-tight tracking-tight text-blue-500 md: dark:text-white">
+                                                    Hãy đăng kí thành viên để nhận ưu đãi 10% cho giá trị đơn hàng đầu
+                                                    tiên
+                                                </div>
+                                            </div>
+                                            {/* nút đăng kí ngay nhấp nháy */}
+                                            <Button
+                                                //  click vào chuyển sang trang đăng kí
+                                                className="blinking-button text-sm font-bold leading-tight tracking-tight text-white bg-blue-500 hover:bg-blue-700"
+                                                onClick={() => {
+                                                    window.location.href = '/sign-up';
+                                                }}
                                             >
-                                                {/* Quà tặng kèm theo hiện có (
-                                                <span className="text-red-500">
-                                                    {promotions.filter((promotion) => promotion.price === 0).length}
-                                                </span>
-                                                ) */}
-                                            </button>
-
-                                            <Tooltip content="Quà tặng kèm theo khi mua sản phẩm" placement="bottom">
-                                                <span>
-                                                    <svg
-                                                        height="16"
-                                                        viewBox="0 0 16 16"
-                                                        width="16"
-                                                        className="shopee-svg-icon icon-help-center"
-                                                    >
-                                                        <g fill="none" fillRule="evenodd" transform="translate(1)">
-                                                            <circle cx="7" cy="8" r="7" stroke="currentColor"></circle>
-                                                            <path
-                                                                fill="currentColor"
-                                                                d="m6.871 3.992c-.814 0-1.452.231-1.914.704-.462.462-.693 1.089-.693 1.892h1.155c0-.484.099-.858.297-1.122.22-.319.583-.473 1.078-.473.396 0 .715.11.935.33.209.22.319.517.319.902 0 .286-.11.55-.308.803l-.187.209c-.682.605-1.1 1.056-1.243 1.364-.154.286-.22.638-.22 1.045v.187h1.177v-.187c0-.264.055-.506.176-.726.099-.198.253-.396.462-.572.517-.451.825-.737.924-.858.275-.352.418-.803.418-1.342 0-.66-.22-1.188-.66-1.573-.44-.396-1.012-.583-1.716-.583zm-.198 6.435c-.22 0-.418.066-.572.22-.154.143-.231.33-.231.561 0 .22.077.407.231.561s.352.231.572.231.418-.077.572-.22c.154-.154.242-.341.242-.572s-.077-.418-.231-.561c-.154-.154-.352-.22-.583-.22z"
-                                                            ></path>
-                                                        </g>
-                                                    </svg>
-                                                </span>
-                                            </Tooltip>
+                                                Đăng kí ngay
+                                            </Button>
                                         </div>
                                     )}
                                 </div>
@@ -538,7 +525,10 @@ const Shopping = () => {
                                         <div className="flex justify-between items-center w-full">
                                             <p className="text-sm dark:text-white leading-4 text-gray-800">Giảm giá:</p>
                                             <p className="text-sm dark:text-gray-300 leading-4 text-gray-600">
-                                                - {formatNumber((totalAmount * discount) / 100)}đ
+                                                {/* - {formatNumber((totalAmount * discount) / 100)}đ */}
+                                                {/* {formatNumber((totalAmount * 10) / 100)}đ */}
+                                                {/* nếu nameLocal có giá trị thì giảm giá 10%  còn không thì không giảm giá */}
+                                                {nameLocal ? formatNumber((totalAmount * 10) / 100) : formatNumber(0)}đ
                                             </p>
                                         </div>
 
@@ -639,39 +629,27 @@ const Shopping = () => {
                 </Modal.Header>
 
                 <Modal.Body>
-                    {nameLocal !== null ? (
-                        <fieldset className="flex flex-col gap-4">
-                            {vouchers.map((voucher, index) => (
-                                <div key={index} className="flex items-center gap-2">
-                                    <Radio
-                                        id={voucher.id}
-                                        name="voucher"
-                                        value={voucher.name}
-                                        checked={selectedVoucher === voucher.name}
-                                        onChange={handleVoucherChange}
-                                    />
-                                    <div className="flex flex-col">
-                                        <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                            {voucher.name}
-                                        </div>
-                                        <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                            {voucher.description}
-                                        </div>
+                    <fieldset className="flex flex-col gap-4">
+                        {vouchers.map((voucher, index) => (
+                            <div key={index} className="flex items-center gap-2">
+                                <Radio
+                                    id={voucher.id}
+                                    name="voucher"
+                                    value={voucher.name}
+                                    checked={selectedVoucher === voucher.name}
+                                    onChange={handleVoucherChange}
+                                />
+                                <div className="flex flex-col">
+                                    <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
+                                        {voucher.name}
+                                    </div>
+                                    <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
+                                        {voucher.description}
                                     </div>
                                 </div>
-                            ))}
-                        </fieldset>
-                    ) : (
-                        <div className="flex justify-center items-center w-full h-80">
-                            <div className="flex flex-col justify-center items-center space-y-4">
-                                <img src={NofoundInCart} width="200" height="200" alt="No Data Icon" />
-                                <div className="text-2xl dark:text-white">Hiện tại không có voucher</div>
-                                <div className="text-sm dark:text-white">
-                                    Hãy đăng kí thàng viên để nhận được voucher 10% nhé!
-                                </div>
                             </div>
-                        </div>
-                    )}
+                        ))}
+                    </fieldset>
                 </Modal.Body>
 
                 <Modal.Footer>
