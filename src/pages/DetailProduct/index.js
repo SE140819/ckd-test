@@ -730,12 +730,53 @@ const DetailProduct = () => {
                             </div>
                         </div>
                     ) : (
-                        <div className="container mx-auto pt-5 p-5 main_fix flex justify-center items-center">
-                            <a href="/sign-in">
-                                <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center">
-                                    Vui lòng đăng nhập để xem đánh giá
-                                </button>
-                            </a>
+                        <div className="">
+                            <div className="container mx-auto pt-5 p-5 main_fix flex justify-center items-center">
+                                <a href="/sign-in">
+                                    <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center">
+                                        Vui lòng đăng nhập để xem đánh giá
+                                    </button>
+                                </a>
+                            </div>
+                            <div className="container mx-auto pt-5 p-5 main_fix">
+                                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-4 gap-7 xl:gap-10">
+                                    {reviewData.slice(0, 8).map((item, index) => (
+                                        <div className="card rounded overflow-hidden relative" key={index}>
+                                            <div
+                                                className="aspect-w-16 aspect-h-9 img_post cursor-pointer"
+                                                onClick={() => handleItemClick(item.id)}
+                                            >
+                                                <img
+                                                    className="object-cover brightness-100 group-hover:brightness-50 w-full fixed-photo"
+                                                    src={item.photo ? _url_review + item.photo : Noimage}
+                                                    alt={item.tenvi}
+                                                />
+                                            </div>
+                                            <div className="group relative">
+                                                <div className=" text-white glass absolute bottom-[30px] m-4 p-4 translate-y-[80%] group-hover:translate-y-[5%] transition-transform duration-700">
+                                                    {/* Rating */}
+                                                    <div className="absolute top-0 right-0 p-2">
+                                                        <Rating></Rating>
+                                                    </div>
+                                                    <div className="grid gap-1 ">
+                                                        <RatingComponent rating={JSON.parse(item.options2).sosao} />
+                                                        <p className="text-white text-sm sm:text-xs md:text-xs lg:text-xs xl:text-xs 2xl:text-xs line-clamp-3">
+                                                            {item.customer}
+                                                        </p>
+                                                        <div className="flex items-center mb-4">
+                                                            <div>
+                                                                <p className="text-white text-sm sm:text-xs md:text-xs lg:text-xs xl:text-xs 2xl:text-xs line-clamp-3">
+                                                                    {item.motavi}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     )}
 
