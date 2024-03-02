@@ -13,9 +13,9 @@ function DetailNews() {
         where: 'type="su-kien" AND hienthi > 0',
     };
 
-    const { id } = useParams();
+    const { tenkhongdauvi } = useParams();
     const [event, setEvent] = useState([]);
-    const eventId = event.find((item) => item.id === id);
+    const eventId = event.find((item) => item.tenkhongdauvi === tenkhongdauvi);
 
     useEffect(() => {
         const fetch = async () => {
@@ -54,8 +54,8 @@ function DetailNews() {
                         <Breadcrumb.Item href="/" icon={HiHome}>
                             <span className="line-clamp-1">Trang chủ</span>
                         </Breadcrumb.Item>
-                        <Breadcrumb.Item href="/news">
-                            <span className="line-clamp-1">News</span>
+                        <Breadcrumb.Item href="/su-kien">
+                            <span className="line-clamp-1">Sự kiện</span>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item href="/">
                             <span className="line-clamp-1">{eventId ? eventId.tenvi : ''}</span>
@@ -72,7 +72,7 @@ function DetailNews() {
                                 <Accordion.Content>
                                     {noiBat.map((item, index) => (
                                         <div className="mt-5" key={index}>
-                                            <a href={`/event/${item.id}`} className="text-black">
+                                            <a href={`/su-kien/${item.tenkhongdauvi}`} className="text-black">
                                                 <Card className="max-w-sm" imgSrc={_url + item.photo} vertical={true}>
                                                     <h5 className="font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
                                                         {item.tenvi}

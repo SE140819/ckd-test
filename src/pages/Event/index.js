@@ -50,6 +50,8 @@ function Event() {
     // Change page
     const onPageChange = (pageNumber) => setCurrentPage(pageNumber);
 
+
+    console.log('event', event);
     const _url = path_upload().review;
     return (
         <>
@@ -59,7 +61,7 @@ function Event() {
                         <Breadcrumb.Item href="/" icon={HiHome}>
                             Trang chủ
                         </Breadcrumb.Item>
-                        <Breadcrumb.Item href="/event">
+                        <Breadcrumb.Item href="/su-kien">
                             <span>Sự kiện</span>
                         </Breadcrumb.Item>
                     </Breadcrumb>
@@ -75,7 +77,7 @@ function Event() {
                                 <Accordion.Content>
                                     {event.slice(0, 4).map((item, index) => (
                                         <div className="mt-5" key={index}>
-                                            <a href={`/event/${item.id}`} className="text-black">
+                                            <a href={`/su-kien/${item.tenkhongdauvi}`} className="text-black">
                                                 <Card className="max-w-sm" imgSrc={_url + item.photo} vertical={true}>
                                                     <h5 className="font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
                                                         {item.tenvi}
@@ -96,7 +98,7 @@ function Event() {
                             .sort((a, b) => a.het_han - b.het_han)
                             .map((item, index) => (
                                 <div className="mt-5" key={index}>
-                                    <a href={`/event/${item.id}`} className="text-black">
+                                    <a href={`/su-kien/${item.tenkhongdauvi}`} className="text-black">
                                         <Card width="max-w-lg" imgSrc={_url + item.photo} vertical={true}>
                                             <h5 className="font-bold tracking-tight text-gray-900 dark:text-white">
                                                 {item.tenvi}

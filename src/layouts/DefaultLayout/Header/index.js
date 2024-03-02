@@ -27,7 +27,7 @@ const navLinks = [
     },
     { title: 'Khuyến mãi', url: '/promotion' },
     { title: 'Sản phẩm', url: '/san-pham' },
-    { title: 'Sự kiện', url: '/event' },
+    { title: 'Sự kiện', url: '/su-kien' },
     {
         title: 'Tin tức',
         subLinks: [

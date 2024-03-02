@@ -54,7 +54,7 @@ const publicRoutes = [
         component: SignIn,
     },
     {
-        path: '/event',
+        path: '/su-kien',
         component: Event,
     },
     {
@@ -114,7 +114,7 @@ const publicRoutes = [
         component: DetailNews,
     },
     {
-        path: 'event/:id',
+        path: '/su-kien/:tenkhongdauvi',
         component: DetailEvent,
     },
     {
