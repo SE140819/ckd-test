@@ -241,7 +241,7 @@ function Product() {
                                         daban={i.daban}
                                         tenkhongdauvi={i.tenkhongdauvi}
                                         photo={i.photo}
-                                        link={`/san-pham/${i.id}`}
+                                        link={`/san-pham/${i.tenkhongdauvi}`}
                                         tenvi={i.tenvi}
                                         giamoi={i.giamoi}
                                         gia={i.gia}

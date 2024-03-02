@@ -34,7 +34,7 @@ const publicRoutes = [
     { path: '/video', component: Review, layout: null },
     { path: '/shopping', component: Shopping },
     {
-        path: '/san-pham/:id',
+        path: '/san-pham/:tenkhongdauvi',
         component: DetailProduct,
     },
     {

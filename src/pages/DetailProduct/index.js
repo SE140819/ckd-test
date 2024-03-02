@@ -46,6 +46,8 @@ const DetailProduct = () => {
 
     const dispatch = useDispatch();
 
+
+
     const addToCart = () => {
         dispatch(
             cartActions.addItem({
@@ -53,7 +55,7 @@ const DetailProduct = () => {
                 tenkhongdauvi: productId ? productId.tenkhongdauvi : '',
                 tenvi: productId ? productId.tenvi : '',
                 photo: productId ? productId.photo : '',
-                link: `/san-pham/${productId ? productId.id : ''}`,
+                link: `/san-pham/${productId ? productId.tenkhongdauvi : ''}`,
                 // gia: productId ? productId.gia : '',
                 // giamoi: productId ? productId.giamoi : '',
                 // gia và gia moi ép kiểu về số
@@ -244,8 +246,10 @@ const DetailProduct = () => {
     const [imgDetail, setImgDetail] = useState([]);
     const [product, setProduct] = useState([]);
 
-    const { id } = useParams();
-    const productId = product.find((item) => item.id === id);
+    const { tenkhongdauvi } = useParams();
+    const productId = product.find((item) => item.tenkhongdauvi === tenkhongdauvi);
+
+    console.log('productId', productId);
     useEffect(() => {
         const handleScroll = () => {
             setSticky(window.scrollY > 0);
@@ -791,7 +795,7 @@ const DetailProduct = () => {
                                     daban={i.daban}
                                     tenkhongdauvi={i.tenkhongdauvi}
                                     photo={i.photo}
-                                    link={`/san-pham/${i.id}`}
+                                    link={`/san-pham/${i.tenkhongdauvi}`}
                                     tenvi={i.tenvi}
                                     giamoi={i.giamoi}
                                     gia={i.gia}

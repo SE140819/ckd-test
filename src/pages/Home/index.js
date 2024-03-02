@@ -54,6 +54,7 @@ function Home() {
             setLoading(false);
         }, 200);
     }, []);
+
     return (
         <>
             {/* logic skeleton */}
@@ -369,6 +370,7 @@ function ProductSlide() {
         filterProduct2s();
     }, [product_list, filterState]);
 
+    console.log('filteredProducts', filteredProducts);
     return (
         <>
             <Tabs style="pills" className=" justify-center mx-auto">
@@ -411,7 +413,7 @@ function ProductSlide() {
                                     daban={i.daban}
                                     tenkhongdauvi={i.tenkhongdauvi}
                                     photo={i.photo}
-                                    link={`/san-pham/${i.id}`}
+                                    link={`/san-pham/${i.tenkhongdauvi}`}
                                     tenvi={i.tenvi}
                                     giamoi={i.giamoi}
                                     gia={i.gia}
@@ -473,7 +475,7 @@ function ProductSlide() {
                                     daban={i.daban}
                                     tenkhongdauvi={i.tenkhongdauvi}
                                     photo={i.photo}
-                                    link={`/san-pham/${i.id}`}
+                                    link={`/san-pham/${i.tenkhongdauvi}`}
                                     tenvi={i.tenvi}
                                     giamoi={i.giamoi}
                                     gia={i.gia}
@@ -637,7 +639,7 @@ function PromotionSlide() {
                             daban={i.daban}
                             tenkhongdauvi={i.tenkhongdauvi}
                             photo={i.photo}
-                            link={`/san-pham/${i.id}`}
+                            link={`/san-pham/${i.tenkhongdauvi}`}
                             tenvi={i.tenvi}
                             giamoi={i.giamoi}
                             gia={i.gia}
