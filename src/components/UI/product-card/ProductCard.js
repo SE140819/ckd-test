@@ -42,7 +42,7 @@ const ProductCard = (props) => {
                           <div className="item">
                               <div className="img_sp zoom_hinh">
                                   <div className="image-container">
-                                      <a href={`/product/${id}`} title={tenkhongdauvi}>
+                                      <a href={`/san-pham/${id}`} title={tenkhongdauvi}>
                                           <img
                                               className="img-fluid img-lazy img-load object-cover"
                                               src={photo ? path_upload().product + photo : Noimage}

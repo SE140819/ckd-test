@@ -689,20 +689,6 @@ const Shopping = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="flex flex-col gap-4">
-                        {/* <div className="flex flex-col gap-2">
-                                <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                    STK: 24451097
-                                </div>
-                                <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                    Tên: PHAN THI PHUONG TIEN
-                                </div>
-                                <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                    Ngân hàng: ACB
-                                </div>
-                                <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
-                                    Chi nhánh: ACB - PGD PHU MY
-                                </div>
-                            </div> */}
                         <div className="text-sm font-bold leading-tight tracking-tight text-black-500 md:text-sm dark:text-white">
                             Qúy khách vui lòng để nội dung chuyển khoản:
                         </div>
@@ -742,7 +728,6 @@ const Shopping = () => {
             <Modal show={openModalSuccess} onClose={() => setOpenModalSuccess(false)}>
                 <Modal.Header>Thông báo</Modal.Header>
                 <Modal.Body>
-                    {/*  thông báo căn giữa */}
                     <div className="flex flex-col gap-2 justify-center items-center">
                         <img
                             alt="CKD VIỆT NAM"
@@ -758,7 +743,6 @@ const Shopping = () => {
             <Modal show={openError} onClose={() => setOpenError(false)}>
                 <Modal.Header>Thông báo</Modal.Header>
                 <Modal.Body>
-                    {/*  thông báo căn giữa */}
                     <div className="flex flex-col gap-2 justify-center items-center">
                         <img
                             alt="CKD VIỆT NAM"

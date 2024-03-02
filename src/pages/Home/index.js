@@ -210,7 +210,7 @@ function Cate() {
                         <SwiperSlide key={i.id}>
                             <div className="item_dm">
                                 <p className="img_sp_home zoom_hinh border overflow-hidden">
-                                    <a href="/product" title={i.ten}>
+                                    <a href="/san-pham" title={i.ten}>
                                         <img
                                             className="img-fluid border rounded-full transform hover:scale-105 transition-transform duration-300 ease-in-out"
                                             src={i.photo ? _url + i.photo : Noimage}
@@ -219,7 +219,7 @@ function Cate() {
                                     </a>
                                 </p>
                                 <h2 className="name_sp catchuoi2">
-                                    <a href="/product" title={i.ten}>
+                                    <a href="/san-pham" title={i.ten}>
                                         {i.ten}
                                     </a>
                                 </h2>
@@ -411,7 +411,7 @@ function ProductSlide() {
                                     daban={i.daban}
                                     tenkhongdauvi={i.tenkhongdauvi}
                                     photo={i.photo}
-                                    link={`/product/${i.id}`}
+                                    link={`/san-pham/${i.id}`}
                                     tenvi={i.tenvi}
                                     giamoi={i.giamoi}
                                     gia={i.gia}
@@ -425,7 +425,7 @@ function ProductSlide() {
                     </Swiper>
                     <p className="xemtatca">
                         <a
-                            href="/product"
+                            href="/san-pham"
                             className="bg-green-500 hover:bg-pink-400
                      text-white hover:text-white
                       font-bold py-2 px-4 rounded-full"
@@ -473,7 +473,7 @@ function ProductSlide() {
                                     daban={i.daban}
                                     tenkhongdauvi={i.tenkhongdauvi}
                                     photo={i.photo}
-                                    link={`/product/${i.id}`}
+                                    link={`/san-pham/${i.id}`}
                                     tenvi={i.tenvi}
                                     giamoi={i.giamoi}
                                     gia={i.gia}
@@ -487,7 +487,7 @@ function ProductSlide() {
                     </Swiper>
                     <p className="xemtatca">
                         <a
-                            href="/product"
+                            href="/san-pham"
                             className="bg-green-500 hover:bg-pink-400
                      text-white hover:text-white
                       font-bold py-2 px-4 rounded-full"
@@ -594,7 +594,6 @@ function PromotionSlide() {
         filterProducts();
     }, [product_list, filterState]);
 
-
     return (
         <React.Fragment>
             <div className="title-main">
@@ -638,7 +637,7 @@ function PromotionSlide() {
                             daban={i.daban}
                             tenkhongdauvi={i.tenkhongdauvi}
                             photo={i.photo}
-                            link={`/product/${i.id}`}
+                            link={`/san-pham/${i.id}`}
                             tenvi={i.tenvi}
                             giamoi={i.giamoi}
                             gia={i.gia}

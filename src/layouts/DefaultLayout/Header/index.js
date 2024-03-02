@@ -26,7 +26,7 @@ const navLinks = [
         ],
     },
     { title: 'Khuyến mãi', url: '/promotion' },
-    { title: 'Sản phẩm', url: '/product' },
+    { title: 'Sản phẩm', url: '/san-pham' },
     { title: 'Sự kiện', url: '/event' },
     {
         title: 'Tin tức',
@@ -145,7 +145,7 @@ function Header() {
                                                 <div key={index} className="py-2 px-3 hover:bg-slate-100">
                                                     <div className="grid grid-cols-6">
                                                         <div className="col-span-1">
-                                                            <a href={`/product/${item.id}`}>
+                                                            <a href={`/san-pham/${item.id}`}>
                                                                 <img
                                                                     src={item.photo ? `${_url}${item.photo}` : Noimage}
                                                                     className="w-20 h-20"

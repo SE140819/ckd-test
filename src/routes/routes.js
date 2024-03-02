@@ -34,7 +34,7 @@ const publicRoutes = [
     { path: '/video', component: Review, layout: null },
     { path: '/shopping', component: Shopping },
     {
-        path: '/product/:id',
+        path: '/san-pham/:id',
         component: DetailProduct,
     },
     {
@@ -62,7 +62,7 @@ const publicRoutes = [
         component: News,
     },
     {
-        path: '/product',
+        path: '/san-pham',
         component: Product,
     },
     {

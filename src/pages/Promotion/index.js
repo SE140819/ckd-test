@@ -93,7 +93,7 @@ function Promotion() {
                                 daban={i.daban}
                                 tenkhongdauvi={i.tenkhongdauvi}
                                 photo={i.photo}
-                                link={`/product/${i.id}`}
+                                link={`/san-pham/${i.id}`}
                                 tenvi={i.tenvi}
                                 giamoi={i.giamoi}
                                 gia={i.gia}

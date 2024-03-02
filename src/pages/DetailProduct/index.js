@@ -47,14 +47,13 @@ const DetailProduct = () => {
     const dispatch = useDispatch();
 
     const addToCart = () => {
-        
         dispatch(
             cartActions.addItem({
                 id: productId ? productId.id : '',
                 tenkhongdauvi: productId ? productId.tenkhongdauvi : '',
                 tenvi: productId ? productId.tenvi : '',
                 photo: productId ? productId.photo : '',
-                link: `/product/${productId ? productId.id : ''}`,
+                link: `/san-pham/${productId ? productId.id : ''}`,
                 // gia: productId ? productId.gia : '',
                 // giamoi: productId ? productId.giamoi : '',
                 // gia và gia moi ép kiểu về số
@@ -332,7 +331,7 @@ const DetailProduct = () => {
                             <Breadcrumb.Item href="/" icon={HiHome}>
                                 <span className="line-clamp-1">Trang chủ</span>
                             </Breadcrumb.Item>
-                            <Breadcrumb.Item href="/product">
+                            <Breadcrumb.Item href="/san-pham">
                                 <span className="line-clamp-1">Sản phẩm</span>
                             </Breadcrumb.Item>
                             <Breadcrumb.Item href="/">
@@ -792,7 +791,7 @@ const DetailProduct = () => {
                                     daban={i.daban}
                                     tenkhongdauvi={i.tenkhongdauvi}
                                     photo={i.photo}
-                                    link={`/product/${i.id}`}
+                                    link={`/san-pham/${i.id}`}
                                     tenvi={i.tenvi}
                                     giamoi={i.giamoi}
                                     gia={i.gia}
