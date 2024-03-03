@@ -166,6 +166,8 @@ const Shopping = () => {
             cart: cartProducts,
             total: total,
             payment: payment,
+            created_at: new Date().toISOString(),
+            status: 0
         };
         e.preventDefault();
         const options = {
@@ -175,7 +177,11 @@ const Shopping = () => {
             },
             body: JSON.stringify(data),
         };
-        const res = await fetch('https://ckd--project-default-rtdb.firebaseio.com/Order.json', options);
+        const uuid = Math.random().toString(36).substring(12);
+        const res = await fetch(
+            `https://ckd--project-default-rtdb.firebaseio.com/Orders.json?auth=${uuid}`,
+            options,
+        );
         if (res.status === 200) {
             setOpenModalSuccess(true);
             dispatch(cartActions.clearCart());
