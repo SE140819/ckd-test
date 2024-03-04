@@ -33,7 +33,7 @@ function SignUp() {
                                 alert('Đăng ký thành công!');
                                 navigate('/sign-in');
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 console.error('Đăng ký không thành công:', error);
                                 alert('Đăng ký không thành công. Vui lòng thử lại sau!');
                             })
@@ -43,7 +43,7 @@ function SignUp() {
                     }, 400);
                 }}
             >
-                {formik => (
+                {(formik) => (
                     <div className="bg-gray-50 dark:bg-gray-900">
                         <div className="flex flex-col items-center justify-center px-6 py-8">
                             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -73,22 +73,22 @@ function SignUp() {
                                             Mật khẩu:
                                         </label>
                                         <div className="relative">
-                                        <Field
-                                            type={showPassword ? 'text' : 'password'}
-                                            name="password"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
-                                        />
-                                        <div
-                                            className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
-                                            onClick={() => setShowPassword(!showPassword)}
-                                        >
-                                            {showPassword ? (
-                                                <HiEyeOff className="w-5 h-5 text-gray-400" />
-                                            ) : (
-                                                <HiEye className="w-5 h-5 text-gray-400" />
-                                            )}
+                                            <Field
+                                                type={showPassword ? 'text' : 'password'}
+                                                name="password"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
+                                            />
+                                            <div
+                                                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                            >
+                                                {showPassword ? (
+                                                    <HiEyeOff className="w-5 h-5 text-gray-400" />
+                                                ) : (
+                                                    <HiEye className="w-5 h-5 text-gray-400" />
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
                                         <label
                                             htmlFor="confirmPassword"
                                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -97,18 +97,25 @@ function SignUp() {
                                         </label>
                                         <div className="relative">
                                             <Field
-                                            type={showConfirmPassword ? 'text' : 'password'}
-                                            name="password"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
+                                                type={showConfirmPassword ? 'text' : 'password'}
+                                                name="confirmPassword"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-10"
                                             />
                                             <div
-                                             
                                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                                 className="absolute inset-y-0 right-0 flex items-center pr-3"
                                             >
-                                                {showConfirmPassword ? <HiEyeOff className="h-5 w-5 text-gray-400" /> : <HiEye className="h-5 w-5 text-gray-400" />}
+                                                {showConfirmPassword ? (
+                                                    <HiEyeOff className="h-5 w-5 text-gray-400" />
+                                                ) : (
+                                                    <HiEye className="h-5 w-5 text-gray-400" />
+                                                )}
                                             </div>
-                                            <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />
+                                            <ErrorMessage
+                                                name="confirmPassword"
+                                                component="div"
+                                                className="text-red-500"
+                                            />
                                         </div>
 
                                         <div>

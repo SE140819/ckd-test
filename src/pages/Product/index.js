@@ -90,6 +90,8 @@ function Product() {
         fetch();
     }, []);
 
+    console.log('brand', brand);
+
     const option3s = {
         table: 'news',
         select: '*',
