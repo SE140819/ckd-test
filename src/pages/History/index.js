@@ -33,12 +33,7 @@ function History() {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
-
-  console.log(userData ? userData : "No data");
-  console.log("customname", customname);
-    console.log("userData", userData);
-
- console.log("userData", userData?userData[0].total: "No data");
+    console.log('userData', userData);
 
     return (
         <>
@@ -52,7 +47,7 @@ function History() {
                 <h1 className="text-4xl font-bold text-center main-color">{title.history}</h1>
             </div>
             <div className="container mx-auto my-12">
-                {userData === null ? (
+                {userData && userData.length === 0 ? (
                     <div className="text-center">
                         <img src={notfoundTransaction} alt="notfound" className="w-1/3 mx-auto" />
                         <h1 className="text-2xl font-bold mt-5">Không có lịch sử mua hàng</h1>
@@ -68,31 +63,29 @@ function History() {
                                 <Table.HeadCell>{title.status}</Table.HeadCell>
                             </Table.Head>
                             <Table.Body className="divide-y">
-                                {userData.map((item, index) => (
+                                {userData?.map((item, index) => (
                                     <Table.Row key={index}>
                                         <Table.Cell>
-                                            {
-                                                item.cart.map((item, index) => (
-                                                    <div key={index}>
-                                                        <p className="text-gray-900 dark:text-white">{item.tenvi}</p>
-                                                    </div>
-                                                ))
-                                                
-                                            }
+                                            {item.cart.map((item, index) => (
+                                                <div key={index}>
+                                                    <p className="text-gray-900 dark:text-white">{item.tenvi}</p>
+                                                </div>
+                                            ))}
                                         </Table.Cell>
                                         <Table.Cell>
                                             {/* 2024-03-03T18:19:59.858Z  to  03/03/2024 */}
-                                           {
-                                                item.created_at.slice(8, 10) + '/' + item.created_at.slice(5, 7) + '/' + item.created_at.slice(0, 4)
-                                           }
+                                            {item.created_at.slice(8, 10) +
+                                                '/' +
+                                                item.created_at.slice(5, 7) +
+                                                '/' +
+                                                item.created_at.slice(0, 4)}
                                         </Table.Cell>
-                                        <Table.Cell>{
-                                        item.cart.map((item, index) => (
-                                            <div key={index}>
-                                                <p className="text-gray-900 dark:text-white">{item.quantity}</p>
-                                            </div>
-                                        ))
-                                        }
+                                        <Table.Cell>
+                                            {item.cart.map((item, index) => (
+                                                <div key={index}>
+                                                    <p className="text-gray-900 dark:text-white">{item.quantity}</p>
+                                                </div>
+                                            ))}
                                         </Table.Cell>
                                         <Table.Cell>
                                             {new Intl.NumberFormat('vi-VN', {
