@@ -325,6 +325,31 @@ const DetailProduct = () => {
                 <meta property="og:image:alt" content={productId ? productId.tenvi : ''} />
                 <meta property="og:image:width" content="1000" />
                 <meta property="og:image:height" content="1000" />
+
+                {/* twitter */}
+                <meta
+                    property="twitter:title"
+                    content={productId ? productId.tenvi : 'Chăm sóc da bằng Retinol và collagen tự nhiên'}
+                />
+                <meta property="twitter:site_name" content="CKD VIỆT NAM" />
+                <meta property="twitter:url" content={window.location.href} />
+                <meta property="twitter:type" content="website" />
+                <meta property="twitter:locale" content="VN" />
+                <meta property="twitter:price:amount" content={productId ? productId.giamoi : ''} />
+                <meta property="twitter:price:currency" content="VND" />
+                <meta
+                    property="twitter:description"
+                    content={productId ? productId.tenvi : 'Chăm sóc da bằng Retinol và collagen tự nhiên'}
+                />
+                <meta property="twitter:image" content={productId ? _url + productId.photo : Noimage} />
+                <meta
+                    property="twitter:image:alt"
+                    content={productId ? productId.tenvi : 'Chăm sóc da bằng Retinol và collagen tự nhiên'}
+                />
+                <meta property="twitter:image:width" content="1000" />
+                <meta property="twitter:image:height" content="1000" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:creator" content="@ckdvietnam" />
             </Helmet>
             {loading ? (
                 <SkeletonDetail />
@@ -487,8 +512,8 @@ const DetailProduct = () => {
                                 </div>
                             </div>
                             <div className="  fixed-vouchers-box">
-                                <div className="  fixed-vouchers-heading">
-                                    <h3 className="  fixed-vouchers-title">Ưu Đãi Voucher Tháng 02</h3>
+                                <div className="fixed-vouchers-heading">
+                                    <h2 className="fixed-vouchers-title">Ưu Đãi Voucher Tháng 02</h2>
                                 </div>
                                 <ul className="  fixed-vouchers-list">
                                     {voucherdata.map((voucher) => (
@@ -584,9 +609,8 @@ const DetailProduct = () => {
                             // căn giữa
                             className="flex flex-col justify-center items-center gap-4 p-4 bg-white rounded-lg "
                         >
-                            <h1>
-                                <span className="text-3xl font-semibold text-red-500 dark:text-red-500">5.0/5</span>
-                            </h1>
+                            <span className="text-3xl font-semibold text-red-500 dark:text-red-500">5.0/5</span>
+
                             <Rating className="mb-2">
                                 <Rating.Star />
                                 <Rating.Star />
@@ -622,7 +646,7 @@ const DetailProduct = () => {
                     </div>
 
                     <div>
-                        <h1 className="text-2xl font-bold text-center main-color">Giới thiệu sản phẩm</h1>
+                        <h2 className="text-2xl font-bold text-center main-color">Giới thiệu sản phẩm</h2>
                         <div className="container mx-auto flex justify-center items-center sm:flex-col md:flex-row lg:flex-row">
                             <div dangerouslySetInnerHTML={{ __html: decodedString }}></div>
                         </div>
@@ -630,7 +654,7 @@ const DetailProduct = () => {
 
                     {nameGG || nameFB || nameLocal ? (
                         <div>
-                            <h1 className="text-2xl font-bold text-center main-color">Đánh giá</h1>
+                            <h2 className="text-2xl font-bold text-center main-color">Đánh giá</h2>
                             {/* tạo form đánh giá */}
                             <div className="container mx-auto flex justify-center items-center sm:flex-col md:flex-row lg:flex-row">
                                 <div className="flex flex-col align-center">
@@ -786,7 +810,7 @@ const DetailProduct = () => {
                     {/* button vui lòng đăng nhập để xem đánh giá */}
 
                     <div className="container mx-auto pt-5 p-5 main_fix">
-                        <h1 className="text-2xl font-bold text-center main-color">Sản phẩm cùng loại</h1>
+                        <h2 className="text-2xl font-bold text-center main-color">Sản phẩm cùng loại</h2>
                         <div className=" grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-5">
                             {filteredProducts.map((i, index) => (
                                 <ProductCard
