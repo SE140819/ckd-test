@@ -38,6 +38,8 @@ const Noimage =
 
 const DetailProduct = () => {
     const nameGG = localStorage.getItem('email');
+    const nameFB = localStorage.getItem('facebook');
+    const nameLocal = localStorage.getItem('user');
     const [text, setText] = useState('');
 
     const handleChange = (event) => {
@@ -45,8 +47,6 @@ const DetailProduct = () => {
     };
 
     const dispatch = useDispatch();
-
-
 
     const addToCart = () => {
         dispatch(
@@ -628,7 +628,7 @@ const DetailProduct = () => {
                         </div>
                     </div>
 
-                    {nameGG ? (
+                    {nameGG || nameFB || nameLocal ? (
                         <div>
                             <h1 className="text-2xl font-bold text-center main-color">Đánh giá</h1>
                             {/* tạo form đánh giá */}
