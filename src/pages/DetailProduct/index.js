@@ -246,7 +246,6 @@ const DetailProduct = () => {
     const { tenkhongdauvi } = useParams();
     const productId = product.find((item) => item.tenkhongdauvi === tenkhongdauvi);
 
-    console.log('productId', productId);
     useEffect(() => {
         const handleScroll = () => {
             setSticky(window.scrollY > 0);
@@ -305,48 +304,45 @@ const DetailProduct = () => {
     const _url = path_upload().product;
 
     // console.log(' _url + productId.photo :', _url + productId.photo);
-    // console.log('productId', productId.photo);
+    console.log('productId', productId?.tenvi ? productId?.tenvi : '');
     return (
         <>
             <Helmet>
                 <title>{productId ? productId.tenvi : ''}</title>
-                <meta name="description" content={productId ? productId.tenvi : ''} />
-                <meta name="keywords" content={productId ? productId.tenvi : ''} />
-                <meta property="og:title" content={productId ? productId.tenvi : ''} />
-                <meta property="og:description" content={productId ? productId.tenvi : ''} />
-                <meta property="og:image" content={productId ? _url + productId.photo : Noimage} />
+                <meta property="og:title" content={productId?.tenvi ? productId?.tenvi : ''} />
+                <meta name="description" content={productId ? productId?.tenvi : ''} />
+                <meta name="keywords" content={productId ? productId?.tenvi : ''} />
+                <meta property="og:description" content={productId ? productId?.tenvi : ''} />
+                <meta property="og:image" content={productId ? _url + productId?.photo : Noimage} />
                 <meta property="og:url" content={window.location.href} />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="CKD Việt Nam" />
                 <meta property="og:locale" content="vi_VN" />
                 <meta property="og:price:amount" content={productId ? productId.giamoi : ''} />
                 <meta property="og:price:currency" content="VND" />
-                <meta property="og:locale:alternate" content="en_US" />
-                <meta property="og:locale:alternate" content="fr_FR" />
-                <meta property="og:locale:alternate" content="es_ES" />
-                <meta property="og:image:alt" content={productId ? productId.tenvi : ''} />
+                <meta property="og:image:alt" content={productId ? productId?.tenvi : ''} />
                 <meta property="og:image:width" content="1000" />
                 <meta property="og:image:height" content="1000" />
 
                 {/* twitter */}
                 <meta
                     property="twitter:title"
-                    content={productId ? productId.tenvi : 'Chăm sóc da bằng Retinol và collagen tự nhiên'}
+                    content={productId ? productId?.tenvi : 'Chăm sóc da bằng Retinol và collagen tự nhiên'}
                 />
                 <meta property="twitter:site_name" content="CKD VIỆT NAM" />
                 <meta property="twitter:url" content={window.location.href} />
                 <meta property="twitter:type" content="website" />
                 <meta property="twitter:locale" content="VN" />
-                <meta property="twitter:price:amount" content={productId ? productId.giamoi : ''} />
+                <meta property="twitter:price:amount" content={productId ? productId?.giamoi : ''} />
                 <meta property="twitter:price:currency" content="VND" />
                 <meta
                     property="twitter:description"
-                    content={productId ? productId.tenvi : 'Chăm sóc da bằng Retinol và collagen tự nhiên'}
+                    content={productId ? productId?.tenvi : 'Chăm sóc da bằng Retinol và collagen tự nhiên'}
                 />
-                <meta property="twitter:image" content={productId ? _url + productId.photo : Noimage} />
+                <meta property="twitter:image" content={productId ? _url + productId?.photo : Noimage} />
                 <meta
                     property="twitter:image:alt"
-                    content={productId ? productId.tenvi : 'Chăm sóc da bằng Retinol và collagen tự nhiên'}
+                    content={productId ? productId?.tenvi : 'Chăm sóc da bằng Retinol và collagen tự nhiên'}
                 />
                 <meta property="twitter:image:width" content="1000" />
                 <meta property="twitter:image:height" content="1000" />
