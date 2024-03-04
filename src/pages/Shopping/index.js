@@ -248,22 +248,29 @@ const Shopping = () => {
                                 <div className="mt-5">
                                     {cartProducts.length > 0 && (
                                         <div className="flex items-center">
-                                            <div className="flex items-center">
+                                            {nameLocal ? (
                                                 <div className="text-sm pr-1 font-bold leading-tight tracking-tight text-blue-500 md: dark:text-white">
-                                                    Hãy đăng kí thành viên để nhận ưu đãi 10% cho giá trị đơn hàng đầu
-                                                    tiên
+                                                    Đơn hàng đầu tiên giảm giá 10%
                                                 </div>
-                                            </div>
-                                            {/* nút đăng kí ngay nhấp nháy */}
-                                            <Button
-                                                //  click vào chuyển sang trang đăng kí
-                                                className="blinking-button text-sm font-bold leading-tight tracking-tight text-white bg-blue-500 hover:bg-blue-700"
-                                                onClick={() => {
-                                                    window.location.href = '/sign-up';
-                                                }}
-                                            >
-                                                Đăng kí ngay
-                                            </Button>
+                                            ) : (
+                                                <>
+                                                    <div className="flex items-center">
+                                                        <div className="text-sm pr-1 font-bold leading-tight tracking-tight text-blue-500 md: dark:text-white">
+                                                            Hãy đăng kí thành viên để nhận ưu đãi 10% cho giá trị đơn
+                                                            hàng đầu tiên
+                                                        </div>
+                                                    </div>
+                                                    <Button
+                                                        //  click vào chuyển sang trang đăng kí
+                                                        className="blinking-button text-sm font-bold leading-tight tracking-tight text-white bg-blue-500 hover:bg-blue-700"
+                                                        onClick={() => {
+                                                            window.location.href = '/sign-up';
+                                                        }}
+                                                    >
+                                                        Đăng kí ngay
+                                                    </Button>
+                                                </>
+                                            )}
                                         </div>
                                     )}
                                 </div>
