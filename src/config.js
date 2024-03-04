@@ -6,8 +6,9 @@ import { getFirestore } from 'firebase/firestore';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/database';
+import { getStorage } from 'firebase/storage';
 
-import {getDatabase} from 'firebase/database';
+import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyAj9Iv3Vm5L-NSumWSPtX1vClePz2k_R8s',
@@ -32,3 +33,5 @@ const provider2 = new FacebookAuthProvider();
 
 export { auth, provider, provider2 };
 export const db = getDatabase(app);
+
+export const storage = getStorage(app);

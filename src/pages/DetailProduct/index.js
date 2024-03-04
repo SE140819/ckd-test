@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 
-import { Breadcrumb, Button, Rating } from 'flowbite-react';
+import { Breadcrumb, Button, Rating, FileInput, Label } from 'flowbite-react';
 import { HiShoppingCart, HiHome } from 'react-icons/hi';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -25,6 +25,9 @@ import { Helmet } from 'react-helmet-async';
 
 import { useDispatch } from 'react-redux';
 import { cartActions } from '../../store/shopping-cart/cartSlice';
+import { storage } from '../../config';
+import { ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 
 const colors = {
     orange: '#FFBA5A',
@@ -34,6 +37,41 @@ const Noimage =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE.png?alt=media&token=908ed81a-2f59-4375-91e9-a3e746c87ac3';
 
 const DetailProduct = () => {
+    const [imageUpload, setImageUpload] = useState(null);
+    const [url, setUrl] = useState('');
+
+    const handleUploadImage = (e) => {
+        if (e.target.files[0]) {
+            const file = e.target.files[0];
+            const fileSize = file.size / 1024 / 1024; // size in MB
+            const fileType = file.type;
+            const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/svg+xml'];
+
+            if (fileSize > 2) {
+                // check if file size is more than 2MB
+                alert('File size exceeds limit of 2MB.');
+                return;
+            }
+
+            if (!validImageTypes.includes(fileType)) {
+                // check if file type is valid
+                alert('Invalid file type. Only GIF, JPEG, PNG and SVG files are allowed.');
+                return;
+            }
+
+            setImageUpload(file);
+
+            const uploadTask = ref(storage, `images/${file.name + v4()}`);
+            uploadBytes(uploadTask, file).then((snapshot) => {
+                console.log('Uploaded a blob or file!', snapshot);
+                setUrl(URL.createObjectURL(file));
+            });
+        }
+    };
+
+    console.log('url', url);
+
+    console.log('imageUpload', imageUpload);
     const nameGG = localStorage.getItem('email');
     const nameFB = localStorage.getItem('facebook');
     const nameLocal = localStorage.getItem('user');
@@ -678,11 +716,55 @@ const DetailProduct = () => {
                                             );
                                         })}
                                     </div>
+                                    <div className="pt-5">
+                                        <div className="flex w-full items-center justify-center">
+                                            <Label
+                                                htmlFor="dropzone-file"
+                                                className="dark:hover:bg-bray-800 flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                                            >
+                                                <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                                                    {url ? (
+                                                        <img src={url} alt="Uploaded Images" className="h-52 w-full" />
+                                                    ) : (
+                                                        <>
+                                                            <svg
+                                                                className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
+                                                                aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                fill="none"
+                                                                viewBox="0 0 20 16"
+                                                            >
+                                                                <path
+                                                                    stroke="currentColor"
+                                                                    strokeLinecap="round"
+                                                                    strokeLineJoin="round"
+                                                                    strokeWidth="2"
+                                                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                                                                />
+                                                            </svg>
+                                                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                                                <span className="font-semibold">Click to upload</span>{' '}
+                                                                or drag and drop
+                                                            </p>
+                                                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                                SVG, PNG, JPG or GIF (MAX. 800x400px)
+                                                            </p>
+                                                        </>
+                                                    )}
+                                                    <FileInput
+                                                        id="dropzone-file"
+                                                        className="hidden"
+                                                        onChange={handleUploadImage}
+                                                    />
+                                                </div>
+                                            </Label>
+                                        </div>
+                                    </div>
                                     <div>
                                         <textarea
                                             value={text}
                                             onChange={handleChange}
-                                            maxLength="2000"
+                                            maxLength="200"
                                             placeholder="Nhập đánh giá của bạn"
                                             style={{
                                                 border: '1px solid #a9a9a9',
