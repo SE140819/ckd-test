@@ -5,6 +5,7 @@ import './index.css';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from './reducers';
+import { HelmetProvider } from 'react-helmet-async';
 // import './assets/css/base.css';
 // import './assets/css/optimizer.css';
 // import './assets/css/style.min.css';
@@ -14,11 +15,13 @@ import rootReducer from './reducers';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store from "./store/store";
+import store from './store/store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
-        <App />
+        <HelmetProvider>
+            <App />
+        </HelmetProvider>
     </Provider>,
 );
 

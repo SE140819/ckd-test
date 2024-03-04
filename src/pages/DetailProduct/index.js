@@ -21,13 +21,10 @@ import { SkeletonDetail } from '../../components/skeleton';
 import { FaStar } from 'react-icons/fa';
 import RatingComponent from '../../components/intro/ratingComponent';
 import ProductCard from '../../components/UI/product-card/ProductCard';
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet-async';
 
-import { useDispatch } from "react-redux";
-import { cartActions } from "../../store/shopping-cart/cartSlice";
-
-
-
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../store/shopping-cart/cartSlice';
 
 const colors = {
     orange: '#FFBA5A',
@@ -306,14 +303,17 @@ const DetailProduct = () => {
 
     const decodedString2 = parser.parseFromString(encodedHtmlDetail, 'text/html').documentElement.textContent;
     const _url = path_upload().product;
+
+    // console.log(' _url + productId.photo :', _url + productId.photo);
+    // console.log('productId', productId.photo);
     return (
         <>
             <Helmet>
                 <title>{productId ? productId.tenvi : ''}</title>
-                <meta name="description" content={productId ? productId.motavi : ''} />
+                <meta name="description" content={productId ? productId.tenvi : ''} />
                 <meta name="keywords" content={productId ? productId.tenvi : ''} />
                 <meta property="og:title" content={productId ? productId.tenvi : ''} />
-                <meta property="og:description" content={productId ? productId.motavi : ''} />
+                <meta property="og:description" content={productId ? productId.tenvi : ''} />
                 <meta property="og:image" content={productId ? _url + productId.photo : Noimage} />
                 <meta property="og:url" content={window.location.href} />
                 <meta property="og:type" content="website" />
