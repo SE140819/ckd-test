@@ -138,6 +138,8 @@ const Shopping = () => {
     // Giả sử bạn đã khởi tạo state cho address như sau:
 
     // Hàm xử lý sự kiện thay đổi
+
+    console.log('discount', discount);
     const handleAddressChange = (type, value) => {
         let newAddress = { ...address };
 
@@ -570,7 +572,7 @@ const Shopping = () => {
                                         <p className="text-sm dark:text-gray-300 font-semibold leading-4 text-gray-600">
                                             {formatNumber(
                                                 totalAmount -
-                                                    (totalAmount * discount) / 100 +
+                                                    (nameLocal ? (totalAmount * 10) / 100 : 0) +
                                                     (selectedVoucher === 'FreeShip'
                                                         ? 0
                                                         : voucher.money

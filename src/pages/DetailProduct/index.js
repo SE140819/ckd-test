@@ -76,9 +76,11 @@ const DetailProduct = () => {
     const nameFB = localStorage.getItem('facebook');
     const nameLocal = localStorage.getItem('user');
     const [text, setText] = useState('');
+    const [rating, setRating] = useState(0);
 
     const handleChange = (event) => {
         setText(event.target.value);
+        setRating(event.target.value);
     };
 
     const dispatch = useDispatch();
@@ -784,6 +786,9 @@ const DetailProduct = () => {
                                             onClick={() => {
                                                 alert('Đánh giá của bạn đã được gửi');
                                                 setText('');
+                                                setImageUpload(null);
+                                                // reload lại trang
+                                                window.location.reload();
                                             }}
                                         >
                                             Gửi đánh giá
