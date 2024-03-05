@@ -18,22 +18,28 @@ const notfoundTransaction =
 function History() {
     const [userData, setUserData] = useState(null);
 
-    const nameLocal = localStorage.getItem('user')?localStorage.getItem('user'):"";
-    const customname = nameLocal ? nameLocal.slice(1, nameLocal.length - 1) : "";
+    const nameLocal = localStorage.getItem('user') ? localStorage.getItem('user') : '';
+    const nameFB = localStorage.getItem('facebook') ? localStorage.getItem('facebook') : '';
+    const nameGG = localStorage.getItem('email') ? localStorage.getItem('email') : '';
+    const customname = nameLocal ? nameLocal.slice(1, nameLocal.length - 1) : '';
 
-  useEffect(() => {
-    fetch('https://ckd--project-default-rtdb.firebaseio.com/Orders.json')
-        .then(response => response.json())  
-        .then(data => {
-        //   tìm và lọc ra những đơn hàng của gmail đăng nhập hiện tại
-            const userDataFiltered = Object.values(data).filter(item => item.user.email === customname);
+    useEffect(() => {
+        fetch('https://ckd--project-default-rtdb.firebaseio.com/Orders.json')
+            .then((response) => response.json())
+            .then((data) => {
+                //   tìm và lọc ra những đơn hàng của gmail đăng nhập hiện tại
+                const userDataFiltered = Object.values(data).filter(
+                    (item) =>
+                        item.user.email === customname || item.user.email === nameFB || item.user.email === nameGG,
+                );
 
-            setUserData(userDataFiltered);
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
+                setUserData(userDataFiltered);
+            })
+            .catch((error) => console.error('Error fetching data:', error));
+    }, []);
 
     console.log('userData', userData);
+    console.log('customname', customname);
 
     return (
         <>
