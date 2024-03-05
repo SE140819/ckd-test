@@ -34,7 +34,7 @@ const Shopping = () => {
     const [user, setUser] = useState({
         name: '',
         phone: '',
-        email: '',
+        email: nameGG || nameFB || nameLocal?.slice(1, nameLocal.length - 1) || '',
         province: '',
         district: '',
         ward: '',
@@ -197,7 +197,7 @@ const Shopping = () => {
     };
     const carttest = useSelector((state) => state.cart.cartItems);
 
-    console.log('cart local', carttest);
+    console.log('data", carttest', userToPost);
     return (
         <>
             <div className="container mx-auto p-5 mt-5 shadow-lg bg-white">
@@ -391,7 +391,14 @@ const Shopping = () => {
                                                                 nameLocal?.slice(1, nameLocal.length - 1)
                                                             }
                                                             onChange={(e) =>
-                                                                setUser({ ...user, email: e.target.value })
+                                                                setUser({
+                                                                    ...user,
+                                                                    email:
+                                                                        nameGG ||
+                                                                        nameFB ||
+                                                                        nameLocal?.slice(1, nameLocal.length - 1) ||
+                                                                        e.target.value,
+                                                                })
                                                             }
                                                             required
                                                         />
