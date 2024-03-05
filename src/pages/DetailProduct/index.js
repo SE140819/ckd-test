@@ -29,6 +29,9 @@ import { storage } from '../../config';
 import { ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+
 const colors = {
     orange: '#FFBA5A',
     grey: '#a9a9a9',
@@ -39,6 +42,32 @@ const Noimage =
 const DetailProduct = () => {
     const [imageUpload, setImageUpload] = useState(null);
     const [url, setUrl] = useState('');
+
+    const db = firebase.firestore();
+    const submitReview = async (stars, reviewText, image) => {
+        try {
+            await fetch('https://ckd--project-default-rtdb.firebaseio.com/Reviews.json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    // id sản phẩm
+                    productId: productId ? productId.id : '',
+                    stars,
+                    reviewText,
+                    image,
+                }),
+            });
+
+            alert('Đánh giá của bạn đã được gửi');
+            setText('');
+            setImageUpload(null);
+            window.location.reload();
+        } catch (error) {
+            console.error('Error adding review: ', error);
+        }
+    };
 
     const handleUploadImage = (e) => {
         if (e.target.files[0]) {
@@ -343,8 +372,7 @@ const DetailProduct = () => {
     const decodedString2 = parser.parseFromString(encodedHtmlDetail, 'text/html').documentElement.textContent;
     const _url = path_upload().product;
 
-    // console.log(' _url + productId.photo :', _url + productId.photo);
-    console.log('productId', productId?.tenvi ? productId?.tenvi : '');
+    console.log('ggg', currentValue, text, url);
     return (
         <>
             <Helmet>
@@ -784,11 +812,7 @@ const DetailProduct = () => {
                                         <button
                                             className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                             onClick={() => {
-                                                alert('Đánh giá của bạn đã được gửi');
-                                                setText('');
-                                                setImageUpload(null);
-                                                // reload lại trang
-                                                window.location.reload();
+                                                submitReview(currentValue, text, url);
                                             }}
                                         >
                                             Gửi đánh giá
