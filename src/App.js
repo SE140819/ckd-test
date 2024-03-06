@@ -12,8 +12,6 @@ function App() {
     return (
         <Router>
   
-            
-            <title>Psycteam</title>
             <Routes>
                 {publicRoutes.map((route, index) => {
                     const Page = route.component;

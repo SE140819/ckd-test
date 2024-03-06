@@ -57,6 +57,7 @@ const DetailProduct = () => {
                     stars,
                     reviewText,
                     image,
+                    status: 0,
                 }),
             });
 
@@ -88,7 +89,10 @@ const DetailProduct = () => {
                 return;
             }
 
-            setImageUpload(file);
+            // lấy link ảnh từ storage  và hiển thị ảnh  lên
+            // đọc blob:http://localhost:3002/765b953a-a803-48eb-95d2-5bace57d86b1
+
+            setImageUpload(url);   
 
             const uploadTask = ref(storage, `images/${file.name + v4()}`);
             uploadBytes(uploadTask, file).then((snapshot) => {
