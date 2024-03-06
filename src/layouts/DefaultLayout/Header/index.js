@@ -104,19 +104,6 @@ function Header() {
 
             <Upheader />
 
-            {/* <div className="bg-gray-100">
-                <div className="container mx-auto">
-                    <div className="flex justify-center items-center">
-                        <div className="w-1/2">
-                            <div className="h-[0.1rem] rounded-full"></div>
-                        </div>
-                        <div className="w-1/2">
-                            <div className="h-[0.1rem] rounded-full"></div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-
             <div
                 id="main_menu"
                 className={`${isHeaderFixed ? 'sticky top-[-1.5rem] z-10 bg-white pt-5 shadow-lg' : 'shadow-lg'}`}

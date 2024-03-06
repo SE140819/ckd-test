@@ -92,9 +92,9 @@ function Home() {
                     <div id="promotion_slide" className="p-5 main_fix pt-5 bg-white">
                         <PromotionSlide />
                     </div>
-                    <div className="main_fix pt-5 bg-white">
+                    {/* <div className="main_fix pt-5 bg-white">
                         <Review />
-                    </div>
+                    </div> */}
                     <div className="main_fix pt-5">
                         <Video />
                     </div>
@@ -372,134 +372,135 @@ function ProductSlide() {
 
     console.log('filteredProducts', filteredProducts);
     return (
-        <>
-            <Tabs style="pills" className=" justify-center mx-auto">
-                <Tabs.Item active title={title.Tab1} className="flex justify-center active">
-                    <Swiper
-                        spaceBetween={20}
-                        freeMode={true}
-                        pagination={{
-                            clickable: true,
-                        }}
-                        autoplay={{
-                            delay: 5000,
-                        }}
-                        modules={[Autoplay]}
-                        breakpoints={{
-                            300: {
-                                slidesPerView: 2,
-                                spaceBetween: 2,
-                            },
-                            450: {
-                                slidesPerView: 2,
-                                spaceBetween: 5,
-                            },
-                            600: {
-                                slidesPerView: 3,
-                                spaceBetween: 10,
-                            },
-                            900: {
-                                slidesPerView: 4,
-                                spaceBetween: 20,
-                            },
-                        }}
-                        className="mySwiper"
-                    >
-                        {filteredProducts.map((i, index) => (
-                            <SwiperSlide key={i.id}>
-                                <ProductCard
-                                    key={index}
-                                    id={i.id}
-                                    daban={i.daban}
-                                    tenkhongdauvi={i.tenkhongdauvi}
-                                    photo={i.photo}
-                                    link={`/san-pham/${i.tenkhongdauvi}`}
-                                    tenvi={i.tenvi}
-                                    giamoi={i.giamoi}
-                                    gia={i.gia}
-                                    id_thuonghieu={i.id_thuonghieu}
-                                    id_cat={i.id_cat}
-                                    id_dong={i.id_dong}
-                                    khuyenmai={i.khuyenmai}
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                    <p className="xemtatca">
-                        <a
-                            href="/san-pham"
-                            className="bg-green-500 hover:bg-pink-400
-                     text-white hover:text-white
-                      font-bold py-2 px-4 rounded-full"
-                        >
-                            {title.xemthem}
-                        </a>
-                    </p>
-                </Tabs.Item>
-                <Tabs.Item title="MỚI">
-                    <Swiper
-                        spaceBetween={20}
-                        freeMode={true}
-                        pagination={{
-                            clickable: true,
-                        }}
-                        autoplay={{
-                            delay: 5000,
-                        }}
-                        modules={[Autoplay]}
-                        breakpoints={{
-                            300: {
-                                slidesPerView: 2,
-                                spaceBetween: 2,
-                            },
-                            450: {
-                                slidesPerView: 2,
-                                spaceBetween: 5,
-                            },
-                            600: {
-                                slidesPerView: 3,
-                                spaceBetween: 10,
-                            },
-                            900: {
-                                slidesPerView: 4,
-                                spaceBetween: 20,
-                            },
-                        }}
-                        className="mySwiper"
-                    >
-                        {filteredProduct2s.map((i, index) => (
-                            <SwiperSlide key={i.id}>
-                                <ProductCard
-                                    key={index}
-                                    id={i.id}
-                                    daban={i.daban}
-                                    tenkhongdauvi={i.tenkhongdauvi}
-                                    photo={i.photo}
-                                    link={`/san-pham/${i.tenkhongdauvi}`}
-                                    tenvi={i.tenvi}
-                                    giamoi={i.giamoi}
-                                    gia={i.gia}
-                                    id_thuonghieu={i.id_thuonghieu}
-                                    id_cat={i.id_cat}
-                                    id_dong={i.id_dong}
-                                    khuyenmai={i.khuyenmai}
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                    <p className="xemtatca">
-                        <a
-                            href="/san-pham"
-                            className="bg-green-500 hover:bg-pink-400
-                     text-white hover:text-white
-                      font-bold py-2 px-4 rounded-full"
-                        >
-                            {title.xemthem}
-                        </a>
-                    </p>
-                </Tabs.Item>
-            </Tabs>
-        </>
+        // <>
+        //     <Tabs style="pills" className=" justify-center mx-auto">
+        //         <Tabs.Item active title={title.Tab1} className="flex justify-center active">
+        //             <Swiper
+        //                 spaceBetween={20}
+        //                 freeMode={true}
+        //                 pagination={{
+        //                     clickable: true,
+        //                 }}
+        //                 autoplay={{
+        //                     delay: 5000,
+        //                 }}
+        //                 modules={[Autoplay]}
+        //                 breakpoints={{
+        //                     300: {
+        //                         slidesPerView: 2,
+        //                         spaceBetween: 2,
+        //                     },
+        //                     450: {
+        //                         slidesPerView: 2,
+        //                         spaceBetween: 5,
+        //                     },
+        //                     600: {
+        //                         slidesPerView: 3,
+        //                         spaceBetween: 10,
+        //                     },
+        //                     900: {
+        //                         slidesPerView: 4,
+        //                         spaceBetween: 20,
+        //                     },
+        //                 }}
+        //                 className="mySwiper"
+        //             >
+        //                 {filteredProducts.map((i, index) => (
+        //                     <SwiperSlide key={i.id}>
+        //                         <ProductCard
+        //                             key={index}
+        //                             id={i.id}
+        //                             daban={i.daban}
+        //                             tenkhongdauvi={i.tenkhongdauvi}
+        //                             photo={i.photo}
+        //                             link={`/san-pham/${i.tenkhongdauvi}`}
+        //                             tenvi={i.tenvi}
+        //                             giamoi={i.giamoi}
+        //                             gia={i.gia}
+        //                             id_thuonghieu={i.id_thuonghieu}
+        //                             id_cat={i.id_cat}
+        //                             id_dong={i.id_dong}
+        //                             khuyenmai={i.khuyenmai}
+        //                         />
+        //                     </SwiperSlide>
+        //                 ))}
+        //             </Swiper>
+        //             <p className="xemtatca">
+        //                 <a
+        //                     href="/san-pham"
+        //                     className="bg-green-500 hover:bg-pink-400
+        //              text-white hover:text-white
+        //               font-bold py-2 px-4 rounded-full"
+        //                 >
+        //                     {title.xemthem}
+        //                 </a>
+        //             </p>
+        //         </Tabs.Item>
+        //         <Tabs.Item title="MỚI">
+        //             <Swiper
+        //                 spaceBetween={20}
+        //                 freeMode={true}
+        //                 pagination={{
+        //                     clickable: true,
+        //                 }}
+        //                 autoplay={{
+        //                     delay: 5000,
+        //                 }}
+        //                 modules={[Autoplay]}
+        //                 breakpoints={{
+        //                     300: {
+        //                         slidesPerView: 2,
+        //                         spaceBetween: 2,
+        //                     },
+        //                     450: {
+        //                         slidesPerView: 2,
+        //                         spaceBetween: 5,
+        //                     },
+        //                     600: {
+        //                         slidesPerView: 3,
+        //                         spaceBetween: 10,
+        //                     },
+        //                     900: {
+        //                         slidesPerView: 4,
+        //                         spaceBetween: 20,
+        //                     },
+        //                 }}
+        //                 className="mySwiper"
+        //             >
+        //                 {filteredProduct2s.map((i, index) => (
+        //                     <SwiperSlide key={i.id}>
+        //                         <ProductCard
+        //                             key={index}
+        //                             id={i.id}
+        //                             daban={i.daban}
+        //                             tenkhongdauvi={i.tenkhongdauvi}
+        //                             photo={i.photo}
+        //                             link={`/san-pham/${i.tenkhongdauvi}`}
+        //                             tenvi={i.tenvi}
+        //                             giamoi={i.giamoi}
+        //                             gia={i.gia}
+        //                             id_thuonghieu={i.id_thuonghieu}
+        //                             id_cat={i.id_cat}
+        //                             id_dong={i.id_dong}
+        //                             khuyenmai={i.khuyenmai}
+        //                         />
+        //                     </SwiperSlide>
+        //                 ))}
+        //             </Swiper>
+        //             <p className="xemtatca">
+        //                 <a
+        //                     href="/san-pham"
+        //                     className="bg-green-500 hover:bg-pink-400
+        //              text-white hover:text-white
+        //               font-bold py-2 px-4 rounded-full"
+        //                 >
+        //                     {title.xemthem}
+        //                 </a>
+        //             </p>
+        //         </Tabs.Item>
+        //     </Tabs>
+        // </>
+        <></>
     );
 }
 
@@ -865,54 +866,56 @@ function Brand() {
       }, []);
 
       return (
-          <>
-              <div className="title-main">
-                  <h1 className="h1_home">{title.brand}</h1>
-              </div>
-              <Swiper
-                  loop={true}
-                  spaceBetween={50}
-                  breakpoints={{
-                      300: {
-                          slidesPerView: 1,
-                          spaceBetween: 10,
-                      },
-                      450: {
-                          slidesPerView: 2,
-                          spaceBetween: 20,
-                      },
-                      600: {
-                          slidesPerView: 2,
-                          spaceBetween: 30,
-                      },
-                      900: {
-                          slidesPerView: 2,
-                          spaceBetween: 40,
-                      },
-                  }}
-              >
-                  {banner.map((item, index) => (
-                      <SwiperSlide key={index}>
-                          {/* border góc dưới bên trái và góc trên bên phải */}
-                          <div className="item rounded-lg overflow-hidden">
-                              <div className="img_sp zoom_hinh">
-                                  <div className="image-container">
-                                      <a href={item.href} title={item.alt}>
-                                          <img
-                                              className="img-fluid img-lazy img-load"
-                                              //    src={item.img}
-                                              src={item.photo ? _url + item.photo : Noimage}
-                                              alt={item.alt}
-                                              title={item.alt}
-                                          />
-                                      </a>
-                                  </div>
-                              </div>
-                          </div>
-                      </SwiperSlide>
-                  ))}
-              </Swiper>
-          </>
+        //   <>
+        //       <div className="title-main">
+        //           <h1 className="h1_home">{title.brand}</h1>
+        //       </div>
+        //       <Swiper
+        //           loop={true}
+        //           spaceBetween={50}
+        //           breakpoints={{
+        //               300: {
+        //                   slidesPerView: 1,
+        //                   spaceBetween: 10,
+        //               },
+        //               450: {
+        //                   slidesPerView: 2,
+        //                   spaceBetween: 20,
+        //               },
+        //               600: {
+        //                   slidesPerView: 2,
+        //                   spaceBetween: 30,
+        //               },
+        //               900: {
+        //                   slidesPerView: 2,
+        //                   spaceBetween: 40,
+        //               },
+        //           }}
+        //       >
+        //           {banner.map((item, index) => (
+        //               <SwiperSlide key={index}>
+        //                   {/* border góc dưới bên trái và góc trên bên phải */}
+        //                   <div className="item rounded-lg overflow-hidden">
+        //                       <div className="img_sp zoom_hinh">
+        //                           <div className="image-container">
+        //                               <a href={item.href} title={item.alt}>
+        //                                   <img
+        //                                       className="img-fluid img-lazy img-load"
+        //                                       //    src={item.img}
+        //                                       src={item.photo ? _url + item.photo : Noimage}
+        //                                       alt={item.alt}
+        //                                       title={item.alt}
+        //                                   />
+        //                               </a>
+        //                           </div>
+        //                       </div>
+        //                   </div>
+        //               </SwiperSlide>
+        //           ))}
+        //       </Swiper>
+        //   </>
+        <>
+        </>
       );
 }
 

@@ -46,7 +46,7 @@ function Noti() {
 			>
 				{noti.map((noti) => (
 					<SwiperSlide key={noti.id}>
-					<div className="wap_thongtin flex justify-center items-center ">
+					<div className="wap_thongtin flex justify-center items-center bg-gray-800 p-7">
 						<span className="font-bold text-yellow-300 text-sm">
 								{noti.content}
 						</span>
