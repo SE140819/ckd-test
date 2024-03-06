@@ -54,6 +54,8 @@ const DetailProduct = () => {
                 body: JSON.stringify({
                     // id sản phẩm
                     productId: productId ? productId.id : '',
+                    // tên sản phẩm
+                    customerName:  nameFB ? nameFB : nameGG ? nameGG : nameLocal,
                     stars,
                     reviewText,
                     image,
