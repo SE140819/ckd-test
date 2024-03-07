@@ -4,3 +4,19 @@
     padding: 12px 0;
     width: 100vw;
 }
+
+.closed_noti {
+    z-index: 9;
+    position: absolute;
+    right: 8px;
+    top: 5px;
+    /* background: white; */
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    transform: translateY(-50%);
+}

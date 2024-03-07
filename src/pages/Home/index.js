@@ -40,6 +40,8 @@ import React from 'react';
  import { useDispatch, useSelector } from 'react-redux';
  import { addToCart, loadCart } from '../../actions';
 import ProductCard from '../../components/UI/product-card/ProductCard';
+import SalePopup from "../../components/SalePopup";
+import SalePopupProduct from "../../components/SalePopupProduct";
 const Noimagebanner =
     'https://firebasestorage.googleapis.com/v0/b/psycteamv1.appspot.com/o/0_CDK%2FNOIMAGE-BANNER.png?alt=media&token=e121b01a-71dc-4f7f-bd51-6ad9243c3269';
 
@@ -100,7 +102,13 @@ function Home() {
                     </div>
                     <div className="main_fix pt-5">
                         <Brand />
-                    </div>
+                        </div>
+                        <div>
+                            <SalePopup />
+                        </div>
+                        <div>
+                            <SalePopupProduct />
+                        </div>
                 </section>
             )}
         </>
