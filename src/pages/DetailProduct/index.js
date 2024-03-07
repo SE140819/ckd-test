@@ -831,7 +831,10 @@ const DetailProduct = () => {
                                 </div>
                             </div>
 
-                            <div className="container mx-auto pt-5 p-5 main_fix">
+                                <div className="container mx-auto pt-5 p-5 main_fix">
+                                     <h2 className="text-2xl font-bold text-center main-color">
+                                            Bình luận sản phẩm
+                                        </h2>
                                 <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-4 gap-7 xl:gap-10">
                                     {reviewData.slice(0, 8).map((item, index) => (
                                         <div className="card rounded overflow-hidden relative" key={index}>
@@ -880,7 +883,10 @@ const DetailProduct = () => {
                                     </button>
                                 </a>
                             </div>
-                            <div className="container mx-auto pt-5 p-5 main_fix">
+                                    <div className="container mx-auto pt-5 p-5 main_fix">
+                                        <h2 className="text-2xl font-bold text-center main-color">
+                                            Bình luận sản phẩm
+                                        </h2>
                                 <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-4 gap-7 xl:gap-10">
                                     {reviewData.slice(0, 8).map((item, index) => (
                                         <div className="card rounded overflow-hidden relative" key={index}>
